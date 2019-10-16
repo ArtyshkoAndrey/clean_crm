@@ -1,4 +1,6 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/assets/js/app.js": "/assets/js/app.js",
+    "/assets/css/laraspace.css": "/assets/css/laraspace.css",
+    "/assets/js/app.js.map": "/assets/js/app.js.map",
+    "/assets/css/laraspace.css.map": "/assets/css/laraspace.css.map"
 }

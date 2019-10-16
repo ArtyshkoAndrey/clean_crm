@@ -13,6 +13,46 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('login','AuthController@authenticate');
+    Route::post('register','AuthController@authenticate');
+    Route::get('logout','AuthController@logout');
+    Route::get('check','AuthController@check');
 });
+
+// session route
+Route::post('email-exist',[
+    'as' => 'email-exist','uses' => 'Demo\PagesController@emailExist'
+]);
+
+// admin route
+Route::group(['prefix' => 'admin', 'middleware' => 'api.auth'], function (){
+
+    Route::resource('todos', 'Demo\TodosController');
+
+    Route::post('todos/toggleTodo/{id}', [
+        'as' => 'admin.todos.toggle', 'uses' => 'Demo\TodosController@toggleTodo'
+    ]);
+
+    Route::group(['prefix' => 'settings'], function () {
+
+        Route::post('/social', [
+            'as' => 'admin.settings.social', 'uses' => 'Demo\SettingsController@postSocial'
+        ]);
+    });
+
+    Route::group(['prefix' => 'users'], function (){
+
+        Route::get('/get',[
+            'as' => 'admin.users', 'uses' => 'Demo\PagesController@allUsers'
+        ]);
+
+        Route::delete('/{id}',[
+            'as' => 'admin.users.delete', 'uses' => 'Demo\PagesController@destroy'
+        ]);
+
+    });
+
+});
+
