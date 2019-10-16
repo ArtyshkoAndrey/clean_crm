@@ -6,6 +6,7 @@ export default {
       let response = await axios.post('/api/auth/login', loginData)
 
       Ls.set('auth.token', response.data.token)
+      console.log(response.data)
       toastr['success']('Logged In!', 'Success')
       return response.data.token
     } catch (error) {
@@ -31,7 +32,7 @@ export default {
 
   async check () {
     let response = await axios.get('/api/auth/check')
-
+    console.log(response.data.authenticated)
     return !!response.data.authenticated
   }
 }
