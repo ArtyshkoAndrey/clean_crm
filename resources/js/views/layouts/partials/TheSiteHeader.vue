@@ -2,19 +2,7 @@
   <header class="site-header">
     <a href="#" class="brand-main">
       <h2 class="d-none d-md-inline text-white">CLEAN CRM</h2>
-      <h2 class="d-md-none text-white">C C</h2>
-<!--      <img-->
-<!--        id="logo-desk"-->
-<!--        src="/assets/img/logo-desk.png"-->
-<!--        alt="Laraspace Logo"-->
-<!--        class="d-none d-md-inline"-->
-<!--      >-->
-<!--      <img-->
-<!--        id="logo-mobile"-->
-<!--        src="/assets/img/logo-mobile.png"-->
-<!--        alt="Laraspace Logo"-->
-<!--        class="d-md-none"-->
-<!--      >-->
+      <h2 class="d-md-none text-white">CLEAN</h2>
     </a>
     <a
       href="#"

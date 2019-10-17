@@ -13,11 +13,7 @@ import Basic from './views/admin/dashboard/Basic.vue'
 
 // Layouts
 import LayoutBasic from './views/layouts/LayoutBasic.vue'
-import LayoutHorizontal from './views/layouts/LayoutHorizontal.vue'
-import LayoutIconSidebar from './views/layouts/LayoutIconSidebar.vue'
-import LayoutLogin from './views/layouts/LayoutLogin.vue'
-import LayoutLogin2 from './views/layouts/LayoutLogin2.vue'
-import LayoutLogin3 from './views/layouts/LayoutLogin3.vue'
+import LoginBase from './views/auth/LoginBase.vue'
 import LayoutFront from './views/layouts/LayoutFront.vue'
 
 // Basic UI
@@ -286,7 +282,7 @@ const routes = [
 
   {
     path: '/',
-    component: LayoutLogin,
+    component: LoginBase,
     children: [
       {
         path: 'login',
@@ -297,50 +293,6 @@ const routes = [
         path: 'register',
         component: Register,
         name: 'register'
-      }
-    ]
-  },
-
-  // Demo Pages
-  {
-    path: '/admin/pages',
-    component: LayoutLogin,
-    children: [
-      {
-        path: 'login',
-        component: Login
-      },
-      {
-        path: 'register',
-        component: Register
-      }
-    ]
-  },
-  {
-    path: '/admin/pages',
-    component: LayoutLogin2,
-    children: [
-      {
-        path: 'login-2',
-        component: Login
-      },
-      {
-        path: 'register-2',
-        component: Register
-      }
-    ]
-  },
-  {
-    path: '/admin/pages',
-    component: LayoutLogin3,
-    children: [
-      {
-        path: 'login-3',
-        component: Login
-      },
-      {
-        path: 'register-3',
-        component: Register
       }
     ]
   },
