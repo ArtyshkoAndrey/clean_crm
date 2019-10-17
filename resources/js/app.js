@@ -5,7 +5,7 @@
  */
 import router from './router.js'
 import utils from './helpers/utilities'
-import ThemeSwitcher from './components/ThemeSwitcher'
+// import ThemeSwitcher from './components/ThemeSwitcher'
 
 require('./bootstrap')
 
@@ -20,7 +20,7 @@ const app = new Vue({
   router,
 
   // Theme Swiching Demo Component (You can remove it if not required)
-  components: {
-    ThemeSwitcher
-  }
+  // components: {
+  //   ThemeSwitcher
+  // }
 }).$mount('#app')

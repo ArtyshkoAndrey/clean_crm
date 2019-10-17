@@ -27,13 +27,12 @@
     <meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml">
     <meta name="theme-color" content="#333333">
 </head>
-<body class="layout-default skin-default">
+<body class="layout-default skin-lannister">
 <div id="app" class="site-wrapper">
     <div class="mobile-menu-overlay" @click.prevent="$utils.toggleSidebar"></div>
     <transition name="fade" mode="out-in">
         <router-view></router-view>
     </transition>
-    <theme-switcher />
 </div>
 <script type="text/javascript" src="{{mix("/assets/js/app.js")}}"></script>
 </body>

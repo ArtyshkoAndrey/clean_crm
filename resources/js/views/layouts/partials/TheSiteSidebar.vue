@@ -4,40 +4,8 @@
       <div class="side-nav">
         <v-collapse accordion>
           <v-collapse-item active-url="/admin/dashboard">
-            <a slot="item-title" href="#">
-              <i class="icon-fa icon-fa-dashboard"/>Dashboard
-              <span class="icon-fa arrow icon-fa-fw"/>
-            </a>
-
-            <router-link to="/admin/dashboard/basic">
-              Basic
-            </router-link>
-
-            <router-link to="/admin/dashboard/ecommerce">
-              Ecommerce
-            </router-link>
-
-            <router-link to="/admin/dashboard/finance">
-              Finance
-            </router-link>
-          </v-collapse-item>
-
-          <v-collapse-item active-url="/admin/layouts">
-            <a slot="item-title" href="#">
-              <i class="icon-fa icon-fa-th-large"/>Layouts
-              <span class="icon-fa arrow icon-fa-fw"/>
-            </a>
-
-            <router-link to="/admin/layouts/sidebar">
-              Sidebar
-            </router-link>
-
-            <router-link to="/admin/layouts/horizontal">
-              Horizontal
-            </router-link>
-
-            <router-link to="/admin/layouts/icons-sidebar">
-              Icon Sidebar
+            <router-link slot="item-title" to="/admin/dashboard/">
+              <i class="icon-fa icon-fa-dashboard"/>Главная
             </router-link>
           </v-collapse-item>
 

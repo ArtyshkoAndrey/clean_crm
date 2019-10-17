@@ -18,7 +18,10 @@ export default {
     SiteHeader, SiteSidebar, SiteFooter
   },
   mounted () {
-    this.$utils.setLayout('default')
+    // {title: 'Skin - Lannister', 'slug': 'lannister', 'img': '/assets/img/skins/skin-lannister.png', 'light': true}
+    // this.$utils.setLayout('default')
+    this.$utils.setSkin('lannister')
+    // this.$utils.setLogo('/assets/img/logo_white.png')
   }
 }
 </script>

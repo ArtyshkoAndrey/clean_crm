@@ -28,31 +28,22 @@ Route::post('email-exist',[
 
 // admin route
 Route::group(['prefix' => 'admin', 'middleware' => 'api.auth'], function (){
-
     Route::resource('todos', 'Demo\TodosController');
-
     Route::post('todos/toggleTodo/{id}', [
         'as' => 'admin.todos.toggle', 'uses' => 'Demo\TodosController@toggleTodo'
     ]);
-
     Route::group(['prefix' => 'settings'], function () {
-
         Route::post('/social', [
             'as' => 'admin.settings.social', 'uses' => 'Demo\SettingsController@postSocial'
         ]);
     });
-
-    Route::group(['prefix' => 'users'], function (){
-
+    Route::group(['prefix' => 'users'], function () {
         Route::get('/get',[
             'as' => 'admin.users', 'uses' => 'Demo\PagesController@allUsers'
         ]);
-
         Route::delete('/{id}',[
             'as' => 'admin.users.delete', 'uses' => 'Demo\PagesController@destroy'
         ]);
-
     });
-
 });
 

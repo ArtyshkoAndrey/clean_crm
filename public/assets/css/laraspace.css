@@ -19076,7 +19076,6 @@ button.toast-close-button {
 }
 
 .skin-tyrell .site-header .nav-toggle {
-  background-color: #fff;
   color: #333;
 }
 
@@ -19562,7 +19561,6 @@ button.toast-close-button {
 }
 
 .skin-arryn .site-header .nav-toggle {
-  background-color: #fff;
   color: #333;
 }
 
@@ -20047,7 +20045,6 @@ button.toast-close-button {
 }
 
 .skin-targaryen .site-header .nav-toggle {
-  background-color: #343A52;
   color: #fff;
 }
 
@@ -20536,7 +20533,6 @@ button.toast-close-button {
 }
 
 .skin-lannister .site-header .nav-toggle {
-  background-color: #fff;
   color: #333;
 }
 
@@ -21033,7 +21029,6 @@ button.toast-close-button {
 }
 
 .skin-stark .site-header .nav-toggle {
-  background-color: #393F46;
   color: #fff;
 }
 
@@ -21867,7 +21862,6 @@ code,
 }
 
 .nav-toggle {
-  background-color: #333;
   border-radius: 2px;
   color: #fff;
   display: none;

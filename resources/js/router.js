@@ -10,8 +10,6 @@ import AuthService from './services/auth'
 
 // Dashboard
 import Basic from './views/admin/dashboard/Basic.vue'
-import Ecommerce from './views/admin/dashboard/Ecommerce.vue'
-import Finance from './views/admin/dashboard/Finance.vue'
 
 // Layouts
 import LayoutBasic from './views/layouts/LayoutBasic.vue'
@@ -98,43 +96,6 @@ const routes = [
 
   /*
    |--------------------------------------------------------------------------
-   | Layout Routes for DEMO
-   |--------------------------------------------------------------------------|
-   */
-
-  {
-    path: '/admin/layouts',
-    component: LayoutBasic,
-    children: [
-      {
-        path: 'sidebar',
-        component: Basic
-      }
-    ]
-  },
-  {
-    path: '/admin/layouts',
-    component: LayoutHorizontal,
-    children: [
-      {
-        path: 'horizontal',
-        component: Basic
-      }
-    ]
-  },
-  {
-    path: '/admin/layouts',
-    component: LayoutIconSidebar,
-    children: [
-      {
-        path: 'icons-sidebar',
-        component: Basic
-      }
-    ]
-  },
-
-  /*
-   |--------------------------------------------------------------------------
    | Frontend Routes
    |--------------------------------------------------------------------------|
    */
@@ -163,17 +124,9 @@ const routes = [
     children: [
       // Dashboard
       {
-        path: 'dashboard/basic',
+        path: 'dashboard/',
         component: Basic,
         name: 'dashboard'
-      },
-      {
-        path: 'dashboard/ecommerce',
-        component: Ecommerce
-      },
-      {
-        path: 'dashboard/finance',
-        component: Finance
       },
 
       // Basic UI
