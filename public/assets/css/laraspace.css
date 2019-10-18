@@ -22525,6 +22525,10 @@ code,
   margin-top: 10px;
 }
 
+.table {
+  cursor: default;
+}
+
 .table th,
 .table td {
   font-size: 0.9rem;
@@ -22707,6 +22711,15 @@ code,
   color: #d9d9d9;
   pointer-events: none;
   cursor: auto;
+}
+
+.custom-table tr:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+.custom-table tr {
+  background-color: white;
 }
 
 .hamburger {

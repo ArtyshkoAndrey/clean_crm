@@ -18,6 +18,10 @@ export default {
       type: Array,
       require: true,
       default: Array
+    },
+    labelForDataset: {
+      type: String,
+      default: 'Кол-во'
     }
   },
 
@@ -35,7 +39,7 @@ export default {
       labels: this.labels,
       datasets: [
         {
-          label: 'My First dataset',
+          label: this.labelForDataset,
           backgroundColor: 'rgba(79, 196, 127,0.2)',
           borderColor: 'rgba(79, 196, 127,1)',
           borderWidth: 1,

@@ -1,139 +1,89 @@
 <template>
-  <div
-    id="dashboardPage"
-    class="main-content">
+  <div id="dashboardPage" class="main-content">
     <div class="row">
       <div class="col-md-12 col-lg-6 col-xl-3">
+        <!-- TODO: роутинг в задачи которые выполняются -->
         <a class="dashbox" href="#">
-          <i class="icon-fa icon-fa-envelope text-primary"/>
+          <i class="icon-fa icon-fa-check-circle-o text-primary"/>
           <span class="title">
             35
           </span>
           <span class="desc">
-            Mails
+            Выполнемые
           </span>
         </a>
       </div>
       <div class="col-md-12 col-lg-6 col-xl-3">
+        <!-- TODO: роутинг в задачи которые просроченные -->
         <a class="dashbox" href="#">
-          <i class="icon-fa icon-fa-ticket text-success"/>
+          <i class="icon-fa icon-fa-clock-o text-danger"/>
           <span class="title">
-            200
+            2
           </span>
           <span class="desc">
-            Pending Tickets
-          </span>
-        </a>
-      </div>
-      <div class="col-md-12 col-lg-6 col-xl-3">
-        <a class="dashbox" href="#">
-          <i class="icon-fa icon-fa-shopping-cart text-danger"/>
-          <span class="title">
-            100
-          </span>
-          <span class="desc">
-            New Orders
-          </span>
-        </a>
-      </div>
-      <div class="col-md-12 col-lg-6 col-xl-3">
-        <a class="dashbox" href="#">
-          <i class="icon-fa icon-fa-comments text-info"/>
-          <span class="title">
-            59
-          </span>
-          <span class="desc">
-            Comments
+            Просроченные
           </span>
         </a>
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-12 col-xl-6 mt-2">
+      <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <h6><i class="icon-fa icon-fa-line-chart text-warning"/>Traffic Stats</h6>
-          </div>
-          <div class="card-body">
-            <line-graph :labels="['Jan','Feb','Mar','June']" :values="[20,30,40,60]"/>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-12 col-xl-6 mt-2">
-        <div class="card">
-          <div class="card-header">
-            <h6><i class="icon-fa icon-fa-bar-chart text-success"/>Sales Chart</h6>
-          </div>
-          <div class="card-body">
-            <bar-graph :labels="['Jan','Feb','Mar','June']" :values="[20,30,40,60]"/>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12 col-xl-6 mt-2">
-        <div class="card">
-          <div class="card-header">
-            <h6><i class="icon-fa icon-fa-shopping-cart text-danger"/>Recent Orders</h6>
+            <h6><i class="icon-fa icon-fa-clock-o text-danger"/>Просроченные задачи</h6>
           </div>
           <div class="card-body">
             <table class="table">
-              <thead>
+              <thead v-if="count > 0">
                 <tr>
-                  <th>Customer Name</th>
-                  <th>Date</th>
-                  <th>Amount</th>
-                  <th>Actions</th>
+                  <th>Адрес</th>
+                  <th>Описание проблемы</th>
+                  <th class="d-none d-md-table-cell">Контрольный срок</th>
                 </tr>
               </thead>
-              <tbody>
+              <thead v-else>
                 <tr>
-                  <td>Walter White</td>
-                  <td>05/12/2016</td>
-                  <td>555$</td>
-                  <td><a href="#" class="btn btn-default btn-xs">View</a></td>
+                  <th>Адрес</th>
+                  <th>Описание проблемы</th>
+                  <th class="d-none d-md-table-cell">Контрольный срок</th>
                 </tr>
-                <tr>
-                  <td>Hank Hill</td>
-                  <td>05/12/2016</td>
-                  <td>222$</td>
-                  <td><a href="#" class="btn btn-default btn-xs">View</a></td>
+              </thead>
+              <tbody v-if="count > 0" class="custom-table">
+                <tr @click="taskDetails(1)">
+                  <td>ул. Горького 24</td>
+                  <td>На дереве целлофан</td>
+                  <td class="d-none d-md-table-cell">23.04.2019</td>
+                </tr>
+                <tr @click="taskDetails(2)">
+                  <td>ул. Горького 25</td>
+                  <td>Граффити</td>
+                  <td class="d-none d-md-table-cell">13.05.2019</td>
+                </tr>
+              </tbody>
+              <tbody v-else class="custom-table">
+                <tr >
+                  <td class="font-weight-bold text-center" colspan="3">Нет просроченных задач</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
-      <div class="col-lg-12 col-xl-6 mt-2">
+    </div>
+    <div class="row">
+      <div class="col-12">
         <div class="card">
-          <div class="card-header">
-            <h6><i class="icon-fa icon-fa-users text-info"/>New Customers</h6>
-          </div>
           <div class="card-body">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Customer Name</th>
-                  <th>Date</th>
-                  <th>Amount</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Walter White</td>
-                  <td>05/12/2016</td>
-                  <td>555$</td>
-                  <td><a href="#" class="btn btn-default btn-xs">View</a></td>
-                </tr>
-                <tr>
-                  <td>Hank Hill</td>
-                  <td>05/12/2016</td>
-                  <td>222$</td>
-                  <td><a href="#" class="btn btn-default btn-xs">View</a></td>
-                </tr>
-              </tbody>
-            </table>
+            <h5 class="section-semi-title">
+              График выполненых задач
+            </h5>
+            <bar-chart
+              :labelForDataset="'Выполнено'"
+              :labels="['Январь', 'Февраль', 'Март', 'Апрель',
+            'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь']"
+              :values="[randomInt(), randomInt(), randomInt(), randomInt(), randomInt(),
+                randomInt(), randomInt(), randomInt(), randomInt(), randomInt()]"
+            />
           </div>
         </div>
       </div>
@@ -142,18 +92,23 @@
 </template>
 
 <script type="text/babel">
-import LineGraph from '../../../components/chartjs/LineChart.vue'
-import BarGraph from '../../../components/chartjs/BarChart.vue'
-import PieGraph from '../../../components/chartjs/PieChart.vue'
+import BarChart from '../../../components/chartjs/BarChart.vue'
 export default {
-  components: {
-    LineGraph,
-    BarGraph,
-    PieGraph
-  },
   data () {
     return {
-      'header': 'header'
+      'header': 'header',
+      count: 2
+    }
+  },
+  components: {
+    BarChart
+  },
+  methods: {
+    randomInt () {
+      return Math.floor(Math.random() * (40 - 0))
+    },
+    taskDetails (id) {
+      console.log(id)
     }
   }
 }
