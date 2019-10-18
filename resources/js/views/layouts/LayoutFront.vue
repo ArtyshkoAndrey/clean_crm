@@ -1,19 +1,20 @@
 <template>
   <div class="template-container">
     <header class="site-header">
-      <a href="#" class="brand-main">
-        <img
-          id="logo-desk"
-          src="/assets/img/logo-desk.png"
-          alt="Laraspace Logo"
-          class="hidden-sm-down"
-        >
-      </a>
-      <ul class="action-list">
-        <li class="action-item">
-          <router-link to="/admin/dashboard/basic">Admin Dashboard</router-link>
-        </li>
-      </ul>
+      <div class="row">
+        <div class="col hidden-sm-down">
+          <a href="#" class="brand-main">
+            <h3 class="hidden-sm-down text-white">CLEAN CRM</h3>
+          </a>
+        </div>
+        <div class="col">
+          <ul class="action-list">
+            <li class="action-item">
+              <router-link to="/admin">Dashboard</router-link>
+            </li>
+          </ul>
+        </div>
+      </div>
     </header>
     <transition
       name="fade"

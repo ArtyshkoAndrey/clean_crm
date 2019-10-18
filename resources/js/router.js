@@ -120,7 +120,7 @@ const routes = [
     children: [
       // Dashboard
       {
-        path: 'dashboard/',
+        path: '/',
         component: Basic,
         name: 'dashboard'
       },

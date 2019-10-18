@@ -5,7 +5,7 @@
         <div class="box-wrapper">
           <div class="logo-main">
             <a href="/admin">
-              <img src="/assets/img/logo-login.png" alt="Laraspace Logo">
+              <img src="/assets/img/logo-login.png" alt="CLEAN CRM Logo" class="img-fluid" style="height: 200px">
             </a>
           </div>
           <router-view/>

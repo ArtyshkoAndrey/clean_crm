@@ -48,7 +48,7 @@
         Passwords must be identical.
       </span>
     </div>
-    <button class="btn btn-login btn-full">Register</button>
+    <button class="btn btn-login btn-full">Создать аккаунт</button>
   </form>
 </template>
 <script type="text/babel">
@@ -92,7 +92,7 @@ export default {
     validateBeforeSubmit () {
       this.$v.$touch()
       if (!this.$v.$error) {
-        alert('Regitered success')
+        alert('Registered success')
       }
     }
   }

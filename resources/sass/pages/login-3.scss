@@ -1,5 +1,5 @@
 .login-page.login-3 {
-    
+
     .site-wrapper {
         display: flex;
     }
@@ -89,10 +89,6 @@
         &:hover {
             color : darken($ls-color-primary, 10%);
         }
-    }
-
-    .logo-main img{
-        width: 200px;
     }
 
     @media (max-width: $medium-breakpoint) {

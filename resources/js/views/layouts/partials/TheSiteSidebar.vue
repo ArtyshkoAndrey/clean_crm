@@ -3,8 +3,8 @@
     <div class="sidebar-body scroll-pane">
       <div class="side-nav">
         <v-collapse accordion>
-          <v-collapse-item active-url="/admin/dashboard">
-            <router-link slot="item-title" to="/admin/dashboard/">
+          <v-collapse-item active-url="/admin">
+            <router-link slot="item-title" to="/admin">
               <i class="icon-fa icon-fa-dashboard"/>Главная
             </router-link>
           </v-collapse-item>
