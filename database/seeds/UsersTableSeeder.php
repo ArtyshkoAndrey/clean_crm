@@ -1,6 +1,8 @@
 <?php
 use Illuminate\Database\Seeder;
-use App\User;
+use App\Model\User;
+use App\Model\Task;
+use Carbon\Carbon;
 
 class UsersTableSeeder extends Seeder
 {
@@ -16,6 +18,15 @@ class UsersTableSeeder extends Seeder
             'name' => 'Артышко А. А.',
             'role' => 'admin',
             'password' => bcrypt('241298art')
+        ]);
+        Task::create([
+            'user_id' => 1,
+            'street' => 'Горького',
+            'number_home' => '24',
+            'description' => 'Пакет на дереве',
+            'date_of_detection' => Carbon::parse('2019-10-21'),
+            'responsible' => 'Сибгу им. Решетнева',
+            'target_date' => Carbon::parse('2019-10-24')
         ]);
     }
 }

@@ -22,9 +22,9 @@ class CreateTasksTable extends Migration
             $table->date('date_of_detection');
             $table->text('responsible');
             $table->date('target_date');
-            $table->date('correction_date');
-            $table->text('responsible_executor');
-            $table->text('conducted_work');
+            $table->date('correction_date')->nullable();
+            $table->text('responsible_executor')->nullable();
+            $table->text('conducted_work')->nullable();
             $table->timestamps();
         });
     }
