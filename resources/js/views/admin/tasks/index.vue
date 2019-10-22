@@ -61,7 +61,7 @@
               <table-column show="date_of_detection" label="ДАТА ВЫЯВЛЕНИЯ"/>
               <table-column
                 show="description"
-                label="ДАТА ВЫЯВЛЕНИЯ"
+                label="Описание"
               />
               <table-column
                 show="target_date"
@@ -114,9 +114,17 @@ export default {
       console.log(id)
     },
     async getTasks ({ page, filter, sort }) {
-      console.log('/api/admin/tasks/get?page=' + page)
-      let response = await window.axios.get('/api/admin/tasks/get?page=' + page)
-      console.log(response.data)
+      console.log( page, filter)
+      sort ? console.log(sort) : null
+      let response = await window.axios.get('/api/admin/tasks/get', {
+        params: {
+          page: page,
+          filter: filter,
+          sortName: sort.fieldName,
+          sortType: sort.order
+        }
+      })
+      console.log(response)
       return {
         data: response.data.data,
         pagination: {

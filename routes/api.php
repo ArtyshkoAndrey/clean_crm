@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Model\Task;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +14,20 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::get('/test', function(Request $request) {
+    $tasks = Task::where('user_id', 1)->get();
+    if (isset($request->sortName)) {
+      $tasks = Task::where('user_id', 1)
+        ->when($request, function ($query, $request) {
+          return $query->orderBy($request->sortName, $request->sortType);
+      })
+      ->paginate(10);
+    } else {
+      $tasks = Task::where('user_id', 1)->paginate(10);
+    }
+  return response()->json($tasks, 200);
+});
 
 
 Route::group(['prefix' => 'auth'], function () {
