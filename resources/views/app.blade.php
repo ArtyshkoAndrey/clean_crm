@@ -26,6 +26,7 @@
     <meta name="msapplication-TileImage" content="/assets/img/favicons/mstile-144x144.png">
     <meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml">
     <meta name="theme-color" content="#333333">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body class="layout-default skin-lannister">
 <div id="app" class="site-wrapper">

@@ -156,6 +156,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
     ],
 
     /*

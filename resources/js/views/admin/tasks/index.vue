@@ -55,18 +55,13 @@
               sort-order="desc"
               filter-placeholder="Поиск"
               filterNoResults="Нет данных"
+              ref="tableTasks"
             >
               <table-column show="street" label="Улица"/>
               <table-column show="number_home" label="Номер дома"/>
               <table-column show="date_of_detection" label="ДАТА ВЫЯВЛЕНИЯ"/>
-              <table-column
-                show="description"
-                label="Описание"
-              />
-              <table-column
-                show="target_date"
-                label="КОНТРОЛЬНЫЙ СРОК"
-              />
+              <table-column show="description" label="Описание"/>
+              <table-column show="target_date" label="КОНТРОЛЬНЫЙ СРОК"/>
               <table-column
                 :sortable="false"
                 :filterable="false"
@@ -74,12 +69,12 @@
               >
                 <template slot-scope="row">
                   <div class="table__actions">
-                    <a class="btn btn-default btn-sm" :href="row.id">
+                    <button class="btn btn-default btn-sm mr-2" @click="$router.push({name: 'taskView', params: { id: row.id}})">
                       Изменть
-                    </a>
-                    <a class="btn btn-default btn-sm" :href="row.id">
+                    </button>
+                    <button class="btn btn-default btn-sm" @click="dropTask(row.id)">
                       Удалить
-                    </a>
+                    </button>
                   </div>
                 </template>
               </table-column>
@@ -113,10 +108,22 @@ export default {
     taskDetails (id) {
       console.log(id)
     },
+    checkColor(row) {
+      let endDay = new Date()
+      endDay.setDate(row.target_date.slice(0, 2))
+      endDay.setMonth(parseInt(row.target_date.slice(3, 5)) - 1)
+      endDay.setFullYear(row.target_date.slice(6, 10))
+      endDay = Date.parse(endDay)
+      let nowDay = Date.now()
+      if (nowDay >= endDay) {
+
+        return 'table-danger'
+      }
+    },
     async getTasks ({ page, filter, sort }) {
       console.log( page, filter)
       sort ? console.log(sort) : null
-      let response = await window.axios.get('/api/admin/tasks/get', {
+      let response = await window.axios.get('/api/admin/task/get', {
         params: {
           page: page,
           filter: filter,
@@ -132,6 +139,17 @@ export default {
           currentPage: page,
           count: response.data.count
         }
+      }
+    },
+    async dropTask (id) {
+      let response = await window.axios.post('/api/admin/task/' + id, { _method: 'DELETE' })
+      console.log(response)
+      if (response.status == 200 && response.data == 'Success') {
+        window.toastr['success']('Задача удалена', 'Выполнено')
+        this.$refs.tableTasks.refresh()
+      } else {
+        window.toastr['error']('Ошибка', 'Не выполнено')
+        this.$refs.tableTasks.refresh()
       }
     }
   }

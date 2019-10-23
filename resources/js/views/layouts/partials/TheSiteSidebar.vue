@@ -9,16 +9,16 @@
             </router-link>
           </v-collapse-item>
 
-          <v-collapse-item active-url="/admin/tasks">
+          <v-collapse-item active-url="/admin/task">
             <a slot="item-title" href="#">
               <i class="icon-fa icon-fa-tasks"/>Задачи
               <span class="icon-fa arrow icon-fa-fw"/>
             </a>
 
-            <router-link to="/admin/tasks/all">
+            <router-link to="/admin/task/all">
               Все
             </router-link>
-            <router-link to="/admin/tasks/all">
+            <router-link to="/admin/task/all">
               Просроченные
             </router-link>
           </v-collapse-item>

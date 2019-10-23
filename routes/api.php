@@ -17,7 +17,10 @@ use App\Model\Task;
 
 Route::get('/test', function(Request $request) {
     $tasks = Task::where('user_id', 1)->get();
-    if (isset($request->sortName)) {
+    if (isset($request->filter) && $request->filter !== '') {
+      echo 'TEST \n';
+      $tasks = Task::where('user_id', 1)->where('street', 'LIKE', "%{$request->filter}%")->orWhere('number_home', 'LIKE', "%{$request->filter}%")->orWhere('description', 'LIKE', "%{$request->filter}%")->orWhere('target_date', 'LIKE', "%{$request->filter}%")->orWhere('date_of_detection', 'LIKE', "%{$request->filter}%")->paginate(10);
+    } else if (isset($request->sortName)) {
       $tasks = Task::where('user_id', 1)
         ->when($request, function ($query, $request) {
           return $query->orderBy($request->sortName, $request->sortType);
@@ -37,16 +40,22 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('check','AuthController@check');
 });
 
-// session route
-Route::post('email-exist',[
-    'as' => 'email-exist','uses' => 'Demo\PagesController@emailExist'
-]);
+Route::post('/taskfile','TaskController@taskfile');
 
 // admin route
 Route::group(['prefix' => 'admin', 'middleware' => 'api.auth'], function (){
-  Route::group(['prefix' => 'tasks'], function () {
+  Route::post('/profile', [
+    'as' => 'admin.profile', 'uses' => 'UserController@profile'
+  ]);
+  Route::group(['prefix' => 'task'], function () {
     Route::get('/get', [
-      'as' => 'admin.tasks.all', 'uses' => 'Tasks\TaskController@all'
+      'as' => 'admin.task.all', 'uses' => 'TaskController@all'
+    ]);
+    Route::post('/view/{id}', [
+      'as' => 'admin.task.view', 'uses' => 'TaskController@view'
+    ]);
+    Route::delete('/{id}', [
+      'as' => 'admin.task.drop', 'uses' => 'TaskController@drop'
     ]);
   });
     // Route::resource('todos', 'Demo\TodosController');

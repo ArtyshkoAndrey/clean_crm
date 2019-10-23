@@ -10,6 +10,7 @@ import Home from './views/front/Home.vue'
 import LayoutBasic from './views/layouts/LayoutBasic.vue'
 import LoginBase from './views/auth/LoginBase.vue'
 import LayoutFront from './views/layouts/LayoutFront.vue'
+import TasksView from './views/admin/tasks/task.vue'
 
 Vue.use(VueRouter)
 
@@ -36,9 +37,14 @@ const routes = [
         name: 'dashboard'
       },
       {
-        path: 'tasks/all',
+        path: 'task/all',
         component: TasksIndex,
         name: 'tasks'
+      },
+      {
+        path: 'task/view/:id',
+        component: TasksView,
+        name: 'taskView'
       }
     ]
   },
