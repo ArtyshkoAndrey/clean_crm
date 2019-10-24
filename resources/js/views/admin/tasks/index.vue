@@ -7,47 +7,6 @@
             <h6>Все задачи</h6>
           </div>
           <div class="card-body">
-            <!-- <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Адрес</th>
-                  <th>Дата выявления</th>
-                  <th class="d-none d-md-table-cell">Описание проблемы</th>
-                  <th class="d-none d-md-table-cell">Контрольный срок</th>
-                </tr>
-              </thead>
-              <transition name="fade" mode="out-in">
-              <tbody v-if="count > 0" key=1>
-                <tr v-for='task in tasks' :key='task.id'>
-                  <td>
-                    <div style="height: 50px; width: 50px" class="text-center">
-                        <i class="icon-fa icon-fa-ellipsis-h" style="height: 25px" />
-                    </div>
-                  </td>
-                  <td>{{ task.street + ' ' + task.number_home }}</td>
-                  <td>{{ task.date_of_detection }}</td>
-                  <td class="d-none d-md-table-cell">{{ task.description }}</td>
-                  <td class="d-none d-md-table-cell">{{ task.target_date }}</td>
-                </tr>
-              </tbody>
-              <tbody v-else-if='loading' key=2>
-                <tr>
-                  <td class="font-weight-bold text-center" colspan="5">
-                    <div class="spinner-border text-primary" role="status">
-                      <span class="sr-only">Loading...</span>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-              <tbody v-else key=3>
-                <tr>
-                  <td class="font-weight-bold text-center" colspan="5">Нет просроченных задач</td>
-                </tr>
-              </tbody>
-              </transition>
-            </table> -->
-            <!-- <hr> -->
             <table-component
               :data="getTasks"
               table-class="table"
@@ -103,6 +62,7 @@ export default {
   },
   mounted () {
     // this.getTasks()
+    
   },
   methods: {
     taskDetails (id) {

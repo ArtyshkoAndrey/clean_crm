@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Model\User;
+use Hash;
 
 class AuthController extends Controller
 {
@@ -23,6 +25,34 @@ class AuthController extends Controller
 
         // all good so return the token
         return response()->json(compact('token'));
+    }
+
+    public function emailExist(Request $request)
+    {
+        if (User::whereEmail($request->email)->first()) {
+            return 'false';
+        } else {
+            return 'true';
+        }
+    }
+
+    /**
+     * User registration
+     */
+    public function registration()
+    {
+        $name = request('name');
+        $email = request('email');
+        $password = request('password');
+
+        $user = new User();
+        $user->name = $name;
+        $user->email = $email;
+        $user->password = Hash::make($password);
+        $user->role = 'admin';
+        $user->save();
+
+        return response()->json(['message' => 'Successfully registration!', 'registered' => true]);
     }
 
     public function check()

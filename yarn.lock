@@ -4464,6 +4464,11 @@ isurl@^1.0.0-alpha5:
     has-to-string-tag-x "^1.2.0"
     is-object "^1.0.1"
 
+"jquery@>= 1.9", jquery@^3.2.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.4.1.tgz#714f1f8d9dde4bdfa55764ba37ef214630d80ef2"
+  integrity sha512-36+AdBzCL+y6qjw5Tx7HgzeGCzC81MDDgaUP8ld2zhx58HdqXGoBd+tHdrBMiyjGQs0Hxs/MLZTu/eHNJJuWPw==
+
 jquery@>=1.12.0, jquery@>=1.7, jquery@^3.1.0:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
@@ -7287,6 +7292,13 @@ style-loader@^0.18.2:
     loader-utils "^1.0.2"
     schema-utils "^0.3.0"
 
+suggestions-jquery@^17.5.0:
+  version "17.12.0"
+  resolved "https://registry.yarnpkg.com/suggestions-jquery/-/suggestions-jquery-17.12.0.tgz#c43ec1003b4067070f56377ecc90b983df5bbd03"
+  integrity sha512-F+9d6YjMuErWW3XNYISL96wKztHLoIp9MQOZ6WcyuIgDiinLE3xfRLnY6B1DQohguN4txoWzJZUc1YmJ/Axrnw==
+  dependencies:
+    jquery ">= 1.9"
+
 sum-up@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sum-up/-/sum-up-1.0.3.tgz#1c661f667057f63bcb7875aa1438bc162525156e"
@@ -7959,9 +7971,10 @@ vue-loader@^13.7.1:
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.6.0"
 
-vue-multiselect@^2.0.8:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/vue-multiselect/-/vue-multiselect-2.1.0.tgz#9e8ee7087658f029d06778cdb8da0b34ee3f1e28"
+vue-multiselect@^2.1.0:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/vue-multiselect/-/vue-multiselect-2.1.6.tgz#5be5d811a224804a15c43a4edbb7485028a89c7f"
+  integrity sha512-s7jmZPlm9FeueJg1RwJtnE9KNPtME/7C8uRWSfp9/yEN4M8XcS/d+bddoyVwVnvFyRh9msFo0HWeW0vTL8Qv+w==
 
 vue-prism@^1.0.5:
   version "1.0.5"
@@ -7983,6 +7996,14 @@ vue-style-loader@^3.0.0:
   dependencies:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
+
+vue-suggestions@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/vue-suggestions/-/vue-suggestions-1.4.0.tgz#2a267a4d83b68040280f6d2ff9d4b430cb66cfd5"
+  integrity sha512-toahs5yfIun94PDetWkX+q94c9u2VQmL//qB+H/WDro8KUG2jT6WH1tMRpYj6MoS8rfDgzA+0hUbzR9RTILRVw==
+  dependencies:
+    jquery "^3.2.1"
+    suggestions-jquery "^17.5.0"
 
 vue-table-component@^1.9.0:
   version "1.9.1"

@@ -35,17 +35,22 @@ Route::get('/test', function(Request $request) {
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login','AuthController@authenticate');
-    Route::post('register','AuthController@authenticate');
+    Route::post('register','AuthController@registration');
     Route::get('logout','AuthController@logout');
     Route::get('check','AuthController@check');
 });
-
+Route::post('email-exist',[
+  'as' => 'email-exist','uses' => 'AuthController@emailExist'
+]);
 Route::post('/taskfile','TaskController@taskfile');
 
 // admin route
 Route::group(['prefix' => 'admin', 'middleware' => 'api.auth'], function (){
   Route::post('/profile', [
     'as' => 'admin.profile', 'uses' => 'UserController@profile'
+  ]);
+  Route::post('/users', [
+    'as' => 'admin.users', 'uses' => 'UserController@allUsers'
   ]);
   Route::group(['prefix' => 'task'], function () {
     Route::get('/get', [

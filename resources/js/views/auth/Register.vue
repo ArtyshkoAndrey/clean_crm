@@ -1,5 +1,18 @@
 <template>
   <form @submit.prevent="validateBeforeSubmit">
+    <div :class="['form-group', {'is-invalid': $v.registerData.name.$error}]">
+      <input
+        :class="{'is-invalid': $v.registerData.name.$error, 'form-group--loading': $v.registerData.name.$pending}"
+        v-model.trim.lazy="registerData.name"
+        class="form-control"
+        placeholder="Имя"
+        type="text"
+        @change="$v.registerData.name.$touch()"
+      >
+      <span v-if="!$v.registerData.name.required" class="invalid-feedback">
+        Name is required.
+      </span>
+    </div>
     <div :class="['form-group', {'is-invalid': $v.registerData.email.$error}]">
       <input
         :class="{'is-invalid': $v.registerData.email.$error, 'form-group--loading': $v.registerData.email.$pending}"
@@ -59,6 +72,7 @@ export default {
   data () {
     return {
       registerData: {
+        name: '',
         email: '',
         password: '',
         password_confirmation: ''
@@ -85,14 +99,24 @@ export default {
           let response = await window.axios.post('/api/email-exist', { email: value })
           return response.data
         }
+      },
+      name: {
+        required
       }
     }
   },
   methods: {
-    validateBeforeSubmit () {
+    async validateBeforeSubmit () {
       this.$v.$touch()
       if (!this.$v.$error) {
-        alert('Registered success')
+        let response = await window.axios.post('/api/auth/register', this.registerData)
+        console.log(response)
+        if (response.data.registered) {
+          window.toastr['success']('Вы зарегистрировались', 'Выполнено')
+          this.$router.push({name: 'login'})
+        } else {
+          window.toastr['error']('Вы не зарегистрировались', 'Ошибка')
+        }
       }
     }
   }
