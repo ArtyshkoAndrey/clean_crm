@@ -52,6 +52,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'api.auth'], function (){
   Route::post('/users', [
     'as' => 'admin.users', 'uses' => 'UserController@allUsers'
   ]);
+  Route::post('/responsibles', [
+    'as' => 'admin.responsibles', 'uses' => 'UserController@allresponsible'
+  ]);
+  Route::post('/responsibles/create', [
+    'as' => 'admin.responsibles.create', 'uses' => 'UserController@responsibleCreate'
+  ]);
   Route::group(['prefix' => 'task'], function () {
     Route::get('/get', [
       'as' => 'admin.task.all', 'uses' => 'TaskController@all'

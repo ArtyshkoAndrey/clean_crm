@@ -15,18 +15,18 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
-            $table->text('name');
-            $table->string('street');
-            $table->string('number_home');
-            $table->text('description');
-            $table->date('date_of_detection');
-            $table->text('identified');
-            $table->text('responsible');
-            $table->date('target_date');
-            $table->date('correction_date')->nullable();
-            $table->text('responsible_executor')->nullable();
-            $table->text('conducted_work')->nullable();
+            $table->integer('user_id'); // Кто создал
+            $table->text('name'); // Название задачи
+            $table->string('street'); // Улица
+            $table->string('number_home'); // Номер дома
+            $table->text('description'); // Описание
+            $table->date('date_of_detection'); // Дата обналужения
+            // $table->text('identified'); // Кем выявлено Отношения многие ко многим
+            $table->integer('responsible_id'); // Ответственный Отношения Один к одному В таске id ответ. А отв. в отдельной таблице.
+            $table->date('target_date'); // Когда должны выполнить
+            $table->date('correction_date')->nullable(); // Дата когда выполнили
+            $table->text('responsible_executor')->nullable(); // Кто выполнил
+            $table->text('conducted_work')->nullable(); // Что именно сделали
             $table->timestamps();
         });
     }

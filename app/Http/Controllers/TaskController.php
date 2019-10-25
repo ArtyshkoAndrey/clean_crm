@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Task;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Model\Image;
 
 class TaskController extends Controller {
   public function all (Request $request) {
@@ -35,7 +36,7 @@ class TaskController extends Controller {
     return response()->json($tasks, 200);
   }
 
-  public function view($id) {
+  public function view ($id) {
     $task = Task::where('id', $id)->first();
     if (auth()->user()->id ===  $task->user_id) {
       return response()->json($task, 200);
@@ -53,10 +54,21 @@ class TaskController extends Controller {
     {
       $image = $request->file('file');
       $name = time().$image->getClientOriginalName();
-      $image->move(public_path().'/images/', $name);
+      $image->move(public_path().'/images/tasks/', $name);
+      // dd(filesize(public_path().'/images/tasks/'.$name));
+
+      $img = Image::create([
+        'path' => json_encode(array(
+            'file' => '/images/tasks/'.$name,
+            'type' => 'type/'.$image->getClientOriginalExtension(),
+            'size' => filesize(public_path().'/images/tasks/'.$name),
+            'name' => $name
+          )
+        )
+      ]);
       return response()->json([
         'success' => 'You have successfully uploaded an image',
-        'fileName' => $name
+        'image' => $img
       ], 200);
     }
     return response()->json([

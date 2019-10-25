@@ -5,7 +5,13 @@
         <transition name="fade" mode="out-in">
           <div key=1 class="card" v-if='!loading'>
             <div class="card-header">
-              <h6 class="font-weight-bold">Задача №{{ task.id }} - {{ task.name }}</h6>
+              <div class="col-12 d-flex align-items-center justify-content-between">
+                <h6 class="font-weight-bold d-flex h-100">Задача №{{ task.id }} - {{ task.name }}</h6>
+                <transition name="fade" mode="out-in">
+                  <button key=1 @click="mode='write'" v-if="mode === 'read'" class="btn-sm btn btn-warning">Изменить</button>
+                  <button key=2 @click="mode='read'" v-else-if="mode === 'write'" class="btn-sm btn btn-primary">Сохранить</button>
+                </transition>
+              </div>
             </div>
             <div class="card-body">
               <div class="row">
@@ -15,8 +21,7 @@
                     type="text"
                     v-model="rewriteTask.name"
                     class="form-control"
-                    placeholder="First name"
-                    value="Mark"
+                    placeholder="Название проблемы"
                     required
                   >
                 </div>
@@ -25,6 +30,7 @@
                   <textarea
                     class="form-control"
                     v-model="rewriteTask.description"
+                    placeholder="Описание"
                     rows="3"
                   />
                 </div>
@@ -63,6 +69,7 @@
                     v-model="rewriteTask.identified"
                     :options="identifiedList"
                     :multiple="true"
+                    placeholder="Кем выявлено"
                     :hide-selected="true"
                     label="name"
                     :selectLabel="''"
@@ -75,10 +82,10 @@
                   <multiselect
                     v-model="rewriteTask.responsible"
                     :options="responsibleList"
-                    :multiple="true"
                     :hide-selected="true"
                     :selectLabel="''"
                     :taggable="true"
+                    placeholder="Ответсвтенный"
                     @tag="addResponsibleTag"
                     track-by="name"
                     label="name"
@@ -89,8 +96,7 @@
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="First name"
-                    value="Mark"
+                    placeholder="Ответственный исполнитель"
                     required
                   >
                 </div>
@@ -111,12 +117,17 @@
                   <textarea
                     class="form-control"
                     rows="3"
+                    placeholder="Описание проведённой работы"
                     v-model="rewriteTask.conductedWork"
                   />
                 </div>
                 <div class="col-12 mt-4">
                   <h5 class="section-semi-title">Медиа файлы</h5>
                   <vue-dropzone id="drop1" :options="config" @vdropzone-complete="afterComplete" ref="myVueDropzone"></vue-dropzone>
+                </div>
+                <div class="col-12 mt-4 justify-content-center align-content-center d-flex">
+                  <button class="btn btn-primary mr-1" @click="save">Сохранить</button>
+                  <button class="btn btn-default ml-1" @click="$router.push({name: 'tasks'})">Отменить</button>
                 </div>
               </div>
             </div>
@@ -152,15 +163,17 @@ export default {
         street: {},
         dateOfDetection: null,
         numberHome: '',
-        responsible: [],
+        responsible: {},
         identified: [],
         name: '',
         description: '',
         targetDate: null,
         correctionDate: null,
         responsibleExecutor: {},
-        conductedWork: ''
+        conductedWork: '',
+        images: []
       },
+      mode: 'write',
       task: {},
       user: {},
       allUsers: [],
@@ -169,13 +182,9 @@ export default {
       dataStreet: [],
       config: {
         url: "http://clean-crm/api/taskfile",
+        thumbnailWidth: null,
       },
-      responsibleList: [
-        {name: 'Отдел экономики и развития местного самоуправления'},
-        {name: 'Глухих Р.С.'},
-        {name: 'Отдел по землепользованию и благоустройству района'},
-        {name: 'Отдел исполнения бюджета'}
-      ],
+      responsibleList: [],
       identifiedList: []
     }
   },
@@ -189,26 +198,54 @@ export default {
     this.getTask(this.$route.params.id)    
   },
   methods: {
-    addResponsibleTag (responsible) {
-      this.responsible.push({name: responsible})
-      this.responsibleList.push({name: responsible})
-      // TODO: Так же кидать в бд
+    async save () {
+      console.log(this.task)
+      console.log(this.rewriteTask)
+    },
+    async addResponsibleTag (responsible) {
+      console.log(responsible)
+      responsible = {
+        id: Math.max.apply(Math, this.responsibleList.map(res => res.id)) + 1,
+        name: responsible
+      }
+      window.axios.post('/api/admin/responsibles/create', responsible).then(res => {
+        console.log(res)
+        this.responsibleList.push(responsible)
+        this.rewriteTask.responsible = responsible
+      }).catch(error => {
+        window.toastr['error']('Ошибка', 'Не выполнено')
+      })
     },
     afterComplete(file) {
       console.log(file);
+      try {
+        let image = JSON.parse(file.xhr.response).image
+        image.path = JSON.parse(image.path)
+        this.rewriteTask.images.push(image)
+      } catch (e) {
+        console.warn(e)
+      }
     },
     async getTask (id) {
       let response = await window.axios.post('/api/admin/task/view/' + id)
       let userResponse = await window.axios.post('/api/admin/profile')
       let identifiedResponse = await window.axios.post('/api/admin/users')
+      let responsibleResponse = await window.axios.post('/api/admin/responsibles')
+      console.log('task', response)
+      console.log('user', userResponse)
+      console.log('indent', identifiedResponse)
+      console.log('res', responsibleResponse)
       this.identifiedList = identifiedResponse.data
+      this.responsibleList = responsibleResponse.data
       this.task = response.data
       this.user = userResponse.data
-      this.task.identified = JSON.parse(this.task.identified)
       this.identifiedList.forEach(userApi => {
         this.task.identified.forEach((user) => {
-          user === userApi.id ? this.rewriteTask.identified.push(userApi) : null
+          user.id === userApi.id ? this.rewriteTask.identified.push(userApi) : null
         })
+      })
+      this.responsibleList.forEach(responsibleApi => {
+        this.task.responsible.id === responsibleApi.id ? this.rewriteTask.responsible = this.task.responsible : null
       })
       this.rewriteTask.street.value = this.task.street
       this.rewriteTask.numberHome = this.task.number_home
@@ -217,24 +254,26 @@ export default {
       this.task.correction_date ? this.rewriteTask.correctionDate = new Date(this.task.correction_date.slice(6, 10), parseInt(this.task.correction_date.slice(3, 5)) - 1, this.task.correction_date.slice(0, 2)) : null
       this.rewriteTask.name = this.task.name
       this.rewriteTask.description = this.task.description
-      
+      this.rewriteTask.images = this.task.images
       this.loading = false
       setTimeout(() => {
-        var file = { size: 123, name: "Icon", type: "image/jpg" };
-        var url = "https://cdn.vox-cdn.com/thumbor/L1PZnV6wQVZGZJqQU0rxJGfAV1U=/0x0:2040x1360/1200x800/filters:focal(443x747:769x1073)/cdn.vox-cdn.com/uploads/chorus_image/image/59226439/jbareham_170504_1691_0004.0.0.jpg";
-        this.$refs.myVueDropzone.manuallyAddFile(file, url);
-        console.log(this.$refs.myVueDropzone)
+        console.log(this.rewriteTask.images)
+        this.rewriteTask.images.forEach(image => {
+          image.path = JSON.parse(image.path)
+          console.log(image)
+          this.$refs.myVueDropzone.manuallyAddFile({ type: image.path.type, size: image.path.size, name: image.path.name}, image.path.file);
+        })
       }, 1000);
     },
     async getNumberHome (query) {
-      console.log(this.street + " " + query)
+      console.log(this.rewriteTask.street + " " + query)
       window.axios.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',
         { 
           query: query,
           locations: [
             {
               city: "Красноярск",
-              street_fias_id: this.street.data.street_fias_id
+              street_fias_id: this.rewriteTask.street.data.street_fias_id
             }
           ],
           restrict_value: true
