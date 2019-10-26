@@ -65,6 +65,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'api.auth'], function (){
     Route::post('/view/{id}', [
       'as' => 'admin.task.view', 'uses' => 'TaskController@view'
     ]);
+    Route::put('/', [
+      'as' => 'admin.task.update', 'uses' => 'TaskController@update'
+    ]);
     Route::delete('/{id}', [
       'as' => 'admin.task.drop', 'uses' => 'TaskController@drop'
     ]);

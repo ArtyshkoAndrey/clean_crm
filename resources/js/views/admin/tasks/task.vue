@@ -96,6 +96,7 @@
                   <input
                     type="text"
                     class="form-control"
+                    v-model="rewriteTask.responsibleExecutor"
                     placeholder="Ответственный исполнитель"
                     required
                   >
@@ -160,6 +161,7 @@ export default {
     return {
       'header': 'header',
       rewriteTask: {
+        id: null,
         street: {},
         dateOfDetection: null,
         numberHome: '',
@@ -169,7 +171,7 @@ export default {
         description: '',
         targetDate: null,
         correctionDate: null,
-        responsibleExecutor: {},
+        responsibleExecutor: '',
         conductedWork: '',
         images: []
       },
@@ -201,6 +203,13 @@ export default {
     async save () {
       console.log(this.task)
       console.log(this.rewriteTask)
+      window.axios.put('/api/admin/task', this.rewriteTask)
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      });
     },
     async addResponsibleTag (responsible) {
       console.log(responsible)
@@ -255,6 +264,7 @@ export default {
       this.rewriteTask.name = this.task.name
       this.rewriteTask.description = this.task.description
       this.rewriteTask.images = this.task.images
+      this.rewriteTask.id = this.task.id
       this.loading = false
       setTimeout(() => {
         console.log(this.rewriteTask.images)

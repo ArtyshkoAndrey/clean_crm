@@ -6,9 +6,11 @@ use Illuminate\View\View;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Model\Task;
+use App\Model\Responsible;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Model\Image;
+use Carbon\Carbon;
 
 class TaskController extends Controller {
   public function all (Request $request) {
@@ -74,5 +76,32 @@ class TaskController extends Controller {
     return response()->json([
       'error' => 'no file'
     ], 200);
+  }
+
+  public function update (Request $request) {
+    $task = Task::find($request->id);
+    $task['name'] = $request->name;
+    $request->conductedWork != "" ? $task['conducted_work'] = $request->conductedWork : null;
+    $request->correctionDate != "" ? $task['correction_date'] = new Carbon($request->correctionDate) : null;
+    $request->responsibleExecutor != "" ? $task['responsible_executor'] = $request->responsibleExecutor : null;
+    $task['street'] = $request->street['value'];
+    $task['number_home'] = $request->numberHome;
+    $task['description'] = $request->description;
+    $task['date_of_detection'] = new Carbon($request->dateOfDetection);
+    $responsible = Responsible::find($request->responsible['id']);
+    $task->responsible()->associate($responsible);
+    $identified = [];
+    foreach ($request->identified as $value) {
+      array_push($identified, (int) $value['id']);
+    }
+    $images = [];
+    foreach ($request->images as $value) {
+      array_push($images, (int) $value['id']);
+    }
+    $task->identified()->sync($identified);
+    $task->images()->sync($images);
+    $task['target_date'] = new Carbon($request->targetDate);
+    $task->save();
+    return response()->json($task, 200);
   }
 }
