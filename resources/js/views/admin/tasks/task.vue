@@ -212,6 +212,8 @@ export default {
       });
     },
     async addResponsibleTag (responsible) {
+      // TODO: переделать создание тег, отправлять на сервер,
+      // а потом уже с новый список принимать, по списку искать новый тег и его вставлять в v-model
       console.log(responsible)
       responsible = {
         id: Math.max.apply(Math, this.responsibleList.map(res => res.id)) + 1,
@@ -265,6 +267,8 @@ export default {
       this.rewriteTask.description = this.task.description
       this.rewriteTask.images = this.task.images
       this.rewriteTask.id = this.task.id
+      this.rewriteTask.responsibleExecutor = this.task.responsible_executor
+      this.rewriteTask.conductedWork = this.task.conducted_work
       this.loading = false
       setTimeout(() => {
         console.log(this.rewriteTask.images)

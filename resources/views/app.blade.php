@@ -28,7 +28,7 @@
     <meta name="theme-color" content="#333333">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
-<body class="layout-default">
+<body class="layout-default skin-lannister">
 <div id="app" class="site-wrapper">
     <div class="mobile-menu-overlay" @click.prevent="$utils.toggleSidebar"></div>
     <transition name="fade" mode="out-in">
