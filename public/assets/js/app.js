@@ -37511,7 +37511,7 @@ exports = module.exports = __webpack_require__(13)(true);
 
 
 // module
-exports.push([module.i, "\n.graph-container[data-v-d3f2b950] {\r\n  height: 300px;\n}\r\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/components/chartjs/resources/js/components/chartjs/BarChart.vue"],"names":[],"mappings":";AAkEA;EACA,cAAA;CACA","file":"BarChart.vue","sourcesContent":["<template>\r\n  <div class=\"graph-container\">\r\n    <canvas id=\"graph\" ref=\"graph\"/>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport Chart from 'chart.js'\r\n\r\nexport default {\r\n  props: {\r\n    labels: {\r\n      type: Array,\r\n      require: true,\r\n      default: Array\r\n    },\r\n    values: {\r\n      type: Array,\r\n      require: true,\r\n      default: Array\r\n    },\r\n    labelForDataset: {\r\n      type: String,\r\n      default: 'Кол-во'\r\n    }\r\n  },\r\n\r\n  mounted () {\r\n    let context = this.$refs.graph.getContext('2d')\r\n    let options = {\r\n      responsive: true,\r\n      maintainAspectRatio: false,\r\n      legend: {\r\n        display: false\r\n      }\r\n    }\r\n\r\n    let data = {\r\n      labels: this.labels,\r\n      datasets: [\r\n        {\r\n          label: this.labelForDataset,\r\n          backgroundColor: 'rgba(79, 196, 127,0.2)',\r\n          borderColor: 'rgba(79, 196, 127,1)',\r\n          borderWidth: 1,\r\n          hoverBackgroundColor: 'rgba(79, 196, 127,0.4)',\r\n          hoverBorderColor: 'rgba(79, 196, 127,1)',\r\n          data: this.values\r\n        }\r\n      ]\r\n    }\r\n\r\n    this.myBarChart = new Chart(context, {\r\n      type: 'bar',\r\n      data: data,\r\n      options: options\r\n    })\r\n  },\r\n\r\n  beforeDestroy () {\r\n    this.myBarChart.destroy()\r\n  }\r\n}\r\n</script>\r\n\r\n<style scoped>\r\n.graph-container {\r\n  height: 300px;\r\n}\r\n</style>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.graph-container[data-v-d3f2b950] {\n  height: 300px;\n}\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/components/chartjs/resources/js/components/chartjs/BarChart.vue"],"names":[],"mappings":";AAkEA;EACA,cAAA;CACA","file":"BarChart.vue","sourcesContent":["<template>\n  <div class=\"graph-container\">\n    <canvas id=\"graph\" ref=\"graph\"/>\n  </div>\n</template>\n\n<script>\nimport Chart from 'chart.js'\n\nexport default {\n  props: {\n    labels: {\n      type: Array,\n      require: true,\n      default: Array\n    },\n    values: {\n      type: Array,\n      require: true,\n      default: Array\n    },\n    labelForDataset: {\n      type: String,\n      default: 'Кол-во'\n    }\n  },\n\n  mounted () {\n    let context = this.$refs.graph.getContext('2d')\n    let options = {\n      responsive: true,\n      maintainAspectRatio: false,\n      legend: {\n        display: false\n      }\n    }\n\n    let data = {\n      labels: this.labels,\n      datasets: [\n        {\n          label: this.labelForDataset,\n          backgroundColor: 'rgba(79, 196, 127,0.2)',\n          borderColor: 'rgba(79, 196, 127,1)',\n          borderWidth: 1,\n          hoverBackgroundColor: 'rgba(79, 196, 127,0.4)',\n          hoverBorderColor: 'rgba(79, 196, 127,1)',\n          data: this.values\n        }\n      ]\n    }\n\n    this.myBarChart = new Chart(context, {\n      type: 'bar',\n      data: data,\n      options: options\n    })\n  },\n\n  beforeDestroy () {\n    this.myBarChart.destroy()\n  }\n}\n</script>\n\n<style scoped>\n.graph-container {\n  height: 300px;\n}\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -58551,7 +58551,7 @@ exports = module.exports = __webpack_require__(13)(true);
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active {\r\n  -webkit-transition: opacity .5s;\r\n  transition: opacity .5s\n}\n.fade-enter,\r\n.fade-leave-active {\r\n  opacity: 0\n}\r\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/views/admin/tasks/resources/js/views/admin/tasks/task.vue"],"names":[],"mappings":";AAkVA;EACA,gCAAA;EAAA,uBAAA;CACA;AAEA;;EAEA,UAAA;CACA","file":"task.vue","sourcesContent":["<template>\r\n  <div class=\"main-content\">\r\n    <div class=\"row\">\r\n      <div class=\"col-12\">\r\n        <transition name=\"fade\" mode=\"out-in\">\r\n          <div key=1 class=\"card\" v-if='!loading'>\r\n            <div class=\"card-header\">\r\n              <div class=\"col-12 d-flex align-items-center justify-content-between\">\r\n                <h6 class=\"font-weight-bold d-flex h-100\">Задача №{{ task.id }} - {{ task.name }}</h6>\r\n                <transition name=\"fade\" mode=\"out-in\">\r\n                  <button key=1 @click=\"mode='write'\" v-if=\"mode === 'read'\" class=\"btn-sm btn btn-warning\">Изменить</button>\r\n                  <button key=2 @click=\"mode='read'\" v-else-if=\"mode === 'write'\" class=\"btn-sm btn btn-primary\">Сохранить</button>\r\n                </transition>\r\n              </div>\r\n            </div>\r\n            <div class=\"card-body\">\r\n              <div class=\"row\">\r\n                <div class=\"col-md-4 mt-4\">\r\n                  <h5 class=\"section-semi-title\">Навзавние проблемы</h5>\r\n                  <input\r\n                    type=\"text\"\r\n                    v-model=\"rewriteTask.name\"\r\n                    class=\"form-control\"\r\n                    placeholder=\"Название проблемы\"\r\n                    required\r\n                  >\r\n                </div>\r\n                <div class=\"col-md-12 mt-4\">\r\n                  <h5 class=\"section-semi-title\">Описание проблемы проблемы</h5>\r\n                  <textarea\r\n                    class=\"form-control\"\r\n                    v-model=\"rewriteTask.description\"\r\n                    placeholder=\"Описание\"\r\n                    rows=\"3\"\r\n                  />\r\n                </div>\r\n                <div class=\"col-md-6 mt-4\">\r\n                  <h5 class=\"section-semi-title\">Улица</h5>\r\n                  <multiselect\r\n                    v-model=\"rewriteTask.street\"\r\n                    id=\"ajax\"\r\n                    placeholder=\"Название улицы\"\r\n                    :options=\"dataStreet\"\r\n                    :searchable=\"true\"\r\n                    :multiple=\"false\"\r\n                    @search-change=\"getStreet\"\r\n                    label=\"value\"\r\n                    :selectLabel=\"''\"\r\n                  >\r\n                  </multiselect>\r\n                </div>\r\n                <div class=\"col-md-6 mt-4\">\r\n                  <h5 class=\"section-semi-title\">Номер дома</h5>\r\n                  <multiselect\r\n                    v-model=\"rewriteTask.numberHome\"\r\n                    id=\"ajax\"\r\n                    placeholder=\"Номер дома\"\r\n                    :options=\"dataNumber\"\r\n                    :searchable=\"true\"\r\n                    :multiple=\"false\"\r\n                    @search-change=\"getNumberHome\"\r\n                    :selectLabel=\"''\"\r\n                  >\r\n                  </multiselect>\r\n                </div>\r\n                <div class=\"col-md-12 mt-4\">\r\n                  <h5 class=\"section-semi-title\">Кем выявлено</h5>\r\n                  <multiselect\r\n                    v-model=\"rewriteTask.identified\"\r\n                    :options=\"identifiedList\"\r\n                    :multiple=\"true\"\r\n                    placeholder=\"Кем выявлено\"\r\n                    :hide-selected=\"true\"\r\n                    label=\"name\"\r\n                    :selectLabel=\"''\"\r\n                    :searchable=\"true\"\r\n                    track-by=\"id\"\r\n                  />\r\n                </div>\r\n                <div class=\"col-md-12 mt-4\">\r\n                  <h5 class=\"section-semi-title\">Ответсвенный</h5>\r\n                  <multiselect\r\n                    v-model=\"rewriteTask.responsible\"\r\n                    :options=\"responsibleList\"\r\n                    :hide-selected=\"true\"\r\n                    :selectLabel=\"''\"\r\n                    :taggable=\"true\"\r\n                    placeholder=\"Ответсвтенный\"\r\n                    @tag=\"addResponsibleTag\"\r\n                    track-by=\"name\"\r\n                    label=\"name\"\r\n                  />\r\n                </div>\r\n                <div class=\"col-md-12 mt-4\">\r\n                  <h5 class=\"section-semi-title\">Ответсвенный исполнитель</h5>\r\n                  <input\r\n                    type=\"text\"\r\n                    class=\"form-control\"\r\n                    v-model=\"rewriteTask.responsibleExecutor\"\r\n                    placeholder=\"Ответственный исполнитель\"\r\n                    required\r\n                  >\r\n                </div>\r\n                <div class=\"col-md-6 mt-4\">\r\n                  <h5 class=\"section-semi-title\">Дата выявления</h5>\r\n                  <datepicker input-class=\"form-control\" format=\"dd.MM.yyyy\" v-model=\"rewriteTask.dateOfDetection\" placeholder=\"Select Date\"/>\r\n                </div>\r\n                <div class=\"col-md-6 mt-4\">\r\n                  <h5 class=\"section-semi-title\">Дата устранения</h5>\r\n                  <datepicker input-class=\"form-control\" format=\"dd.MM.yyyy\" v-model=\"rewriteTask.correctionDate\" placeholder=\"Select Date\"/>\r\n                </div>\r\n                <div class=\"col-md-6 mt-4\">\r\n                  <h5 class=\"section-semi-title\">Констролный срок</h5>\r\n                  <datepicker input-class=\"form-control\" format=\"dd.MM.yyyy\" v-model=\"rewriteTask.targetDate\" placeholder=\"Select Date\"/>\r\n                </div>\r\n                <div class=\"col-md-12 mt-4\">\r\n                  <h5 class=\"section-semi-title\">Проведенная работа</h5>\r\n                  <textarea\r\n                    class=\"form-control\"\r\n                    rows=\"3\"\r\n                    placeholder=\"Описание проведённой работы\"\r\n                    v-model=\"rewriteTask.conductedWork\"\r\n                  />\r\n                </div>\r\n                <div class=\"col-12 mt-4\">\r\n                  <h5 class=\"section-semi-title\">Медиа файлы</h5>\r\n                  <vue-dropzone id=\"drop1\" :options=\"config\" @vdropzone-complete=\"afterComplete\" ref=\"myVueDropzone\"></vue-dropzone>\r\n                </div>\r\n                <div class=\"col-12 mt-4 justify-content-center align-content-center d-flex\">\r\n                  <button class=\"btn btn-primary mr-1\" @click=\"save\">Сохранить</button>\r\n                  <button class=\"btn btn-default ml-1\" @click=\"$router.push({name: 'tasks'})\">Отменить</button>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div key=2 class=\"card\" v-else>\r\n            <div class=\"card-header\">\r\n              <h6>Загрузка</h6>\r\n            </div>\r\n            <div class=\"card-body\">\r\n              <div class=\"d-flex justify-content-center\">\r\n                <div class=\"spinner-grow text-primary\" role=\"status\">\r\n                  <span class=\"sr-only\">Loading...</span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </transition>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n<script type=\"text/babel\">\r\nimport vue2Dropzone from 'vue2-dropzone'\r\nimport Datepicker from 'vuejs-datepicker'\r\nimport VueSuggestions from 'vue-suggestions'\r\nimport Multiselect from 'vue-multiselect'\r\nexport default {\r\n  data () {\r\n    return {\r\n      'header': 'header',\r\n      rewriteTask: {\r\n        id: null,\r\n        street: {},\r\n        dateOfDetection: null,\r\n        numberHome: '',\r\n        responsible: {},\r\n        identified: [],\r\n        name: '',\r\n        description: '',\r\n        targetDate: null,\r\n        correctionDate: null,\r\n        responsibleExecutor: '',\r\n        conductedWork: '',\r\n        images: []\r\n      },\r\n      mode: 'write',\r\n      task: {},\r\n      user: {},\r\n      allUsers: [],\r\n      loading: true,\r\n      dataNumber: [],\r\n      dataStreet: [],\r\n      config: {\r\n        url: \"http://clean-crm/api/taskfile\",\r\n        thumbnailWidth: null,\r\n      },\r\n      responsibleList: [],\r\n      identifiedList: []\r\n    }\r\n  },\r\n  components: {\r\n    vueDropzone: vue2Dropzone,\r\n    Datepicker,\r\n    VueSuggestions,\r\n    Multiselect\r\n  },\r\n  created() {\r\n    this.getTask(this.$route.params.id)    \r\n  },\r\n  methods: {\r\n    async save () {\r\n      console.log(this.task)\r\n      console.log(this.rewriteTask)\r\n      window.axios.put('/api/admin/task', this.rewriteTask)\r\n      .then(response => {\r\n        console.log(response)\r\n      })\r\n      .catch(error => {\r\n        console.log(error)\r\n      });\r\n    },\r\n    async addResponsibleTag (responsible) {\r\n      console.log(responsible)\r\n      responsible = {\r\n        id: Math.max.apply(Math, this.responsibleList.map(res => res.id)) + 1,\r\n        name: responsible\r\n      }\r\n      window.axios.post('/api/admin/responsibles/create', responsible).then(res => {\r\n        console.log(res)\r\n        this.responsibleList.push(responsible)\r\n        this.rewriteTask.responsible = responsible\r\n      }).catch(error => {\r\n        window.toastr['error']('Ошибка', 'Не выполнено')\r\n      })\r\n    },\r\n    afterComplete(file) {\r\n      console.log(file);\r\n      try {\r\n        let image = JSON.parse(file.xhr.response).image\r\n        image.path = JSON.parse(image.path)\r\n        this.rewriteTask.images.push(image)\r\n      } catch (e) {\r\n        console.warn(e)\r\n      }\r\n    },\r\n    async getTask (id) {\r\n      let response = await window.axios.post('/api/admin/task/view/' + id)\r\n      let userResponse = await window.axios.post('/api/admin/profile')\r\n      let identifiedResponse = await window.axios.post('/api/admin/users')\r\n      let responsibleResponse = await window.axios.post('/api/admin/responsibles')\r\n      console.log('task', response)\r\n      console.log('user', userResponse)\r\n      console.log('indent', identifiedResponse)\r\n      console.log('res', responsibleResponse)\r\n      this.identifiedList = identifiedResponse.data\r\n      this.responsibleList = responsibleResponse.data\r\n      this.task = response.data\r\n      this.user = userResponse.data\r\n      this.identifiedList.forEach(userApi => {\r\n        this.task.identified.forEach((user) => {\r\n          user.id === userApi.id ? this.rewriteTask.identified.push(userApi) : null\r\n        })\r\n      })\r\n      this.responsibleList.forEach(responsibleApi => {\r\n        this.task.responsible.id === responsibleApi.id ? this.rewriteTask.responsible = this.task.responsible : null\r\n      })\r\n      this.rewriteTask.street.value = this.task.street\r\n      this.rewriteTask.numberHome = this.task.number_home\r\n      this.rewriteTask.dateOfDetection = new Date(this.task.date_of_detection.slice(6, 10), parseInt(this.task.date_of_detection.slice(3, 5)) - 1, this.task.date_of_detection.slice(0, 2))\r\n      this.rewriteTask.targetDate = new Date(this.task.target_date.slice(6, 10), parseInt(this.task.target_date.slice(3, 5)) - 1, this.task.target_date.slice(0, 2))\r\n      this.task.correction_date ? this.rewriteTask.correctionDate = new Date(this.task.correction_date.slice(6, 10), parseInt(this.task.correction_date.slice(3, 5)) - 1, this.task.correction_date.slice(0, 2)) : null\r\n      this.rewriteTask.name = this.task.name\r\n      this.rewriteTask.description = this.task.description\r\n      this.rewriteTask.images = this.task.images\r\n      this.rewriteTask.id = this.task.id\r\n      this.rewriteTask.responsibleExecutor = this.task.responsible_executor\r\n      this.rewriteTask.conductedWork = this.task.conducted_work\r\n      this.loading = false\r\n      setTimeout(() => {\r\n        console.log(this.rewriteTask.images)\r\n        this.rewriteTask.images.forEach(image => {\r\n          image.path = JSON.parse(image.path)\r\n          console.log(image)\r\n          this.$refs.myVueDropzone.manuallyAddFile({ type: image.path.type, size: image.path.size, name: image.path.name}, image.path.file);\r\n        })\r\n      }, 1000);\r\n    },\r\n    async getNumberHome (query) {\r\n      console.log(this.rewriteTask.street + \" \" + query)\r\n      window.axios.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',\r\n        { \r\n          query: query,\r\n          locations: [\r\n            {\r\n              city: \"Красноярск\",\r\n              street_fias_id: this.rewriteTask.street.data.street_fias_id\r\n            }\r\n          ],\r\n          restrict_value: true\r\n        },\r\n        {\r\n          headers: {\r\n            \"Content-Type\": \"application/json\",\r\n            \"Accept\": \"application/json\",\r\n            \"Authorization\": \"Token be33fe1fe0328828d9632c248dcad68166e62740\",\r\n            \"X-Secret\": \"23c196abec29f8f3bafeb96f8be339c491a3bb77\"\r\n          }\r\n        }\r\n      ).then(res => {\r\n        this.dataNumber = []\r\n        res.data.suggestions.forEach(element => {\r\n          this.dataNumber .push(element.value)\r\n        });\r\n        console.log(this.dataNumber)\r\n      })\r\n    },\r\n    async getStreet (query) {\r\n      window.axios.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',\r\n        { \r\n          query: query,\r\n          locations: [\r\n            {\r\n              city: \"Красноярск\"\r\n            }\r\n          ],\r\n          restrict_value: true\r\n        },\r\n        {\r\n          headers: {\r\n            \"Content-Type\": \"application/json\",\r\n            \"Accept\": \"application/json\",\r\n            \"Authorization\": \"Token be33fe1fe0328828d9632c248dcad68166e62740\",\r\n            \"X-Secret\": \"23c196abec29f8f3bafeb96f8be339c491a3bb77\"\r\n          }\r\n        }\r\n      ).then(res => {\r\n        this.dataStreet = []\r\n        this.dataStreet = res.data.suggestions\r\n        console.log(this.dataStreet)\r\n      })\r\n    }\r\n  }\r\n}\r\n</script>\r\n\r\n<style>\r\n.fade-enter-active {\r\n  transition: opacity .5s\r\n}\r\n\r\n.fade-enter,\r\n.fade-leave-active {\r\n  opacity: 0\r\n}\r\n</style>"],"sourceRoot":""}]);
+exports.push([module.i, "\n.fade-enter-active {\r\n  -webkit-transition: opacity .5s;\r\n  transition: opacity .5s\n}\n.fade-enter,\r\n.fade-leave-active {\r\n  opacity: 0\n}\r\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/views/admin/tasks/resources/js/views/admin/tasks/task.vue"],"names":[],"mappings":";AAwGA;EACA,gCAAA;EAAA,uBAAA;CACA;AAEA;;EAEA,UAAA;CACA","file":"task.vue","sourcesContent":["<template>\r\n  <div class=\"main-content\">\r\n    <div class=\"row\">\r\n      <div class=\"col-12\">\r\n        <transition name=\"fade\" mode=\"out-in\">\r\n          <div key=1 class=\"card\" v-if='!loading'>\r\n            <div class=\"card-header\">\r\n              <div class=\"col-12 d-flex align-items-center justify-content-between\">\r\n                <h6 class=\"font-weight-bold d-flex h-100\">Задача №{{ task.id }} - {{ task.name }}</h6>\r\n                <transition name=\"fade\" mode=\"out-in\">\r\n                  <button key=1 @click=\"mode='write'\" v-if=\"mode === 'read'\" class=\"btn-sm btn btn-warning\">Изменить</button>\r\n                  <button key=2 @click=\"mode='read'\" v-else-if=\"mode === 'write'\" class=\"btn-sm btn btn-primary\">Сохранить</button>\r\n                </transition>\r\n              </div>\r\n            </div>\r\n            <transition name=\"fade\" mode=\"out-in\">\r\n              <Write\r\n                key='write'\r\n                v-if='mode === \"write\"'\r\n                :rewriteTask='rewriteTask'\r\n                :task='task'\r\n                :user='user'\r\n                :allUsers='allUsers'\r\n                :responsibleList='responsibleList'\r\n                :identifiedList='identifiedList'\r\n                @save='onSave'\r\n              >\r\n              </Write>\r\n              <Read\r\n                key='read'\r\n                v-else\r\n                :task='rewriteTask'\r\n              >\r\n              </Read>\r\n            </transition>\r\n          </div>\r\n          <div key=2 class=\"card\" v-else>\r\n            <div class=\"card-header\">\r\n              <h6>Загрузка</h6>\r\n            </div>\r\n            <div class=\"card-body\">\r\n              <div class=\"d-flex justify-content-center\">\r\n                <div class=\"spinner-grow text-primary\" role=\"status\">\r\n                  <span class=\"sr-only\">Loading...</span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </transition>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n<script type=\"text/babel\">\r\nimport Write from './task/write.vue'\r\nimport Read from './task/read.vue'\r\nimport Task from '../../../helpers/Task'\r\nexport default {\r\n  data () {\r\n    return {\r\n      'header': 'header',\r\n      rewriteTask: {},\r\n      mode: 'read',\r\n      task: {},\r\n      user: {},\r\n      allUsers: [],\r\n      loading: true,\r\n      config: {\r\n        url: \"http://clean-crm/api/taskfile\",\r\n        thumbnailWidth: null,\r\n      },\r\n      responsibleList: [],\r\n      identifiedList: []\r\n    }\r\n  },\r\n  components: {\r\n    Write,\r\n    Read\r\n  },\r\n  created() {\r\n    this.getTask(this.$route.params.id)    \r\n  },\r\n  methods: {\r\n    onSave() {\r\n      this.mode === 'write' ? this.mode = 'read' : this.mode = 'write'\r\n    },\r\n    async getTask (id) {\r\n      let response = await window.axios.post('/api/admin/task/view/' + id)\r\n      let userResponse = await window.axios.post('/api/admin/profile')\r\n      let identifiedResponse = await window.axios.post('/api/admin/users')\r\n      let responsibleResponse = await window.axios.post('/api/admin/responsibles')\r\n      this.identifiedList = identifiedResponse.data\r\n      this.responsibleList = responsibleResponse.data\r\n      this.task = response.data\r\n      this.user = userResponse.data\r\n      this.rewriteTask = new Task(this.task)\r\n      this.loading = false\r\n    }\r\n  }\r\n}\r\n</script>\r\n\r\n<style>\r\n.fade-enter-active {\r\n  transition: opacity .5s\r\n}\r\n\r\n.fade-enter,\r\n.fade-leave-active {\r\n  opacity: 0\r\n}\r\n</style>"],"sourceRoot":""}]);
 
 // exports
 
@@ -58575,204 +58575,30 @@ var _asyncToGenerator2 = __webpack_require__(23);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var _vue2Dropzone = __webpack_require__(346);
+var _write = __webpack_require__(441);
 
-var _vue2Dropzone2 = _interopRequireDefault(_vue2Dropzone);
+var _write2 = _interopRequireDefault(_write);
 
-var _vuejsDatepicker = __webpack_require__(347);
+var _read = __webpack_require__(444);
 
-var _vuejsDatepicker2 = _interopRequireDefault(_vuejsDatepicker);
+var _read2 = _interopRequireDefault(_read);
 
-var _vueSuggestions = __webpack_require__(348);
+var _Task = __webpack_require__(435);
 
-var _vueSuggestions2 = _interopRequireDefault(_vueSuggestions);
-
-var _vueMultiselect = __webpack_require__(360);
-
-var _vueMultiselect2 = _interopRequireDefault(_vueMultiselect);
+var _Task2 = _interopRequireDefault(_Task);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 exports.default = {
   data: function data() {
     return {
       'header': 'header',
-      rewriteTask: {
-        id: null,
-        street: {},
-        dateOfDetection: null,
-        numberHome: '',
-        responsible: {},
-        identified: [],
-        name: '',
-        description: '',
-        targetDate: null,
-        correctionDate: null,
-        responsibleExecutor: '',
-        conductedWork: '',
-        images: []
-      },
-      mode: 'write',
+      rewriteTask: {},
+      mode: 'read',
       task: {},
       user: {},
       allUsers: [],
       loading: true,
-      dataNumber: [],
-      dataStreet: [],
       config: {
         url: "http://clean-crm/api/taskfile",
         thumbnailWidth: null
@@ -58783,232 +58609,117 @@ exports.default = {
   },
 
   components: {
-    vueDropzone: _vue2Dropzone2.default,
-    Datepicker: _vuejsDatepicker2.default,
-    VueSuggestions: _vueSuggestions2.default,
-    Multiselect: _vueMultiselect2.default
+    Write: _write2.default,
+    Read: _read2.default
   },
   created: function created() {
     this.getTask(this.$route.params.id);
   },
 
   methods: {
-    save: function save() {
+    onSave: function onSave() {
+      this.mode === 'write' ? this.mode = 'read' : this.mode = 'write';
+    },
+    getTask: function getTask(id) {
       var _this = this;
 
       return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+        var response, userResponse, identifiedResponse, responsibleResponse;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                console.log(_this.task);
-                console.log(_this.rewriteTask);
-                window.axios.put('/api/admin/task', _this.rewriteTask).then(function (response) {
-                  console.log(response);
-                }).catch(function (error) {
-                  console.log(error);
-                });
+                _context.next = 2;
+                return window.axios.post('/api/admin/task/view/' + id);
 
-              case 3:
+              case 2:
+                response = _context.sent;
+                _context.next = 5;
+                return window.axios.post('/api/admin/profile');
+
+              case 5:
+                userResponse = _context.sent;
+                _context.next = 8;
+                return window.axios.post('/api/admin/users');
+
+              case 8:
+                identifiedResponse = _context.sent;
+                _context.next = 11;
+                return window.axios.post('/api/admin/responsibles');
+
+              case 11:
+                responsibleResponse = _context.sent;
+
+                _this.identifiedList = identifiedResponse.data;
+                _this.responsibleList = responsibleResponse.data;
+                _this.task = response.data;
+                _this.user = userResponse.data;
+                _this.rewriteTask = new _Task2.default(_this.task);
+                _this.loading = false;
+
+              case 18:
               case 'end':
                 return _context.stop();
             }
           }
         }, _callee, _this);
       }))();
-    },
-    addResponsibleTag: function addResponsibleTag(responsible) {
-      var _this2 = this;
-
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
-        return _regenerator2.default.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                console.log(responsible);
-                responsible = {
-                  id: Math.max.apply(Math, _this2.responsibleList.map(function (res) {
-                    return res.id;
-                  })) + 1,
-                  name: responsible
-                };
-                window.axios.post('/api/admin/responsibles/create', responsible).then(function (res) {
-                  console.log(res);
-                  _this2.responsibleList.push(responsible);
-                  _this2.rewriteTask.responsible = responsible;
-                }).catch(function (error) {
-                  window.toastr['error']('Ошибка', 'Не выполнено');
-                });
-
-              case 3:
-              case 'end':
-                return _context2.stop();
-            }
-          }
-        }, _callee2, _this2);
-      }))();
-    },
-    afterComplete: function afterComplete(file) {
-      console.log(file);
-      try {
-        var image = JSON.parse(file.xhr.response).image;
-        image.path = JSON.parse(image.path);
-        this.rewriteTask.images.push(image);
-      } catch (e) {
-        console.warn(e);
-      }
-    },
-    getTask: function getTask(id) {
-      var _this3 = this;
-
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3() {
-        var response, userResponse, identifiedResponse, responsibleResponse;
-        return _regenerator2.default.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _context3.next = 2;
-                return window.axios.post('/api/admin/task/view/' + id);
-
-              case 2:
-                response = _context3.sent;
-                _context3.next = 5;
-                return window.axios.post('/api/admin/profile');
-
-              case 5:
-                userResponse = _context3.sent;
-                _context3.next = 8;
-                return window.axios.post('/api/admin/users');
-
-              case 8:
-                identifiedResponse = _context3.sent;
-                _context3.next = 11;
-                return window.axios.post('/api/admin/responsibles');
-
-              case 11:
-                responsibleResponse = _context3.sent;
-
-                console.log('task', response);
-                console.log('user', userResponse);
-                console.log('indent', identifiedResponse);
-                console.log('res', responsibleResponse);
-                _this3.identifiedList = identifiedResponse.data;
-                _this3.responsibleList = responsibleResponse.data;
-                _this3.task = response.data;
-                _this3.user = userResponse.data;
-                _this3.identifiedList.forEach(function (userApi) {
-                  _this3.task.identified.forEach(function (user) {
-                    user.id === userApi.id ? _this3.rewriteTask.identified.push(userApi) : null;
-                  });
-                });
-                _this3.responsibleList.forEach(function (responsibleApi) {
-                  _this3.task.responsible.id === responsibleApi.id ? _this3.rewriteTask.responsible = _this3.task.responsible : null;
-                });
-                _this3.rewriteTask.street.value = _this3.task.street;
-                _this3.rewriteTask.numberHome = _this3.task.number_home;
-                _this3.rewriteTask.dateOfDetection = new Date(_this3.task.date_of_detection.slice(6, 10), parseInt(_this3.task.date_of_detection.slice(3, 5)) - 1, _this3.task.date_of_detection.slice(0, 2));
-                _this3.rewriteTask.targetDate = new Date(_this3.task.target_date.slice(6, 10), parseInt(_this3.task.target_date.slice(3, 5)) - 1, _this3.task.target_date.slice(0, 2));
-                _this3.task.correction_date ? _this3.rewriteTask.correctionDate = new Date(_this3.task.correction_date.slice(6, 10), parseInt(_this3.task.correction_date.slice(3, 5)) - 1, _this3.task.correction_date.slice(0, 2)) : null;
-                _this3.rewriteTask.name = _this3.task.name;
-                _this3.rewriteTask.description = _this3.task.description;
-                _this3.rewriteTask.images = _this3.task.images;
-                _this3.rewriteTask.id = _this3.task.id;
-                _this3.rewriteTask.responsibleExecutor = _this3.task.responsible_executor;
-                _this3.rewriteTask.conductedWork = _this3.task.conducted_work;
-                _this3.loading = false;
-                setTimeout(function () {
-                  console.log(_this3.rewriteTask.images);
-                  _this3.rewriteTask.images.forEach(function (image) {
-                    image.path = JSON.parse(image.path);
-                    console.log(image);
-                    _this3.$refs.myVueDropzone.manuallyAddFile({ type: image.path.type, size: image.path.size, name: image.path.name }, image.path.file);
-                  });
-                }, 1000);
-
-              case 35:
-              case 'end':
-                return _context3.stop();
-            }
-          }
-        }, _callee3, _this3);
-      }))();
-    },
-    getNumberHome: function getNumberHome(query) {
-      var _this4 = this;
-
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4() {
-        return _regenerator2.default.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                console.log(_this4.rewriteTask.street + " " + query);
-                window.axios.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address', {
-                  query: query,
-                  locations: [{
-                    city: "Красноярск",
-                    street_fias_id: _this4.rewriteTask.street.data.street_fias_id
-                  }],
-                  restrict_value: true
-                }, {
-                  headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "Authorization": "Token be33fe1fe0328828d9632c248dcad68166e62740",
-                    "X-Secret": "23c196abec29f8f3bafeb96f8be339c491a3bb77"
-                  }
-                }).then(function (res) {
-                  _this4.dataNumber = [];
-                  res.data.suggestions.forEach(function (element) {
-                    _this4.dataNumber.push(element.value);
-                  });
-                  console.log(_this4.dataNumber);
-                });
-
-              case 2:
-              case 'end':
-                return _context4.stop();
-            }
-          }
-        }, _callee4, _this4);
-      }))();
-    },
-    getStreet: function getStreet(query) {
-      var _this5 = this;
-
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5() {
-        return _regenerator2.default.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                window.axios.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address', {
-                  query: query,
-                  locations: [{
-                    city: "Красноярск"
-                  }],
-                  restrict_value: true
-                }, {
-                  headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "Authorization": "Token be33fe1fe0328828d9632c248dcad68166e62740",
-                    "X-Secret": "23c196abec29f8f3bafeb96f8be339c491a3bb77"
-                  }
-                }).then(function (res) {
-                  _this5.dataStreet = [];
-                  _this5.dataStreet = res.data.suggestions;
-                  console.log(_this5.dataStreet);
-                });
-
-              case 1:
-              case 'end':
-                return _context5.stop();
-            }
-          }
-        }, _callee5, _this5);
-      }))();
     }
   }
-};
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /***/ }),
 /* 346 */
@@ -85924,466 +85635,98 @@ var render = function() {
         [
           _c("transition", { attrs: { name: "fade", mode: "out-in" } }, [
             !_vm.loading
-              ? _c("div", { key: "1", staticClass: "card" }, [
-                  _c("div", { staticClass: "card-header" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "col-12 d-flex align-items-center justify-content-between"
-                      },
-                      [
-                        _c(
-                          "h6",
-                          { staticClass: "font-weight-bold d-flex h-100" },
-                          [
-                            _vm._v(
-                              "Задача №" +
-                                _vm._s(_vm.task.id) +
-                                " - " +
-                                _vm._s(_vm.task.name)
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "transition",
-                          { attrs: { name: "fade", mode: "out-in" } },
-                          [
-                            _vm.mode === "read"
-                              ? _c(
-                                  "button",
-                                  {
-                                    key: "1",
-                                    staticClass: "btn-sm btn btn-warning",
-                                    on: {
-                                      click: function($event) {
-                                        _vm.mode = "write"
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("Изменить")]
-                                )
-                              : _vm.mode === "write"
-                                ? _c(
-                                    "button",
-                                    {
-                                      key: "2",
-                                      staticClass: "btn-sm btn btn-primary",
-                                      on: {
-                                        click: function($event) {
-                                          _vm.mode = "read"
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("Сохранить")]
-                                  )
-                                : _vm._e()
-                          ]
-                        )
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-4 mt-4" }, [
-                        _c("h5", { staticClass: "section-semi-title" }, [
-                          _vm._v("Навзавние проблемы")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.rewriteTask.name,
-                              expression: "rewriteTask.name"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            placeholder: "Название проблемы",
-                            required: ""
-                          },
-                          domProps: { value: _vm.rewriteTask.name },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.rewriteTask,
-                                "name",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-12 mt-4" }, [
-                        _c("h5", { staticClass: "section-semi-title" }, [
-                          _vm._v("Описание проблемы проблемы")
-                        ]),
-                        _vm._v(" "),
-                        _c("textarea", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.rewriteTask.description,
-                              expression: "rewriteTask.description"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { placeholder: "Описание", rows: "3" },
-                          domProps: { value: _vm.rewriteTask.description },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.rewriteTask,
-                                "description",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-md-6 mt-4" },
-                        [
-                          _c("h5", { staticClass: "section-semi-title" }, [
-                            _vm._v("Улица")
-                          ]),
-                          _vm._v(" "),
-                          _c("multiselect", {
-                            attrs: {
-                              id: "ajax",
-                              placeholder: "Название улицы",
-                              options: _vm.dataStreet,
-                              searchable: true,
-                              multiple: false,
-                              label: "value",
-                              selectLabel: ""
-                            },
-                            on: { "search-change": _vm.getStreet },
-                            model: {
-                              value: _vm.rewriteTask.street,
-                              callback: function($$v) {
-                                _vm.$set(_vm.rewriteTask, "street", $$v)
-                              },
-                              expression: "rewriteTask.street"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-md-6 mt-4" },
-                        [
-                          _c("h5", { staticClass: "section-semi-title" }, [
-                            _vm._v("Номер дома")
-                          ]),
-                          _vm._v(" "),
-                          _c("multiselect", {
-                            attrs: {
-                              id: "ajax",
-                              placeholder: "Номер дома",
-                              options: _vm.dataNumber,
-                              searchable: true,
-                              multiple: false,
-                              selectLabel: ""
-                            },
-                            on: { "search-change": _vm.getNumberHome },
-                            model: {
-                              value: _vm.rewriteTask.numberHome,
-                              callback: function($$v) {
-                                _vm.$set(_vm.rewriteTask, "numberHome", $$v)
-                              },
-                              expression: "rewriteTask.numberHome"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-md-12 mt-4" },
-                        [
-                          _c("h5", { staticClass: "section-semi-title" }, [
-                            _vm._v("Кем выявлено")
-                          ]),
-                          _vm._v(" "),
-                          _c("multiselect", {
-                            attrs: {
-                              options: _vm.identifiedList,
-                              multiple: true,
-                              placeholder: "Кем выявлено",
-                              "hide-selected": true,
-                              label: "name",
-                              selectLabel: "",
-                              searchable: true,
-                              "track-by": "id"
-                            },
-                            model: {
-                              value: _vm.rewriteTask.identified,
-                              callback: function($$v) {
-                                _vm.$set(_vm.rewriteTask, "identified", $$v)
-                              },
-                              expression: "rewriteTask.identified"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-md-12 mt-4" },
-                        [
-                          _c("h5", { staticClass: "section-semi-title" }, [
-                            _vm._v("Ответсвенный")
-                          ]),
-                          _vm._v(" "),
-                          _c("multiselect", {
-                            attrs: {
-                              options: _vm.responsibleList,
-                              "hide-selected": true,
-                              selectLabel: "",
-                              taggable: true,
-                              placeholder: "Ответсвтенный",
-                              "track-by": "name",
-                              label: "name"
-                            },
-                            on: { tag: _vm.addResponsibleTag },
-                            model: {
-                              value: _vm.rewriteTask.responsible,
-                              callback: function($$v) {
-                                _vm.$set(_vm.rewriteTask, "responsible", $$v)
-                              },
-                              expression: "rewriteTask.responsible"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-12 mt-4" }, [
-                        _c("h5", { staticClass: "section-semi-title" }, [
-                          _vm._v("Ответсвенный исполнитель")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.rewriteTask.responsibleExecutor,
-                              expression: "rewriteTask.responsibleExecutor"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            placeholder: "Ответственный исполнитель",
-                            required: ""
-                          },
-                          domProps: {
-                            value: _vm.rewriteTask.responsibleExecutor
-                          },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.rewriteTask,
-                                "responsibleExecutor",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-md-6 mt-4" },
-                        [
-                          _c("h5", { staticClass: "section-semi-title" }, [
-                            _vm._v("Дата выявления")
-                          ]),
-                          _vm._v(" "),
-                          _c("datepicker", {
-                            attrs: {
-                              "input-class": "form-control",
-                              format: "dd.MM.yyyy",
-                              placeholder: "Select Date"
-                            },
-                            model: {
-                              value: _vm.rewriteTask.dateOfDetection,
-                              callback: function($$v) {
-                                _vm.$set(
-                                  _vm.rewriteTask,
-                                  "dateOfDetection",
-                                  $$v
-                                )
-                              },
-                              expression: "rewriteTask.dateOfDetection"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-md-6 mt-4" },
-                        [
-                          _c("h5", { staticClass: "section-semi-title" }, [
-                            _vm._v("Дата устранения")
-                          ]),
-                          _vm._v(" "),
-                          _c("datepicker", {
-                            attrs: {
-                              "input-class": "form-control",
-                              format: "dd.MM.yyyy",
-                              placeholder: "Select Date"
-                            },
-                            model: {
-                              value: _vm.rewriteTask.correctionDate,
-                              callback: function($$v) {
-                                _vm.$set(_vm.rewriteTask, "correctionDate", $$v)
-                              },
-                              expression: "rewriteTask.correctionDate"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-md-6 mt-4" },
-                        [
-                          _c("h5", { staticClass: "section-semi-title" }, [
-                            _vm._v("Констролный срок")
-                          ]),
-                          _vm._v(" "),
-                          _c("datepicker", {
-                            attrs: {
-                              "input-class": "form-control",
-                              format: "dd.MM.yyyy",
-                              placeholder: "Select Date"
-                            },
-                            model: {
-                              value: _vm.rewriteTask.targetDate,
-                              callback: function($$v) {
-                                _vm.$set(_vm.rewriteTask, "targetDate", $$v)
-                              },
-                              expression: "rewriteTask.targetDate"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-12 mt-4" }, [
-                        _c("h5", { staticClass: "section-semi-title" }, [
-                          _vm._v("Проведенная работа")
-                        ]),
-                        _vm._v(" "),
-                        _c("textarea", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.rewriteTask.conductedWork,
-                              expression: "rewriteTask.conductedWork"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            rows: "3",
-                            placeholder: "Описание проведённой работы"
-                          },
-                          domProps: { value: _vm.rewriteTask.conductedWork },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.rewriteTask,
-                                "conductedWork",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-12 mt-4" },
-                        [
-                          _c("h5", { staticClass: "section-semi-title" }, [
-                            _vm._v("Медиа файлы")
-                          ]),
-                          _vm._v(" "),
-                          _c("vue-dropzone", {
-                            ref: "myVueDropzone",
-                            attrs: { id: "drop1", options: _vm.config },
-                            on: { "vdropzone-complete": _vm.afterComplete }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
+              ? _c(
+                  "div",
+                  { key: "1", staticClass: "card" },
+                  [
+                    _c("div", { staticClass: "card-header" }, [
                       _c(
                         "div",
                         {
                           staticClass:
-                            "col-12 mt-4 justify-content-center align-content-center d-flex"
+                            "col-12 d-flex align-items-center justify-content-between"
                         },
                         [
                           _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-primary mr-1",
-                              on: { click: _vm.save }
-                            },
-                            [_vm._v("Сохранить")]
+                            "h6",
+                            { staticClass: "font-weight-bold d-flex h-100" },
+                            [
+                              _vm._v(
+                                "Задача №" +
+                                  _vm._s(_vm.task.id) +
+                                  " - " +
+                                  _vm._s(_vm.task.name)
+                              )
+                            ]
                           ),
                           _vm._v(" "),
                           _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-default ml-1",
-                              on: {
-                                click: function($event) {
-                                  _vm.$router.push({ name: "tasks" })
-                                }
-                              }
-                            },
-                            [_vm._v("Отменить")]
+                            "transition",
+                            { attrs: { name: "fade", mode: "out-in" } },
+                            [
+                              _vm.mode === "read"
+                                ? _c(
+                                    "button",
+                                    {
+                                      key: "1",
+                                      staticClass: "btn-sm btn btn-warning",
+                                      on: {
+                                        click: function($event) {
+                                          _vm.mode = "write"
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Изменить")]
+                                  )
+                                : _vm.mode === "write"
+                                  ? _c(
+                                      "button",
+                                      {
+                                        key: "2",
+                                        staticClass: "btn-sm btn btn-primary",
+                                        on: {
+                                          click: function($event) {
+                                            _vm.mode = "read"
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Сохранить")]
+                                    )
+                                  : _vm._e()
+                            ]
                           )
-                        ]
+                        ],
+                        1
                       )
-                    ])
-                  ])
-                ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "transition",
+                      { attrs: { name: "fade", mode: "out-in" } },
+                      [
+                        _vm.mode === "write"
+                          ? _c("Write", {
+                              key: "write",
+                              attrs: {
+                                rewriteTask: _vm.rewriteTask,
+                                task: _vm.task,
+                                user: _vm.user,
+                                allUsers: _vm.allUsers,
+                                responsibleList: _vm.responsibleList,
+                                identifiedList: _vm.identifiedList
+                              },
+                              on: { save: _vm.onSave }
+                            })
+                          : _c("Read", {
+                              key: "read",
+                              attrs: { task: _vm.rewriteTask }
+                            })
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
               : _c("div", { key: "2", staticClass: "card" }, [
                   _c("div", { staticClass: "card-header" }, [
                     _c("h6", [_vm._v("Загрузка")])
@@ -100287,7 +99630,7 @@ exports = module.exports = __webpack_require__(13)(true);
 
 
 // module
-exports.push([module.i, "\n.collapse-group-items[data-v-30293102] {\r\n  overflow: hidden;\r\n  -webkit-transition: max-height .3s ease-in-out;\r\n  transition: max-height .3s ease-in-out;\n}\n.slide-enter-active[data-v-30293102], .slide-leave-active[data-v-30293102] {\r\n  overflow: hidden;\n}\n.slide-leave-to[data-v-30293102] {\r\n  max-height: 0px !important;\n}\r\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/components/collapse/resources/js/components/collapse/VCollapseItem.vue"],"names":[],"mappings":";AAqGA;EACA,iBAAA;EACA,+CAAA;EAAA,uCAAA;CACA;AACA;EACA,iBAAA;CACA;AACA;EACA,2BAAA;CACA","file":"VCollapseItem.vue","sourcesContent":["<template>\r\n  <div :class=\"['collapse-group-item', { active: isCollapseOpen } ]\">\r\n    <div class=\"collapse-item-title\" @click=\"toggleCollapse\">\r\n      <slot name=\"item-title\"/>\r\n    </div>\r\n    <transition\r\n      :duration=\"{ enter: 0 }\"\r\n      name=\"slide\"\r\n      @after-enter=\"afterEnter\"\r\n      @after-leave=\"afterLeave\"\r\n    >\r\n      <div\r\n        v-show=\"isCollapseOpen\"\r\n        v-if=\"hasChild\"\r\n        ref=\"collapseItems\"\r\n        :style=\"'max-height:' + height + 'px'\"\r\n        class=\"collapse-group-items\"\r\n      >\r\n        <slot/>\r\n      </div>\r\n    </transition>\r\n  </div>\r\n</template>\r\n<script>\r\n\r\nexport default {\r\n  props: {\r\n    activeUrl: {\r\n      type: String,\r\n      require: true,\r\n      default: ''\r\n    },\r\n    isActive: {\r\n      type: Boolean,\r\n      require: true,\r\n      default: false\r\n    }\r\n  },\r\n  data () {\r\n    return {\r\n      height: '',\r\n      originalHeight: '',\r\n      isCollapseOpen: true,\r\n      hasChild: true,\r\n      accordion: this.$parent.accordion\r\n    }\r\n  },\r\n  mounted () {\r\n    this.$nextTick(() => {\r\n      if (this.accordion === true) {\r\n        this.hasActive()\r\n      } else {\r\n        this.isCollapseOpen = false\r\n      }\r\n      this.height = this.originalHeight = this.$refs.collapseItems.clientHeight\r\n\r\n      if (this.$refs.collapseItems.children.length === 0) {\r\n        this.hasChild = false\r\n      }\r\n    })\r\n  },\r\n  methods: {\r\n    hasActiveUrl () {\r\n      return this.$route.path.indexOf(this.activeUrl) > -1\r\n    },\r\n    hasActive () {\r\n      if (this.isActive) {\r\n        this.isCollapseOpen = this.isActive\r\n      } else {\r\n        if (this.activeUrl) {\r\n          this.isCollapseOpen = this.hasActiveUrl()\r\n        } else {\r\n          this.isCollapseOpen = false\r\n        }\r\n      }\r\n    },\r\n    toggleCollapse () {\r\n      let self = this\r\n      if (this.accordion) {\r\n        if (this.isCollapseOpen === false) {\r\n          this.$parent.$children.filter((value) => {\r\n            if (value !== self) {\r\n              if (value.isCollapseOpen === true) {\r\n                value.isCollapseOpen = false\r\n              }\r\n            }\r\n          })\r\n        }\r\n      }\r\n      this.isCollapseOpen = !this.isCollapseOpen\r\n    },\r\n    afterEnter () {\r\n      this.height = this.originalHeight\r\n    },\r\n    afterLeave () {\r\n      this.height = 0\r\n    }\r\n  }\r\n}\r\n</script>\r\n<style scoped>\r\n.collapse-group-items {\r\n  overflow: hidden;\r\n  transition: max-height .3s ease-in-out;\r\n}\r\n.slide-enter-active, .slide-leave-active {\r\n  overflow: hidden;\r\n}\r\n.slide-leave-to {\r\n  max-height: 0px !important;\r\n}\r\n</style>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.collapse-group-items[data-v-30293102] {\n  overflow: hidden;\n  -webkit-transition: max-height .3s ease-in-out;\n  transition: max-height .3s ease-in-out;\n}\n.slide-enter-active[data-v-30293102], .slide-leave-active[data-v-30293102] {\n  overflow: hidden;\n}\n.slide-leave-to[data-v-30293102] {\n  max-height: 0px !important;\n}\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/components/collapse/resources/js/components/collapse/VCollapseItem.vue"],"names":[],"mappings":";AAqGA;EACA,iBAAA;EACA,+CAAA;EAAA,uCAAA;CACA;AACA;EACA,iBAAA;CACA;AACA;EACA,2BAAA;CACA","file":"VCollapseItem.vue","sourcesContent":["<template>\n  <div :class=\"['collapse-group-item', { active: isCollapseOpen } ]\">\n    <div class=\"collapse-item-title\" @click=\"toggleCollapse\">\n      <slot name=\"item-title\"/>\n    </div>\n    <transition\n      :duration=\"{ enter: 0 }\"\n      name=\"slide\"\n      @after-enter=\"afterEnter\"\n      @after-leave=\"afterLeave\"\n    >\n      <div\n        v-show=\"isCollapseOpen\"\n        v-if=\"hasChild\"\n        ref=\"collapseItems\"\n        :style=\"'max-height:' + height + 'px'\"\n        class=\"collapse-group-items\"\n      >\n        <slot/>\n      </div>\n    </transition>\n  </div>\n</template>\n<script>\n\nexport default {\n  props: {\n    activeUrl: {\n      type: String,\n      require: true,\n      default: ''\n    },\n    isActive: {\n      type: Boolean,\n      require: true,\n      default: false\n    }\n  },\n  data () {\n    return {\n      height: '',\n      originalHeight: '',\n      isCollapseOpen: true,\n      hasChild: true,\n      accordion: this.$parent.accordion\n    }\n  },\n  mounted () {\n    this.$nextTick(() => {\n      if (this.accordion === true) {\n        this.hasActive()\n      } else {\n        this.isCollapseOpen = false\n      }\n      this.height = this.originalHeight = this.$refs.collapseItems.clientHeight\n\n      if (this.$refs.collapseItems.children.length === 0) {\n        this.hasChild = false\n      }\n    })\n  },\n  methods: {\n    hasActiveUrl () {\n      return this.$route.path.indexOf(this.activeUrl) > -1\n    },\n    hasActive () {\n      if (this.isActive) {\n        this.isCollapseOpen = this.isActive\n      } else {\n        if (this.activeUrl) {\n          this.isCollapseOpen = this.hasActiveUrl()\n        } else {\n          this.isCollapseOpen = false\n        }\n      }\n    },\n    toggleCollapse () {\n      let self = this\n      if (this.accordion) {\n        if (this.isCollapseOpen === false) {\n          this.$parent.$children.filter((value) => {\n            if (value !== self) {\n              if (value.isCollapseOpen === true) {\n                value.isCollapseOpen = false\n              }\n            }\n          })\n        }\n      }\n      this.isCollapseOpen = !this.isCollapseOpen\n    },\n    afterEnter () {\n      this.height = this.originalHeight\n    },\n    afterLeave () {\n      this.height = 0\n    }\n  }\n}\n</script>\n<style scoped>\n.collapse-group-items {\n  overflow: hidden;\n  transition: max-height .3s ease-in-out;\n}\n.slide-enter-active, .slide-leave-active {\n  overflow: hidden;\n}\n.slide-leave-to {\n  max-height: 0px !important;\n}\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -129578,6 +128921,1071 @@ Vue.directive('click-outside', {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 418 */,
+/* 419 */,
+/* 420 */,
+/* 421 */,
+/* 422 */,
+/* 423 */,
+/* 424 */,
+/* 425 */,
+/* 426 */,
+/* 427 */,
+/* 428 */,
+/* 429 */,
+/* 430 */,
+/* 431 */,
+/* 432 */,
+/* 433 */,
+/* 434 */,
+/* 435 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _classCallCheck2 = __webpack_require__(436);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(437);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Task = function () {
+  function Task(task) {
+    (0, _classCallCheck3.default)(this, Task);
+
+    this.id = task.id;
+    this.street = {};
+    this.street.value = task.street;
+    this.dateOfDetection = this.reformatDateAPI(task.date_of_detection);
+    this.numberHome = task.number_home;
+    this.responsible = task.responsible;
+    this.identified = task.identified;
+    this.name = task.name;
+    this.description = task.description;
+    this.targetDate = this.reformatDateAPI(task.target_date);
+    this.correctionDate = this.reformatDateAPI(task.correction_date);
+    this.responsibleExecutor = task.responsible_executor;
+    this.conductedWork = task.conducted_work;
+    this.images = task.images;
+    this._targetDate = null;
+    this._correctionDate = null;
+    this._dateOfDetection = null;
+  }
+
+  (0, _createClass3.default)(Task, [{
+    key: 'reformatDateAPI',
+    value: function reformatDateAPI() {
+      var date = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+      try {
+        if (date) {
+          return new Date(date.slice(6, 10), parseInt(date.slice(3, 5)) - 1, date.slice(0, 2));
+        } else {
+          return '';
+        }
+      } catch (e) {
+        console.error(e);
+        return Date(Date.now());
+      }
+    }
+  }, {
+    key: 'reformatDateToAPI',
+    value: function reformatDateToAPI() {
+      this._targetDate = this.targetDate.toLocaleDateString();
+      if (this.correctionDate) {
+        this._correctionDate = this.correctionDate.toLocaleDateString();
+      }
+      this._dateOfDetection = this.dateOfDetection.toLocaleDateString();
+    }
+  }]);
+  return Task;
+}();
+
+exports.default = Task;
+
+/***/ }),
+/* 436 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+exports.default = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+/***/ }),
+/* 437 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _defineProperty = __webpack_require__(438);
+
+var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      (0, _defineProperty2.default)(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+/***/ }),
+/* 438 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(439), __esModule: true };
+
+/***/ }),
+/* 439 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(440);
+var $Object = __webpack_require__(9).Object;
+module.exports = function defineProperty(it, key, desc) {
+  return $Object.defineProperty(it, key, desc);
+};
+
+
+/***/ }),
+/* 440 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $export = __webpack_require__(15);
+// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
+$export($export.S + $export.F * !__webpack_require__(17), 'Object', { defineProperty: __webpack_require__(26).f });
+
+
+/***/ }),
+/* 441 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(442)
+/* template */
+var __vue_template__ = __webpack_require__(443)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\js\\views\\admin\\tasks\\task\\write.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f2a51462", Component.options)
+  } else {
+    hotAPI.reload("data-v-f2a51462", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 442 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _regenerator = __webpack_require__(22);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(23);
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _vue2Dropzone = __webpack_require__(346);
+
+var _vue2Dropzone2 = _interopRequireDefault(_vue2Dropzone);
+
+var _vuejsDatepicker = __webpack_require__(347);
+
+var _vuejsDatepicker2 = _interopRequireDefault(_vuejsDatepicker);
+
+var _vueSuggestions = __webpack_require__(348);
+
+var _vueSuggestions2 = _interopRequireDefault(_vueSuggestions);
+
+var _vueMultiselect = __webpack_require__(360);
+
+var _vueMultiselect2 = _interopRequireDefault(_vueMultiselect);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+  props: {
+    rewriteTask: {
+      type: Object,
+      require: true,
+      default: Object
+    },
+    task: {
+      type: Object,
+      require: true,
+      default: Object
+    },
+    user: {
+      type: Object,
+      require: true,
+      default: Object
+    },
+    allUsers: {
+      type: Array,
+      require: true,
+      default: Array
+    },
+    responsibleList: {
+      type: Array,
+      require: true,
+      default: Array
+    },
+    identifiedList: {
+      type: Array,
+      require: true,
+      default: Array
+    }
+  },
+  data: function data() {
+    return {
+      config: {
+        url: "http://clean-crm/api/taskfile",
+        thumbnailWidth: null
+      },
+      dataNumber: [],
+      dataStreet: []
+    };
+  },
+
+  components: {
+    vueDropzone: _vue2Dropzone2.default,
+    Datepicker: _vuejsDatepicker2.default,
+    VueSuggestions: _vueSuggestions2.default,
+    Multiselect: _vueMultiselect2.default
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    setTimeout(function () {
+      _this.rewriteTask.images.forEach(function (image) {
+        typeof image.path === 'string' ? image.path = JSON.parse(image.path) : null;
+        _this.$refs.myVueDropzone.manuallyAddFile({ type: image.path.type, size: image.path.size, name: image.path.name }, image.path.file);
+      });
+    }, 1000);
+  },
+
+  methods: {
+    save: function save() {
+      var _this2 = this;
+
+      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this2.$emit('save');
+                console.log(_this2.task);
+                console.log(_this2.rewriteTask);
+                _this2.rewriteTask.reformatDateToAPI();
+                window.axios.put('/api/admin/task', _this2.rewriteTask).then(function (response) {
+                  response.data === 'Success' ? window.toastr['success']('Выполнено', 'Сохранено') : window.toastr['error']('Ошибка', 'Не выполнено');
+                }).catch(function (error) {
+                  console.log(error);
+                  window.toastr['error']('Ошибка', 'Не выполнено');
+                });
+
+              case 5:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, _this2);
+      }))();
+    },
+    addResponsibleTag: function addResponsibleTag(responsible) {
+      var _this3 = this;
+
+      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
+        return _regenerator2.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                // TODO: переделать создание тег, отправлять на сервер,
+                // а потом уже с новый список принимать, по списку искать новый тег и его вставлять в v-model
+                console.log(responsible);
+                responsible = {
+                  id: Math.max.apply(Math, _this3.responsibleList.map(function (res) {
+                    return res.id;
+                  })) + 1,
+                  name: responsible
+                };
+                window.axios.post('/api/admin/responsibles/create', responsible).then(function (res) {
+                  console.log(res);
+                  _this3.responsibleList.push(responsible);
+                  _this3.rewriteTask.responsible = responsible;
+                }).catch(function (error) {
+                  window.toastr['error']('Ошибка', 'Не выполнено');
+                });
+
+              case 3:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, _this3);
+      }))();
+    },
+    afterComplete: function afterComplete(file) {
+      console.log(file);
+      try {
+        var image = JSON.parse(file.xhr.response).image;
+        image.path = JSON.parse(image.path);
+        this.rewriteTask.images.push(image);
+      } catch (e) {
+        console.warn(e);
+      }
+    },
+    getNumberHome: function getNumberHome(query) {
+      var _this4 = this;
+
+      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3() {
+        return _regenerator2.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                console.log(_this4.rewriteTask.street + " " + query);
+                window.axios.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address', {
+                  query: query,
+                  locations: [{
+                    city: "Красноярск",
+                    street_fias_id: _this4.rewriteTask.street.data.street_fias_id
+                  }],
+                  restrict_value: true
+                }, {
+                  headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": "Token be33fe1fe0328828d9632c248dcad68166e62740",
+                    "X-Secret": "23c196abec29f8f3bafeb96f8be339c491a3bb77"
+                  }
+                }).then(function (res) {
+                  _this4.dataNumber = [];
+                  res.data.suggestions.forEach(function (element) {
+                    _this4.dataNumber.push(element.value);
+                  });
+                  console.log(_this4.dataNumber);
+                });
+
+              case 2:
+              case 'end':
+                return _context3.stop();
+            }
+          }
+        }, _callee3, _this4);
+      }))();
+    },
+    getStreet: function getStreet(query) {
+      var _this5 = this;
+
+      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4() {
+        return _regenerator2.default.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                window.axios.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address', {
+                  query: query,
+                  locations: [{
+                    city: "Красноярск"
+                  }],
+                  restrict_value: true
+                }, {
+                  headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": "Token be33fe1fe0328828d9632c248dcad68166e62740",
+                    "X-Secret": "23c196abec29f8f3bafeb96f8be339c491a3bb77"
+                  }
+                }).then(function (res) {
+                  _this5.dataStreet = [];
+                  _this5.dataStreet = res.data.suggestions;
+                  console.log(_this5.dataStreet);
+                });
+
+              case 1:
+              case 'end':
+                return _context4.stop();
+            }
+          }
+        }, _callee4, _this5);
+      }))();
+    }
+  }
+};
+
+/***/ }),
+/* 443 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card-body" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-4 mt-4" }, [
+        _c("h5", { staticClass: "section-semi-title" }, [
+          _vm._v("Навзавние проблемы")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.rewriteTask.name,
+              expression: "rewriteTask.name"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            placeholder: "Название проблемы",
+            required: ""
+          },
+          domProps: { value: _vm.rewriteTask.name },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.rewriteTask, "name", $event.target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-12 mt-4" }, [
+        _c("h5", { staticClass: "section-semi-title" }, [
+          _vm._v("Описание проблемы проблемы")
+        ]),
+        _vm._v(" "),
+        _c("textarea", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.rewriteTask.description,
+              expression: "rewriteTask.description"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { placeholder: "Описание", rows: "3" },
+          domProps: { value: _vm.rewriteTask.description },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.rewriteTask, "description", $event.target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-6 mt-4" },
+        [
+          _c("h5", { staticClass: "section-semi-title" }, [_vm._v("Улица")]),
+          _vm._v(" "),
+          _c("multiselect", {
+            attrs: {
+              id: "ajax",
+              placeholder: "Название улицы",
+              options: _vm.dataStreet,
+              searchable: true,
+              multiple: false,
+              label: "value",
+              selectLabel: ""
+            },
+            on: { "search-change": _vm.getStreet },
+            model: {
+              value: _vm.rewriteTask.street,
+              callback: function($$v) {
+                _vm.$set(_vm.rewriteTask, "street", $$v)
+              },
+              expression: "rewriteTask.street"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-6 mt-4" },
+        [
+          _c("h5", { staticClass: "section-semi-title" }, [
+            _vm._v("Номер дома")
+          ]),
+          _vm._v(" "),
+          _c("multiselect", {
+            attrs: {
+              id: "ajax",
+              placeholder: "Номер дома",
+              options: _vm.dataNumber,
+              searchable: true,
+              multiple: false,
+              selectLabel: ""
+            },
+            on: { "search-change": _vm.getNumberHome },
+            model: {
+              value: _vm.rewriteTask.numberHome,
+              callback: function($$v) {
+                _vm.$set(_vm.rewriteTask, "numberHome", $$v)
+              },
+              expression: "rewriteTask.numberHome"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-12 mt-4" },
+        [
+          _c("h5", { staticClass: "section-semi-title" }, [
+            _vm._v("Кем выявлено")
+          ]),
+          _vm._v(" "),
+          _c("multiselect", {
+            attrs: {
+              options: _vm.identifiedList,
+              multiple: true,
+              placeholder: "Кем выявлено",
+              "hide-selected": true,
+              label: "name",
+              selectLabel: "",
+              searchable: true,
+              "track-by": "id"
+            },
+            model: {
+              value: _vm.rewriteTask.identified,
+              callback: function($$v) {
+                _vm.$set(_vm.rewriteTask, "identified", $$v)
+              },
+              expression: "rewriteTask.identified"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-12 mt-4" },
+        [
+          _c("h5", { staticClass: "section-semi-title" }, [
+            _vm._v("Ответсвенный")
+          ]),
+          _vm._v(" "),
+          _c("multiselect", {
+            attrs: {
+              options: _vm.responsibleList,
+              "hide-selected": true,
+              selectLabel: "",
+              taggable: true,
+              placeholder: "Ответсвтенный",
+              "track-by": "name",
+              label: "name"
+            },
+            on: { tag: _vm.addResponsibleTag },
+            model: {
+              value: _vm.rewriteTask.responsible,
+              callback: function($$v) {
+                _vm.$set(_vm.rewriteTask, "responsible", $$v)
+              },
+              expression: "rewriteTask.responsible"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-12 mt-4" }, [
+        _c("h5", { staticClass: "section-semi-title" }, [
+          _vm._v("Ответсвенный исполнитель")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.rewriteTask.responsibleExecutor,
+              expression: "rewriteTask.responsibleExecutor"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            placeholder: "Ответственный исполнитель",
+            required: ""
+          },
+          domProps: { value: _vm.rewriteTask.responsibleExecutor },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(
+                _vm.rewriteTask,
+                "responsibleExecutor",
+                $event.target.value
+              )
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-6 mt-4" },
+        [
+          _c("h5", { staticClass: "section-semi-title" }, [
+            _vm._v("Дата выявления")
+          ]),
+          _vm._v(" "),
+          _c("datepicker", {
+            attrs: {
+              "input-class": "form-control",
+              format: "dd.MM.yyyy",
+              placeholder: "Select Date"
+            },
+            model: {
+              value: _vm.rewriteTask.dateOfDetection,
+              callback: function($$v) {
+                _vm.$set(_vm.rewriteTask, "dateOfDetection", $$v)
+              },
+              expression: "rewriteTask.dateOfDetection"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-6 mt-4" },
+        [
+          _c("h5", { staticClass: "section-semi-title" }, [
+            _vm._v("Дата устранения")
+          ]),
+          _vm._v(" "),
+          _c("datepicker", {
+            attrs: {
+              "input-class": "form-control",
+              format: "dd.MM.yyyy",
+              placeholder: "Select Date"
+            },
+            model: {
+              value: _vm.rewriteTask.correctionDate,
+              callback: function($$v) {
+                _vm.$set(_vm.rewriteTask, "correctionDate", $$v)
+              },
+              expression: "rewriteTask.correctionDate"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-6 mt-4" },
+        [
+          _c("h5", { staticClass: "section-semi-title" }, [
+            _vm._v("Констролный срок")
+          ]),
+          _vm._v(" "),
+          _c("datepicker", {
+            attrs: {
+              "input-class": "form-control",
+              format: "dd.MM.yyyy",
+              placeholder: "Select Date"
+            },
+            model: {
+              value: _vm.rewriteTask.targetDate,
+              callback: function($$v) {
+                _vm.$set(_vm.rewriteTask, "targetDate", $$v)
+              },
+              expression: "rewriteTask.targetDate"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-12 mt-4" }, [
+        _c("h5", { staticClass: "section-semi-title" }, [
+          _vm._v("Проведенная работа")
+        ]),
+        _vm._v(" "),
+        _c("textarea", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.rewriteTask.conductedWork,
+              expression: "rewriteTask.conductedWork"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { rows: "3", placeholder: "Описание проведённой работы" },
+          domProps: { value: _vm.rewriteTask.conductedWork },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.rewriteTask, "conductedWork", $event.target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-12 mt-4" },
+        [
+          _c("h5", { staticClass: "section-semi-title" }, [
+            _vm._v("Медиа файлы")
+          ]),
+          _vm._v(" "),
+          _c("vue-dropzone", {
+            ref: "myVueDropzone",
+            attrs: { id: "drop1", options: _vm.config },
+            on: { "vdropzone-complete": _vm.afterComplete }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "col-12 mt-4 justify-content-center align-content-center d-flex"
+        },
+        [
+          _c(
+            "button",
+            { staticClass: "btn btn-primary mr-1", on: { click: _vm.save } },
+            [_vm._v("Сохранить")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default ml-1",
+              on: {
+                click: function($event) {
+                  _vm.$router.push({ name: "tasks" })
+                }
+              }
+            },
+            [_vm._v("Отменить")]
+          )
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-f2a51462", module.exports)
+  }
+}
+
+/***/ }),
+/* 444 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(445)
+/* template */
+var __vue_template__ = __webpack_require__(446)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\js\\views\\admin\\tasks\\task\\read.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7a7bb954", Component.options)
+  } else {
+    hotAPI.reload("data-v-7a7bb954", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 445 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+  props: {
+    task: {
+      type: Object,
+      require: true,
+      default: Object
+    }
+    // data () {
+    //   return {
+
+    //   }
+    // }
+  } };
+
+/***/ }),
+/* 446 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card-body" }, [
+    _c("div", { staticClass: "row" }, [
+      _vm._v("\n    " + _vm._s(_vm.task.name) + "\n  ")
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-7a7bb954", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

@@ -82,12 +82,12 @@ class TaskController extends Controller {
     $task = Task::find($request->id);
     $task['name'] = $request->name;
     $request->conductedWork != "" ? $task['conducted_work'] = $request->conductedWork : null;
-    $request->correctionDate != "" ? $task['correction_date'] = new Carbon($request->correctionDate) : null;
+    $request->correctionDate != "" ? $task['correction_date'] = new Carbon($request->_correctionDate) : null;
     $request->responsibleExecutor != "" ? $task['responsible_executor'] = $request->responsibleExecutor : null;
     $task['street'] = $request->street['value'];
     $task['number_home'] = $request->numberHome;
     $task['description'] = $request->description;
-    $task['date_of_detection'] = new Carbon($request->dateOfDetection);
+    $task['date_of_detection'] = new Carbon($request->_dateOfDetection);
     $responsible = Responsible::find($request->responsible['id']);
     $task->responsible()->associate($responsible);
     $identified = [];
@@ -100,8 +100,8 @@ class TaskController extends Controller {
     }
     $task->identified()->sync($identified);
     $task->images()->sync($images);
-    $task['target_date'] = new Carbon($request->targetDate);
+    $task['target_date'] = new Carbon($request->_targetDate);
     $task->save();
-    return response()->json($task, 200);
+    return response()->json('Success', 200);
   }
 }
