@@ -10,7 +10,7 @@
             <table-component
               :data="getTasks"
               table-class="table"
-              sort-by="date_of_detection"
+              sort-by="detection_date"
               sort-order="desc"
               filter-placeholder="Поиск"
               filterNoResults="Нет данных"
@@ -18,7 +18,7 @@
             >
               <table-column show="street" label="Улица"/>
               <table-column show="number_home" label="Номер дома"/>
-              <table-column show="date_of_detection" label="ДАТА ВЫЯВЛЕНИЯ"/>
+              <table-column show="detection_date" label="ДАТА ВЫЯВЛЕНИЯ"/>
               <table-column show="description" label="Описание"/>
               <table-column show="target_date" label="КОНТРОЛЬНЫЙ СРОК"/>
               <table-column

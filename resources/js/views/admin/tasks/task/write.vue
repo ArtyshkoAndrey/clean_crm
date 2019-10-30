@@ -78,7 +78,7 @@
       </div>
       <div class="col-md-6 mt-4">
         <h5 class="section-semi-title">Дата выявления</h5>
-        <datepicker input-class="form-control" format="dd.MM.yyyy" v-model="rewriteTask.dateOfDetection" placeholder="Select Date"/>
+        <datepicker input-class="form-control" format="dd.MM.yyyy" v-model="rewriteTask.detectionDate" placeholder="Select Date"/>
       </div>
       <div class="col-md-6 mt-4">
         <h5 class="section-semi-title">Дата устранения</h5>

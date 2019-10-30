@@ -33,7 +33,7 @@ class UsersTableSeeder extends Seeder
             'street' => 'Горького',
             'number_home' => '24',
             'description' => 'Пакет на дереве',
-            'date_of_detection' => Carbon::parse('2019-10-21'),
+            'detection_date' => Carbon::parse('2019-10-21'),
             'responsible_id' => 1,
             'target_date' => Carbon::parse('2019-10-24')
         ]);

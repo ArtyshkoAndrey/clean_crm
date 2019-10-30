@@ -20,7 +20,7 @@ class CreateTasksTable extends Migration
             $table->string('street'); // Улица
             $table->string('number_home'); // Номер дома
             $table->text('description'); // Описание
-            $table->date('date_of_detection'); // Дата обналужения
+            $table->date('detection_date'); // Дата обналужения
             // $table->text('identified'); // Кем выявлено Отношения многие ко многим
             $table->integer('responsible_id'); // Ответственный Отношения Один к одному В таске id ответ. А отв. в отдельной таблице.
             $table->date('target_date'); // Когда должны выполнить

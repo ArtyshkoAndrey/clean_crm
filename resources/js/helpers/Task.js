@@ -1,42 +1,30 @@
 export default class Task {
   constructor (task) {
-    this.id = task.id
-    this.street = {}
-    this.street.value = task.street
-    this.dateOfDetection = this.reformatDateAPI(task.date_of_detection)
-    this.numberHome = task.number_home
-    this.responsible = task.responsible
-    this.identified = task.identified
-    this.name = task.name
-    this.description = task.description
-    this.targetDate = this.reformatDateAPI(task.target_date)
-    this.correctionDate = this.reformatDateAPI(task.correction_date)
-    this.responsibleExecutor = task.responsible_executor
-    this.conductedWork = task.conducted_work
-    this.images = task.images
-    this._targetDate = null
-    this._correctionDate = null
-    this._dateOfDetection = null
-  }
-
-  reformatDateAPI (date = null) {
-    try {
-      if (date) {
-        return new Date(date.slice(6, 10), parseInt(date.slice(3, 5)) - 1, date.slice(0, 2))
-      } else {
-        return ''
+    for (let key in task) {
+      let CamelCaseKey = key.replace(/[-_]([a-z])/g,
+        (m) => {
+          return m[1].toUpperCase()
+        }
+      )
+      this[CamelCaseKey] = task[key]
+      if (CamelCaseKey === 'street') {
+        this[CamelCaseKey] = {}
+        this[CamelCaseKey]['value'] = task[key]
       }
-    } catch (e) {
-      console.error(e)
-      return Date(Date.now())
+      if (CamelCaseKey.includes('Date')) {
+        if (this[CamelCaseKey]) {
+          this[CamelCaseKey] = new Date(this[CamelCaseKey].slice(6, 10), parseInt(this[CamelCaseKey].slice(3, 5)) - 1, this[CamelCaseKey].slice(0, 2))
+        }
+        Object.defineProperty(this, '_' + CamelCaseKey + 'String', {
+          get: function () {
+            if (this[CamelCaseKey]) {
+              return this[CamelCaseKey].toLocaleString()
+            } else {
+              return ''
+            }
+          }
+        })
+      }
     }
-  }
-
-  reformatDateToAPI () {
-    this._targetDate = this.targetDate.toLocaleDateString()
-    if (this.correctionDate) {
-      this._correctionDate = this.correctionDate.toLocaleDateString()
-    }
-    this._dateOfDetection = this.dateOfDetection.toLocaleDateString()
   }
 }

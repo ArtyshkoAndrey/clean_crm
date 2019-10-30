@@ -19,7 +19,7 @@ Route::get('/test', function(Request $request) {
     $tasks = Task::where('user_id', 1)->get();
     if (isset($request->filter) && $request->filter !== '') {
       echo 'TEST \n';
-      $tasks = Task::where('user_id', 1)->where('street', 'LIKE', "%{$request->filter}%")->orWhere('number_home', 'LIKE', "%{$request->filter}%")->orWhere('description', 'LIKE', "%{$request->filter}%")->orWhere('target_date', 'LIKE', "%{$request->filter}%")->orWhere('date_of_detection', 'LIKE', "%{$request->filter}%")->paginate(10);
+      $tasks = Task::where('user_id', 1)->where('street', 'LIKE', "%{$request->filter}%")->orWhere('number_home', 'LIKE', "%{$request->filter}%")->orWhere('description', 'LIKE', "%{$request->filter}%")->orWhere('target_date', 'LIKE', "%{$request->filter}%")->orWhere('detection_date', 'LIKE', "%{$request->filter}%")->paginate(10);
     } else if (isset($request->sortName)) {
       $tasks = Task::where('user_id', 1)
         ->when($request, function ($query, $request) {

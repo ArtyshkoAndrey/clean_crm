@@ -23,7 +23,7 @@ class TaskController extends Controller {
                strstr(mb_strtolower($task->number_home), mb_strtolower($filter)) ||
                strstr(mb_strtolower($task->description), mb_strtolower($filter)) ||
                strstr($task->target_date->toDateString(), mb_strtolower($filter)) ||
-               strstr($task->date_of_detection->toDateString(), mb_strtolower($filter));
+               strstr($task->detection_date->toDateString(), mb_strtolower($filter));
     });
     $tasks = $tasks->paginate(10);
     } else if (isset($request->sortName)) {
@@ -87,7 +87,7 @@ class TaskController extends Controller {
     $task['street'] = $request->street['value'];
     $task['number_home'] = $request->numberHome;
     $task['description'] = $request->description;
-    $task['date_of_detection'] = new Carbon($request->_dateOfDetection);
+    $task['detection_date'] = new Carbon($request->detectionDate);
     $responsible = Responsible::find($request->responsible['id']);
     $task->responsible()->associate($responsible);
     $identified = [];
