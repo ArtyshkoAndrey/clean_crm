@@ -11,6 +11,7 @@ use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Model\Image;
 use Carbon\Carbon;
+use File;
 
 class TaskController extends Controller {
   public function all (Request $request) {
@@ -51,22 +52,21 @@ class TaskController extends Controller {
     return response()->json('Success', 200);
   }
 
-  public function taskfile (Request $request) {
+  public function taskfileCreate (Request $request) {
     if($request->file('file'))
     {
       $image = $request->file('file');
-      $name = time().$image->getClientOriginalName();
+      $name = $image->getClientOriginalName();
       $image->move(public_path().'/images/tasks/', $name);
       // dd(filesize(public_path().'/images/tasks/'.$name));
 
       $img = Image::create([
-        'path' => json_encode(array(
-            'file' => '/images/tasks/'.$name,
-            'type' => 'type/'.$image->getClientOriginalExtension(),
-            'size' => filesize(public_path().'/images/tasks/'.$name),
-            'name' => $name
-          )
-        )
+        'path' => [
+          'file' => '/images/tasks/'.$name,
+          'type' => 'type/'.$image->getClientOriginalExtension(),
+          'size' => filesize(public_path().'/images/tasks/'.$name),
+          'name' => $name
+        ]
       ]);
       return response()->json([
         'success' => 'You have successfully uploaded an image',
@@ -78,16 +78,40 @@ class TaskController extends Controller {
     ], 200);
   }
 
+  public function taskfileDelete ($name) {
+    // return response()->json($name);
+    if($name)
+    {
+      $image = Image::where('path->name', $name)->first();
+      if ($image) {
+        $image->tasks()->detach();
+        $image->delete();
+        File::delete(public_path().'/images/tasks/'.$name);
+        return response()->json([
+          'success' => 'Изображение удалено',
+          'image' => $name
+        ], 200);
+      }
+      return response()->json([
+        'success' => 'Изображение не найдено',
+        'image' => $name
+      ], 200);
+    }
+    return response()->json([
+      'error' => 'no file'
+    ], 200);
+  }
+
   public function update (Request $request) {
     $task = Task::find($request->id);
     $task['name'] = $request->name;
     $request->conductedWork != "" ? $task['conducted_work'] = $request->conductedWork : null;
-    $request->correctionDate != "" ? $task['correction_date'] = new Carbon($request->_correctionDate) : null;
+    $request->_correctionDateString != "" ? $task['correction_date'] = new Carbon($request->_correctionDateString) : null;
     $request->responsibleExecutor != "" ? $task['responsible_executor'] = $request->responsibleExecutor : null;
     $task['street'] = $request->street['value'];
     $task['number_home'] = $request->numberHome;
     $task['description'] = $request->description;
-    $task['detection_date'] = new Carbon($request->detectionDate);
+    $task['detection_date'] = new Carbon($request->_detectionDateString);
     $responsible = Responsible::find($request->responsible['id']);
     $task->responsible()->associate($responsible);
     $identified = [];
@@ -100,7 +124,7 @@ class TaskController extends Controller {
     }
     $task->identified()->sync($identified);
     $task->images()->sync($images);
-    $task['target_date'] = new Carbon($request->_targetDate);
+    $task['target_date'] = new Carbon($request->_targetDateString);
     $task->save();
     return response()->json('Success', 200);
   }

@@ -42,7 +42,8 @@ Route::group(['prefix' => 'auth'], function () {
 Route::post('email-exist',[
   'as' => 'email-exist','uses' => 'AuthController@emailExist'
 ]);
-Route::post('/taskfile','TaskController@taskfile');
+Route::post('/taskfile','TaskController@taskfileCreate');
+Route::delete('/taskfile/{name}','TaskController@taskfileDelete');
 
 // admin route
 Route::group(['prefix' => 'admin', 'middleware' => 'api.auth'], function (){

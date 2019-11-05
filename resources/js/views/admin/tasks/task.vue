@@ -9,7 +9,6 @@
                 <h6 class="font-weight-bold d-flex h-100">Задача №{{ task.id }} - {{ task.name }}</h6>
                 <transition name="fade" mode="out-in">
                   <button key=1 @click="mode='write'" v-if="mode === 'read'" class="btn-sm btn btn-warning">Изменить</button>
-                  <button key=2 @click="mode='read'" v-else-if="mode === 'write'" class="btn-sm btn btn-primary">Сохранить</button>
                 </transition>
               </div>
             </div>

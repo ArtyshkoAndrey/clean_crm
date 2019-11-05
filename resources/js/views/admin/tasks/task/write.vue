@@ -82,7 +82,14 @@
       </div>
       <div class="col-md-6 mt-4">
         <h5 class="section-semi-title">Дата устранения</h5>
-        <datepicker input-class="form-control" format="dd.MM.yyyy" v-model="rewriteTask.correctionDate" placeholder="Select Date"/>
+        <div class="row">
+          <div class="col-md-8 col-12">
+            <datepicker input-class="form-control" format="dd.MM.yyyy" v-model="rewriteTask.correctionDate" placeholder="Select Date"/>
+          </div>
+          <div class="col-md-4 col-12">
+            <button class="btn btn-default" @click="rewriteTask.correctionDate = null">Отчистить</button>
+          </div>
+        </div>
       </div>
       <div class="col-md-6 mt-4">
         <h5 class="section-semi-title">Констролный срок</h5>
@@ -99,7 +106,12 @@
       </div>
       <div class="col-12 mt-4">
         <h5 class="section-semi-title">Медиа файлы</h5>
-        <vue-dropzone id="drop1" :options="config" @vdropzone-complete="afterComplete" ref="myVueDropzone"></vue-dropzone>
+        <vue-dropzone id="drop1" :useCustomSlot="true" :options="config" @vdropzone-complete="afterComplete" @vdropzone-removed-file="removedImage" ref="myVueDropzone">
+          <div class="dropzone-custom-content">
+            <h3 class="dropzone-custom-title">Перетащите свои фотографии сюда!</h3>
+            <div class="subtitle">... или нажмит на это поле</div>
+          </div>
+        </vue-dropzone>
       </div>
       <div class="col-12 mt-4 justify-content-center align-content-center d-flex">
         <button class="btn btn-primary mr-1" @click="save">Сохранить</button>
@@ -152,9 +164,15 @@
       config: {
         url: "http://clean-crm/api/taskfile",
         thumbnailWidth: null,
+        addRemoveLinks: true,
+        renameFile: function (file) {
+          let newName = new Date().getTime() + '_' + file.name;
+          return newName;
+        },
       },
       dataNumber: [],
       dataStreet: [],
+      saved: false
     }
   },
   components: {
@@ -165,6 +183,7 @@
   },
   mounted () {
     setTimeout(() => {
+      console.log(this.rewriteTask.images)
       this.rewriteTask.images.forEach(image => {
         typeof image.path === 'string' ? image.path = JSON.parse(image.path) : null
         this.$refs.myVueDropzone.manuallyAddFile({ type: image.path.type, size: image.path.size, name: image.path.name}, image.path.file);
@@ -172,13 +191,34 @@
     }, 1000);
   },
   methods: {
+    async removedImage (file, error, xhr) {
+      if(!this.saved) {
+        let name
+        if (file.constructor.name !== 'File') {
+          name = file.name
+        } else {
+          name = file.upload.filename
+        }
+        window.axios.delete('http://clean-crm/api/taskfile/'+name)
+        .then(response => {
+          let removeIndex = this.rewriteTask.images.map(function(item) { return item.path.name; }).indexOf(file.name);
+          ~removeIndex && this.rewriteTask.images.splice(removeIndex, 1);
+          response.data.success ? window.toastr['success']('Выполнено', response.data.success) : window.toastr['error']('Ошибка', response.data.error)
+        })
+        .catch(error => {
+          console.log(error)
+          window.toastr['error']('Ошибка', 'Не выполнено')
+        });
+      }
+    },
     async save () {
       this.$emit('save');
+      this.saved = true
       console.log(this.task)
       console.log(this.rewriteTask)
-      this.rewriteTask.reformatDateToAPI()
       window.axios.put('/api/admin/task', this.rewriteTask)
       .then(response => {
+        console.log(response)
         response.data === 'Success' ? window.toastr['success']('Выполнено', 'Сохранено') : window.toastr['error']('Ошибка', 'Не выполнено')
       })
       .catch(error => {
@@ -206,7 +246,7 @@
       console.log(file);
       try {
         let image = JSON.parse(file.xhr.response).image
-        image.path = JSON.parse(image.path)
+        image.path.name = file.upload.filename
         this.rewriteTask.images.push(image)
       } catch (e) {
         console.warn(e)
@@ -270,3 +310,22 @@
 }
 
 </script>
+
+<style>
+.dropzone-custom-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.dropzone-custom-title {
+  margin-top: 0;
+  color: #00b782;
+}
+
+.subtitle {
+  color: #314b5f;
+}
+</style>

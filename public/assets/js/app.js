@@ -37511,7 +37511,7 @@ exports = module.exports = __webpack_require__(13)(true);
 
 
 // module
-exports.push([module.i, "\n.graph-container[data-v-d3f2b950] {\r\n  height: 300px;\n}\r\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/components/chartjs/resources/js/components/chartjs/BarChart.vue"],"names":[],"mappings":";AAkEA;EACA,cAAA;CACA","file":"BarChart.vue","sourcesContent":["<template>\r\n  <div class=\"graph-container\">\r\n    <canvas id=\"graph\" ref=\"graph\"/>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport Chart from 'chart.js'\r\n\r\nexport default {\r\n  props: {\r\n    labels: {\r\n      type: Array,\r\n      require: true,\r\n      default: Array\r\n    },\r\n    values: {\r\n      type: Array,\r\n      require: true,\r\n      default: Array\r\n    },\r\n    labelForDataset: {\r\n      type: String,\r\n      default: 'Кол-во'\r\n    }\r\n  },\r\n\r\n  mounted () {\r\n    let context = this.$refs.graph.getContext('2d')\r\n    let options = {\r\n      responsive: true,\r\n      maintainAspectRatio: false,\r\n      legend: {\r\n        display: false\r\n      }\r\n    }\r\n\r\n    let data = {\r\n      labels: this.labels,\r\n      datasets: [\r\n        {\r\n          label: this.labelForDataset,\r\n          backgroundColor: 'rgba(79, 196, 127,0.2)',\r\n          borderColor: 'rgba(79, 196, 127,1)',\r\n          borderWidth: 1,\r\n          hoverBackgroundColor: 'rgba(79, 196, 127,0.4)',\r\n          hoverBorderColor: 'rgba(79, 196, 127,1)',\r\n          data: this.values\r\n        }\r\n      ]\r\n    }\r\n\r\n    this.myBarChart = new Chart(context, {\r\n      type: 'bar',\r\n      data: data,\r\n      options: options\r\n    })\r\n  },\r\n\r\n  beforeDestroy () {\r\n    this.myBarChart.destroy()\r\n  }\r\n}\r\n</script>\r\n\r\n<style scoped>\r\n.graph-container {\r\n  height: 300px;\r\n}\r\n</style>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.graph-container[data-v-d3f2b950] {\n  height: 300px;\n}\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/components/chartjs/resources/js/components/chartjs/BarChart.vue"],"names":[],"mappings":";AAkEA;EACA,cAAA;CACA","file":"BarChart.vue","sourcesContent":["<template>\n  <div class=\"graph-container\">\n    <canvas id=\"graph\" ref=\"graph\"/>\n  </div>\n</template>\n\n<script>\nimport Chart from 'chart.js'\n\nexport default {\n  props: {\n    labels: {\n      type: Array,\n      require: true,\n      default: Array\n    },\n    values: {\n      type: Array,\n      require: true,\n      default: Array\n    },\n    labelForDataset: {\n      type: String,\n      default: 'Кол-во'\n    }\n  },\n\n  mounted () {\n    let context = this.$refs.graph.getContext('2d')\n    let options = {\n      responsive: true,\n      maintainAspectRatio: false,\n      legend: {\n        display: false\n      }\n    }\n\n    let data = {\n      labels: this.labels,\n      datasets: [\n        {\n          label: this.labelForDataset,\n          backgroundColor: 'rgba(79, 196, 127,0.2)',\n          borderColor: 'rgba(79, 196, 127,1)',\n          borderWidth: 1,\n          hoverBackgroundColor: 'rgba(79, 196, 127,0.4)',\n          hoverBorderColor: 'rgba(79, 196, 127,1)',\n          data: this.values\n        }\n      ]\n    }\n\n    this.myBarChart = new Chart(context, {\n      type: 'bar',\n      data: data,\n      options: options\n    })\n  },\n\n  beforeDestroy () {\n    this.myBarChart.destroy()\n  }\n}\n</script>\n\n<style scoped>\n.graph-container {\n  height: 300px;\n}\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -58548,7 +58548,7 @@ exports = module.exports = __webpack_require__(13)(true);
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active {\r\n  -webkit-transition: opacity .5s;\r\n  transition: opacity .5s\n}\n.fade-enter,\r\n.fade-leave-active {\r\n  opacity: 0\n}\r\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/views/admin/tasks/resources/js/views/admin/tasks/task.vue"],"names":[],"mappings":";AAwGA;EACA,gCAAA;EAAA,uBAAA;CACA;AAEA;;EAEA,UAAA;CACA","file":"task.vue","sourcesContent":["<template>\r\n  <div class=\"main-content\">\r\n    <div class=\"row\">\r\n      <div class=\"col-12\">\r\n        <transition name=\"fade\" mode=\"out-in\">\r\n          <div key=1 class=\"card\" v-if='!loading'>\r\n            <div class=\"card-header\">\r\n              <div class=\"col-12 d-flex align-items-center justify-content-between\">\r\n                <h6 class=\"font-weight-bold d-flex h-100\">Задача №{{ task.id }} - {{ task.name }}</h6>\r\n                <transition name=\"fade\" mode=\"out-in\">\r\n                  <button key=1 @click=\"mode='write'\" v-if=\"mode === 'read'\" class=\"btn-sm btn btn-warning\">Изменить</button>\r\n                  <button key=2 @click=\"mode='read'\" v-else-if=\"mode === 'write'\" class=\"btn-sm btn btn-primary\">Сохранить</button>\r\n                </transition>\r\n              </div>\r\n            </div>\r\n            <transition name=\"fade\" mode=\"out-in\">\r\n              <Write\r\n                key='write'\r\n                v-if='mode === \"write\"'\r\n                :rewriteTask='rewriteTask'\r\n                :task='task'\r\n                :user='user'\r\n                :allUsers='allUsers'\r\n                :responsibleList='responsibleList'\r\n                :identifiedList='identifiedList'\r\n                @save='onSave'\r\n              >\r\n              </Write>\r\n              <Read\r\n                key='read'\r\n                v-else\r\n                :task='rewriteTask'\r\n              >\r\n              </Read>\r\n            </transition>\r\n          </div>\r\n          <div key=2 class=\"card\" v-else>\r\n            <div class=\"card-header\">\r\n              <h6>Загрузка</h6>\r\n            </div>\r\n            <div class=\"card-body\">\r\n              <div class=\"d-flex justify-content-center\">\r\n                <div class=\"spinner-grow text-primary\" role=\"status\">\r\n                  <span class=\"sr-only\">Loading...</span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </transition>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n<script type=\"text/babel\">\r\nimport Write from './task/write.vue'\r\nimport Read from './task/read.vue'\r\nimport Task from '../../../helpers/Task'\r\nexport default {\r\n  data () {\r\n    return {\r\n      'header': 'header',\r\n      rewriteTask: {},\r\n      mode: 'read',\r\n      task: {},\r\n      user: {},\r\n      allUsers: [],\r\n      loading: true,\r\n      config: {\r\n        url: \"http://clean-crm/api/taskfile\",\r\n        thumbnailWidth: null,\r\n      },\r\n      responsibleList: [],\r\n      identifiedList: []\r\n    }\r\n  },\r\n  components: {\r\n    Write,\r\n    Read\r\n  },\r\n  created() {\r\n    this.getTask(this.$route.params.id)    \r\n  },\r\n  methods: {\r\n    onSave() {\r\n      this.mode === 'write' ? this.mode = 'read' : this.mode = 'write'\r\n    },\r\n    async getTask (id) {\r\n      let response = await window.axios.post('/api/admin/task/view/' + id)\r\n      let userResponse = await window.axios.post('/api/admin/profile')\r\n      let identifiedResponse = await window.axios.post('/api/admin/users')\r\n      let responsibleResponse = await window.axios.post('/api/admin/responsibles')\r\n      this.identifiedList = identifiedResponse.data\r\n      this.responsibleList = responsibleResponse.data\r\n      this.task = response.data\r\n      this.user = userResponse.data\r\n      this.rewriteTask = new Task(this.task)\r\n      this.loading = false\r\n    }\r\n  }\r\n}\r\n</script>\r\n\r\n<style>\r\n.fade-enter-active {\r\n  transition: opacity .5s\r\n}\r\n\r\n.fade-enter,\r\n.fade-leave-active {\r\n  opacity: 0\r\n}\r\n</style>"],"sourceRoot":""}]);
+exports.push([module.i, "\n.fade-enter-active {\r\n  -webkit-transition: opacity .5s;\r\n  transition: opacity .5s\n}\n.fade-enter,\r\n.fade-leave-active {\r\n  opacity: 0\n}\r\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/views/admin/tasks/resources/js/views/admin/tasks/task.vue"],"names":[],"mappings":";AAuGA;EACA,gCAAA;EAAA,uBAAA;CACA;AAEA;;EAEA,UAAA;CACA","file":"task.vue","sourcesContent":["<template>\r\n  <div class=\"main-content\">\r\n    <div class=\"row\">\r\n      <div class=\"col-12\">\r\n        <transition name=\"fade\" mode=\"out-in\">\r\n          <div key=1 class=\"card\" v-if='!loading'>\r\n            <div class=\"card-header\">\r\n              <div class=\"col-12 d-flex align-items-center justify-content-between\">\r\n                <h6 class=\"font-weight-bold d-flex h-100\">Задача №{{ task.id }} - {{ task.name }}</h6>\r\n                <transition name=\"fade\" mode=\"out-in\">\r\n                  <button key=1 @click=\"mode='write'\" v-if=\"mode === 'read'\" class=\"btn-sm btn btn-warning\">Изменить</button>\r\n                </transition>\r\n              </div>\r\n            </div>\r\n            <transition name=\"fade\" mode=\"out-in\">\r\n              <Write\r\n                key='write'\r\n                v-if='mode === \"write\"'\r\n                :rewriteTask='rewriteTask'\r\n                :task='task'\r\n                :user='user'\r\n                :allUsers='allUsers'\r\n                :responsibleList='responsibleList'\r\n                :identifiedList='identifiedList'\r\n                @save='onSave'\r\n              >\r\n              </Write>\r\n              <Read\r\n                key='read'\r\n                v-else\r\n                :task='rewriteTask'\r\n              >\r\n              </Read>\r\n            </transition>\r\n          </div>\r\n          <div key=2 class=\"card\" v-else>\r\n            <div class=\"card-header\">\r\n              <h6>Загрузка</h6>\r\n            </div>\r\n            <div class=\"card-body\">\r\n              <div class=\"d-flex justify-content-center\">\r\n                <div class=\"spinner-grow text-primary\" role=\"status\">\r\n                  <span class=\"sr-only\">Loading...</span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </transition>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n<script type=\"text/babel\">\r\nimport Write from './task/write.vue'\r\nimport Read from './task/read.vue'\r\nimport Task from '../../../helpers/Task'\r\nexport default {\r\n  data () {\r\n    return {\r\n      'header': 'header',\r\n      rewriteTask: {},\r\n      mode: 'read',\r\n      task: {},\r\n      user: {},\r\n      allUsers: [],\r\n      loading: true,\r\n      config: {\r\n        url: \"http://clean-crm/api/taskfile\",\r\n        thumbnailWidth: null,\r\n      },\r\n      responsibleList: [],\r\n      identifiedList: []\r\n    }\r\n  },\r\n  components: {\r\n    Write,\r\n    Read\r\n  },\r\n  created() {\r\n    this.getTask(this.$route.params.id)    \r\n  },\r\n  methods: {\r\n    onSave() {\r\n      this.mode === 'write' ? this.mode = 'read' : this.mode = 'write'\r\n    },\r\n    async getTask (id) {\r\n      let response = await window.axios.post('/api/admin/task/view/' + id)\r\n      let userResponse = await window.axios.post('/api/admin/profile')\r\n      let identifiedResponse = await window.axios.post('/api/admin/users')\r\n      let responsibleResponse = await window.axios.post('/api/admin/responsibles')\r\n      this.identifiedList = identifiedResponse.data\r\n      this.responsibleList = responsibleResponse.data\r\n      this.task = response.data\r\n      this.user = userResponse.data\r\n      this.rewriteTask = new Task(this.task)\r\n      this.loading = false\r\n    }\r\n  }\r\n}\r\n</script>\r\n\r\n<style>\r\n.fade-enter-active {\r\n  transition: opacity .5s\r\n}\r\n\r\n.fade-enter,\r\n.fade-leave-active {\r\n  opacity: 0\r\n}\r\n</style>"],"sourceRoot":""}]);
 
 // exports
 
@@ -58716,13 +58716,16 @@ exports.default = {
 //
 //
 //
-//
 
 /***/ }),
 /* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(446)
+}
 var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(347)
@@ -58731,7 +58734,7 @@ var __vue_template__ = __webpack_require__(363)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -58913,6 +58916,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
   props: {
@@ -58951,10 +58966,16 @@ exports.default = {
     return {
       config: {
         url: "http://clean-crm/api/taskfile",
-        thumbnailWidth: null
+        thumbnailWidth: null,
+        addRemoveLinks: true,
+        renameFile: function renameFile(file) {
+          var newName = new Date().getTime() + '_' + file.name;
+          return newName;
+        }
       },
       dataNumber: [],
-      dataStreet: []
+      dataStreet: [],
+      saved: false
     };
   },
 
@@ -58968,6 +58989,7 @@ exports.default = {
     var _this = this;
 
     setTimeout(function () {
+      console.log(_this.rewriteTask.images);
       _this.rewriteTask.images.forEach(function (image) {
         typeof image.path === 'string' ? image.path = JSON.parse(image.path) : null;
         _this.$refs.myVueDropzone.manuallyAddFile({ type: image.path.type, size: image.path.size, name: image.path.name }, image.path.file);
@@ -58976,19 +58998,57 @@ exports.default = {
   },
 
   methods: {
-    save: function save() {
+    removedImage: function removedImage(file, error, xhr) {
       var _this2 = this;
 
       return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+        var name;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this2.$emit('save');
-                console.log(_this2.task);
-                console.log(_this2.rewriteTask);
-                _this2.rewriteTask.reformatDateToAPI();
-                window.axios.put('/api/admin/task', _this2.rewriteTask).then(function (response) {
+                if (!_this2.saved) {
+                  name = void 0;
+
+                  if (file.constructor.name !== 'File') {
+                    name = file.name;
+                  } else {
+                    name = file.upload.filename;
+                  }
+                  window.axios.delete('http://clean-crm/api/taskfile/' + name).then(function (response) {
+                    var removeIndex = _this2.rewriteTask.images.map(function (item) {
+                      return item.path.name;
+                    }).indexOf(file.name);
+                    ~removeIndex && _this2.rewriteTask.images.splice(removeIndex, 1);
+                    response.data.success ? window.toastr['success']('Выполнено', response.data.success) : window.toastr['error']('Ошибка', response.data.error);
+                  }).catch(function (error) {
+                    console.log(error);
+                    window.toastr['error']('Ошибка', 'Не выполнено');
+                  });
+                }
+
+              case 1:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, _this2);
+      }))();
+    },
+    save: function save() {
+      var _this3 = this;
+
+      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
+        return _regenerator2.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this3.$emit('save');
+                _this3.saved = true;
+                console.log(_this3.task);
+                console.log(_this3.rewriteTask);
+                window.axios.put('/api/admin/task', _this3.rewriteTask).then(function (response) {
+                  console.log(response);
                   response.data === 'Success' ? window.toastr['success']('Выполнено', 'Сохранено') : window.toastr['error']('Ошибка', 'Не выполнено');
                 }).catch(function (error) {
                   console.log(error);
@@ -58997,56 +59057,13 @@ exports.default = {
 
               case 5:
               case 'end':
-                return _context.stop();
-            }
-          }
-        }, _callee, _this2);
-      }))();
-    },
-    addResponsibleTag: function addResponsibleTag(responsible) {
-      var _this3 = this;
-
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
-        return _regenerator2.default.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                // TODO: переделать создание тег, отправлять на сервер,
-                // а потом уже с новый список принимать, по списку искать новый тег и его вставлять в v-model
-                console.log(responsible);
-                responsible = {
-                  id: Math.max.apply(Math, _this3.responsibleList.map(function (res) {
-                    return res.id;
-                  })) + 1,
-                  name: responsible
-                };
-                window.axios.post('/api/admin/responsibles/create', responsible).then(function (res) {
-                  console.log(res);
-                  _this3.responsibleList.push(responsible);
-                  _this3.rewriteTask.responsible = responsible;
-                }).catch(function (error) {
-                  window.toastr['error']('Ошибка', 'Не выполнено');
-                });
-
-              case 3:
-              case 'end':
                 return _context2.stop();
             }
           }
         }, _callee2, _this3);
       }))();
     },
-    afterComplete: function afterComplete(file) {
-      console.log(file);
-      try {
-        var image = JSON.parse(file.xhr.response).image;
-        image.path = JSON.parse(image.path);
-        this.rewriteTask.images.push(image);
-      } catch (e) {
-        console.warn(e);
-      }
-    },
-    getNumberHome: function getNumberHome(query) {
+    addResponsibleTag: function addResponsibleTag(responsible) {
       var _this4 = this;
 
       return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3() {
@@ -59054,12 +59071,55 @@ exports.default = {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                console.log(_this4.rewriteTask.street + " " + query);
+                // TODO: переделать создание тег, отправлять на сервер,
+                // а потом уже с новый список принимать, по списку искать новый тег и его вставлять в v-model
+                console.log(responsible);
+                responsible = {
+                  id: Math.max.apply(Math, _this4.responsibleList.map(function (res) {
+                    return res.id;
+                  })) + 1,
+                  name: responsible
+                };
+                window.axios.post('/api/admin/responsibles/create', responsible).then(function (res) {
+                  console.log(res);
+                  _this4.responsibleList.push(responsible);
+                  _this4.rewriteTask.responsible = responsible;
+                }).catch(function (error) {
+                  window.toastr['error']('Ошибка', 'Не выполнено');
+                });
+
+              case 3:
+              case 'end':
+                return _context3.stop();
+            }
+          }
+        }, _callee3, _this4);
+      }))();
+    },
+    afterComplete: function afterComplete(file) {
+      console.log(file);
+      try {
+        var image = JSON.parse(file.xhr.response).image;
+        image.path.name = file.upload.filename;
+        this.rewriteTask.images.push(image);
+      } catch (e) {
+        console.warn(e);
+      }
+    },
+    getNumberHome: function getNumberHome(query) {
+      var _this5 = this;
+
+      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4() {
+        return _regenerator2.default.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                console.log(_this5.rewriteTask.street + " " + query);
                 window.axios.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address', {
                   query: query,
                   locations: [{
                     city: "Красноярск",
-                    street_fias_id: _this4.rewriteTask.street.data.street_fias_id
+                    street_fias_id: _this5.rewriteTask.street.data.street_fias_id
                   }],
                   restrict_value: true
                 }, {
@@ -59070,28 +59130,28 @@ exports.default = {
                     "X-Secret": "23c196abec29f8f3bafeb96f8be339c491a3bb77"
                   }
                 }).then(function (res) {
-                  _this4.dataNumber = [];
+                  _this5.dataNumber = [];
                   res.data.suggestions.forEach(function (element) {
-                    _this4.dataNumber.push(element.value);
+                    _this5.dataNumber.push(element.value);
                   });
-                  console.log(_this4.dataNumber);
+                  console.log(_this5.dataNumber);
                 });
 
               case 2:
               case 'end':
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3, _this4);
+        }, _callee4, _this5);
       }))();
     },
     getStreet: function getStreet(query) {
-      var _this5 = this;
+      var _this6 = this;
 
-      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4() {
-        return _regenerator2.default.wrap(function _callee4$(_context4) {
+      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5() {
+        return _regenerator2.default.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
                 window.axios.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address', {
                   query: query,
@@ -59107,17 +59167,17 @@ exports.default = {
                     "X-Secret": "23c196abec29f8f3bafeb96f8be339c491a3bb77"
                   }
                 }).then(function (res) {
-                  _this5.dataStreet = [];
-                  _this5.dataStreet = res.data.suggestions;
-                  console.log(_this5.dataStreet);
+                  _this6.dataStreet = [];
+                  _this6.dataStreet = res.data.suggestions;
+                  console.log(_this6.dataStreet);
                 });
 
               case 1:
               case 'end':
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4, _this5);
+        }, _callee5, _this6);
       }))();
     }
   }
@@ -86274,31 +86334,50 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-md-6 mt-4" },
-        [
-          _c("h5", { staticClass: "section-semi-title" }, [
-            _vm._v("Дата устранения")
-          ]),
+      _c("div", { staticClass: "col-md-6 mt-4" }, [
+        _c("h5", { staticClass: "section-semi-title" }, [
+          _vm._v("Дата устранения")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-md-8 col-12" },
+            [
+              _c("datepicker", {
+                attrs: {
+                  "input-class": "form-control",
+                  format: "dd.MM.yyyy",
+                  placeholder: "Select Date"
+                },
+                model: {
+                  value: _vm.rewriteTask.correctionDate,
+                  callback: function($$v) {
+                    _vm.$set(_vm.rewriteTask, "correctionDate", $$v)
+                  },
+                  expression: "rewriteTask.correctionDate"
+                }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("datepicker", {
-            attrs: {
-              "input-class": "form-control",
-              format: "dd.MM.yyyy",
-              placeholder: "Select Date"
-            },
-            model: {
-              value: _vm.rewriteTask.correctionDate,
-              callback: function($$v) {
-                _vm.$set(_vm.rewriteTask, "correctionDate", $$v)
+          _c("div", { staticClass: "col-md-4 col-12" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-default",
+                on: {
+                  click: function($event) {
+                    _vm.rewriteTask.correctionDate = null
+                  }
+                }
               },
-              expression: "rewriteTask.correctionDate"
-            }
-          })
-        ],
-        1
-      ),
+              [_vm._v("Отчистить")]
+            )
+          ])
+        ])
+      ]),
       _vm._v(" "),
       _c(
         "div",
@@ -86362,11 +86441,28 @@ var render = function() {
             _vm._v("Медиа файлы")
           ]),
           _vm._v(" "),
-          _c("vue-dropzone", {
-            ref: "myVueDropzone",
-            attrs: { id: "drop1", options: _vm.config },
-            on: { "vdropzone-complete": _vm.afterComplete }
-          })
+          _c(
+            "vue-dropzone",
+            {
+              ref: "myVueDropzone",
+              attrs: { id: "drop1", useCustomSlot: true, options: _vm.config },
+              on: {
+                "vdropzone-complete": _vm.afterComplete,
+                "vdropzone-removed-file": _vm.removedImage
+              }
+            },
+            [
+              _c("div", { staticClass: "dropzone-custom-content" }, [
+                _c("h3", { staticClass: "dropzone-custom-title" }, [
+                  _vm._v("Перетащите свои фотографии сюда!")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "subtitle" }, [
+                  _vm._v("... или нажмит на это поле")
+                ])
+              ])
+            ]
+          )
         ],
         1
       ),
@@ -86468,14 +86564,8 @@ module.exports = Component.exports
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-//
-//
-//
-//
-//
-//
-//
-//
+
+var _vueCarousel = __webpack_require__(480);
 
 exports.default = {
   props: {
@@ -86484,12 +86574,70 @@ exports.default = {
       require: true,
       default: Object
     }
-    // data () {
-    //   return {
-
-    //   }
-    // }
-  } };
+  },
+  components: {
+    Carousel: _vueCarousel.Carousel,
+    Slide: _vueCarousel.Slide
+  }
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /***/ }),
 /* 366 */
@@ -86501,7 +86649,127 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card-body" }, [
     _c("div", { staticClass: "row" }, [
-      _vm._v("\n    " + _vm._s(_vm.task.name) + "\n  ")
+      _c("div", { staticClass: "col-12 mt-4" }, [
+        _c("h6", [
+          _vm._v("Навзавние проблемы: "),
+          _c("strong", [_vm._v(_vm._s(_vm.task.name))])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-12 mt-2" }, [
+        _c("h6", { staticClass: "pb-0 mb-0" }, [
+          _vm._v("Описание проблемы проблемы:")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "mt-0 pt-0 lead" }, [
+          _vm._v(_vm._s(_vm.task.description))
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-12 mt-2" }, [
+        _c("h6", { staticClass: "pb-0 mb-0" }, [_vm._v("Улица, дом")]),
+        _vm._v(" "),
+        _c("p", { staticClass: "mt-0 pt-0 lead" }, [
+          _vm._v(
+            _vm._s(_vm.task.street.value) + ", " + _vm._s(_vm.task.numberHome)
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-12 mt-2" }, [
+        _c("h6", { staticClass: "pb-0 mb-0" }, [_vm._v("Кем выявлено")]),
+        _vm._v(" "),
+        _c(
+          "p",
+          { staticClass: "mt-0 pt-0 lead" },
+          _vm._l(_vm.task.identified, function(user) {
+            return _c("span", { key: user.id }, [
+              _vm._v(_vm._s(user.name) + ", ")
+            ])
+          })
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-12 mt-2" }, [
+        _c("h6", { staticClass: "pb-0 mb-0" }, [_vm._v("Ответсвенный")]),
+        _vm._v(" "),
+        _c("p", { staticClass: "mt-0 pt-0 lead" }, [
+          _vm._v(_vm._s(_vm.task.responsible.name))
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-12 mt-2" }, [
+        _c("h6", { staticClass: "pb-0 mb-0" }, [
+          _vm._v("Ответсвенный исполнитель")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "mt-0 pt-0 lead" }, [
+          _vm._v(_vm._s(_vm.task.responsibleExecutor))
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-12 mt-2" }, [
+        _c("h6", { staticClass: "pb-0 mb-0" }, [_vm._v("Дата выявления")]),
+        _vm._v(" "),
+        _c("p", { staticClass: "mt-0 pt-0 lead" }, [
+          _vm._v(_vm._s(_vm.task.detectionDate.toLocaleDateString()))
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-12 mt-2" }, [
+        _c("h6", { staticClass: "pb-0 mb-0" }, [_vm._v("Дата устранения")]),
+        _vm._v(" "),
+        _vm.task.correctionDate !== null
+          ? _c("p", { staticClass: "mt-0 pt-0 lead" }, [
+              _vm._v(_vm._s(_vm.task.correctionDate.toLocaleDateString()))
+            ])
+          : _c("p", { staticClass: "mt-0 pt-0 lead" }, [
+              _c("strong", [_vm._v("Не имеется")])
+            ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-12 mt-2" }, [
+        _c("h6", { staticClass: "pb-0 mb-0" }, [_vm._v("Констролный срок")]),
+        _vm._v(" "),
+        _c("p", { staticClass: "mt-0 pt-0 lead" }, [
+          _vm._v(_vm._s(_vm.task.targetDate.toLocaleDateString()))
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-12 mt-2" }, [
+        _c("h6", { staticClass: "pb-0 mb-0" }, [_vm._v("Проведенная работа")]),
+        _vm._v(" "),
+        _c("p", { staticClass: "mt-0 pt-0 lead" }, [
+          _vm._v(_vm._s(_vm.task.conductedWork))
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-12 mt-2" }, [
+        _c("h6", { staticClass: "pb-0 mb-0" }, [_vm._v("Медиафайлы")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-md-8 offset-md-2" },
+            [
+              _c(
+                "carousel",
+                { attrs: { controls: true, "per-page-custom": [[480, 1]] } },
+                _vm._l(_vm.task.images, function(img) {
+                  return _c("slide", { key: img.id }, [
+                    _c("img", {
+                      staticClass: "img-fluid",
+                      staticStyle: { "max-height": "500px" },
+                      attrs: { src: img.path.file }
+                    })
+                  ])
+                })
+              )
+            ],
+            1
+          )
+        ])
+      ])
     ])
   ])
 }
@@ -86526,6 +86794,22 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _getOwnPropertyDescriptor = __webpack_require__(451);
+
+var _getOwnPropertyDescriptor2 = _interopRequireDefault(_getOwnPropertyDescriptor);
+
+var _getOwnPropertyNames = __webpack_require__(455);
+
+var _getOwnPropertyNames2 = _interopRequireDefault(_getOwnPropertyNames);
+
+var _getIterator2 = __webpack_require__(460);
+
+var _getIterator3 = _interopRequireDefault(_getIterator2);
+
+var _assign = __webpack_require__(352);
+
+var _assign2 = _interopRequireDefault(_assign);
+
 var _defineProperty = __webpack_require__(368);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
@@ -86534,42 +86818,89 @@ var _classCallCheck2 = __webpack_require__(371);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
+var _createClass2 = __webpack_require__(466);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Task = function Task(task) {
-  var _this = this;
+var Task = function () {
+  function Task(task) {
+    var _this = this;
 
-  (0, _classCallCheck3.default)(this, Task);
+    (0, _classCallCheck3.default)(this, Task);
 
-  var _loop = function _loop(key) {
-    var CamelCaseKey = key.replace(/[-_]([a-z])/g, function (m) {
-      return m[1].toUpperCase();
-    });
-    _this[CamelCaseKey] = task[key];
-    if (CamelCaseKey === 'street') {
-      _this[CamelCaseKey] = {};
-      _this[CamelCaseKey]['value'] = task[key];
-    }
-    if (CamelCaseKey.includes('Date')) {
-      if (_this[CamelCaseKey]) {
-        _this[CamelCaseKey] = new Date(_this[CamelCaseKey].slice(6, 10), parseInt(_this[CamelCaseKey].slice(3, 5)) - 1, _this[CamelCaseKey].slice(0, 2));
+    var _loop = function _loop(key) {
+      var CamelCaseKey = key.replace(/[-_]([a-z])/g, function (m) {
+        return m[1].toUpperCase();
+      });
+      _this[CamelCaseKey] = task[key];
+      if (CamelCaseKey === 'street') {
+        _this[CamelCaseKey] = {};
+        _this[CamelCaseKey]['value'] = task[key];
       }
-      (0, _defineProperty2.default)(_this, '_' + CamelCaseKey + 'String', {
-        get: function get() {
-          if (this[CamelCaseKey]) {
-            return this[CamelCaseKey].toLocaleString();
-          } else {
-            return '';
+      if (CamelCaseKey.includes('Date')) {
+        if (_this[CamelCaseKey]) {
+          _this[CamelCaseKey] = new Date(_this[CamelCaseKey].slice(6, 10), parseInt(_this[CamelCaseKey].slice(3, 5)) - 1, _this[CamelCaseKey].slice(0, 2));
+        }
+        (0, _defineProperty2.default)(_this, '_' + CamelCaseKey + 'String', {
+          get: function get() {
+            if (this[CamelCaseKey]) {
+              // return this[CamelCaseKey].getFullYear() + '-' + this[CamelCaseKey].getMonth() + '-' + this[CamelCaseKey].getDate()
+              // return this[CamelCaseKey].toJSON().substr(0, 10)
+              this[CamelCaseKey].setHours(20);
+              return this[CamelCaseKey].toJSON().substr(0, 10);
+            } else {
+              return '';
+            }
+          }
+        });
+      }
+    };
+
+    for (var key in task) {
+      _loop(key);
+    }
+  }
+
+  (0, _createClass3.default)(Task, [{
+    key: 'toJSON',
+    value: function toJSON() {
+      var jsonObj = (0, _assign2.default)({}, this);
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = (0, _getIterator3.default)((0, _getOwnPropertyNames2.default)(this)), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var key = _step.value;
+
+          var desc = (0, _getOwnPropertyDescriptor2.default)(this, key);
+          var hasGetter = desc && typeof desc.get === 'function';
+          if (hasGetter) {
+            jsonObj[key] = this[key];
           }
         }
-      });
-    }
-  };
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
 
-  for (var key in task) {
-    _loop(key);
-  }
-};
+      return jsonObj;
+    }
+  }]);
+  return Task;
+}();
 
 exports.default = Task;
 
@@ -86673,21 +87004,7 @@ var render = function() {
                                     },
                                     [_vm._v("Изменить")]
                                   )
-                                : _vm.mode === "write"
-                                  ? _c(
-                                      "button",
-                                      {
-                                        key: "2",
-                                        staticClass: "btn-sm btn btn-primary",
-                                        on: {
-                                          click: function($event) {
-                                            _vm.mode = "read"
-                                          }
-                                        }
-                                      },
-                                      [_vm._v("Сохранить")]
-                                    )
-                                  : _vm._e()
+                                : _vm._e()
                             ]
                           )
                         ],
@@ -100625,7 +100942,7 @@ exports = module.exports = __webpack_require__(13)(true);
 
 
 // module
-exports.push([module.i, "\n.collapse-group-items[data-v-30293102] {\r\n  overflow: hidden;\r\n  -webkit-transition: max-height .3s ease-in-out;\r\n  transition: max-height .3s ease-in-out;\n}\n.slide-enter-active[data-v-30293102], .slide-leave-active[data-v-30293102] {\r\n  overflow: hidden;\n}\n.slide-leave-to[data-v-30293102] {\r\n  max-height: 0px !important;\n}\r\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/components/collapse/resources/js/components/collapse/VCollapseItem.vue"],"names":[],"mappings":";AAqGA;EACA,iBAAA;EACA,+CAAA;EAAA,uCAAA;CACA;AACA;EACA,iBAAA;CACA;AACA;EACA,2BAAA;CACA","file":"VCollapseItem.vue","sourcesContent":["<template>\r\n  <div :class=\"['collapse-group-item', { active: isCollapseOpen } ]\">\r\n    <div class=\"collapse-item-title\" @click=\"toggleCollapse\">\r\n      <slot name=\"item-title\"/>\r\n    </div>\r\n    <transition\r\n      :duration=\"{ enter: 0 }\"\r\n      name=\"slide\"\r\n      @after-enter=\"afterEnter\"\r\n      @after-leave=\"afterLeave\"\r\n    >\r\n      <div\r\n        v-show=\"isCollapseOpen\"\r\n        v-if=\"hasChild\"\r\n        ref=\"collapseItems\"\r\n        :style=\"'max-height:' + height + 'px'\"\r\n        class=\"collapse-group-items\"\r\n      >\r\n        <slot/>\r\n      </div>\r\n    </transition>\r\n  </div>\r\n</template>\r\n<script>\r\n\r\nexport default {\r\n  props: {\r\n    activeUrl: {\r\n      type: String,\r\n      require: true,\r\n      default: ''\r\n    },\r\n    isActive: {\r\n      type: Boolean,\r\n      require: true,\r\n      default: false\r\n    }\r\n  },\r\n  data () {\r\n    return {\r\n      height: '',\r\n      originalHeight: '',\r\n      isCollapseOpen: true,\r\n      hasChild: true,\r\n      accordion: this.$parent.accordion\r\n    }\r\n  },\r\n  mounted () {\r\n    this.$nextTick(() => {\r\n      if (this.accordion === true) {\r\n        this.hasActive()\r\n      } else {\r\n        this.isCollapseOpen = false\r\n      }\r\n      this.height = this.originalHeight = this.$refs.collapseItems.clientHeight\r\n\r\n      if (this.$refs.collapseItems.children.length === 0) {\r\n        this.hasChild = false\r\n      }\r\n    })\r\n  },\r\n  methods: {\r\n    hasActiveUrl () {\r\n      return this.$route.path.indexOf(this.activeUrl) > -1\r\n    },\r\n    hasActive () {\r\n      if (this.isActive) {\r\n        this.isCollapseOpen = this.isActive\r\n      } else {\r\n        if (this.activeUrl) {\r\n          this.isCollapseOpen = this.hasActiveUrl()\r\n        } else {\r\n          this.isCollapseOpen = false\r\n        }\r\n      }\r\n    },\r\n    toggleCollapse () {\r\n      let self = this\r\n      if (this.accordion) {\r\n        if (this.isCollapseOpen === false) {\r\n          this.$parent.$children.filter((value) => {\r\n            if (value !== self) {\r\n              if (value.isCollapseOpen === true) {\r\n                value.isCollapseOpen = false\r\n              }\r\n            }\r\n          })\r\n        }\r\n      }\r\n      this.isCollapseOpen = !this.isCollapseOpen\r\n    },\r\n    afterEnter () {\r\n      this.height = this.originalHeight\r\n    },\r\n    afterLeave () {\r\n      this.height = 0\r\n    }\r\n  }\r\n}\r\n</script>\r\n<style scoped>\r\n.collapse-group-items {\r\n  overflow: hidden;\r\n  transition: max-height .3s ease-in-out;\r\n}\r\n.slide-enter-active, .slide-leave-active {\r\n  overflow: hidden;\r\n}\r\n.slide-leave-to {\r\n  max-height: 0px !important;\r\n}\r\n</style>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.collapse-group-items[data-v-30293102] {\n  overflow: hidden;\n  -webkit-transition: max-height .3s ease-in-out;\n  transition: max-height .3s ease-in-out;\n}\n.slide-enter-active[data-v-30293102], .slide-leave-active[data-v-30293102] {\n  overflow: hidden;\n}\n.slide-leave-to[data-v-30293102] {\n  max-height: 0px !important;\n}\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/components/collapse/resources/js/components/collapse/VCollapseItem.vue"],"names":[],"mappings":";AAqGA;EACA,iBAAA;EACA,+CAAA;EAAA,uCAAA;CACA;AACA;EACA,iBAAA;CACA;AACA;EACA,2BAAA;CACA","file":"VCollapseItem.vue","sourcesContent":["<template>\n  <div :class=\"['collapse-group-item', { active: isCollapseOpen } ]\">\n    <div class=\"collapse-item-title\" @click=\"toggleCollapse\">\n      <slot name=\"item-title\"/>\n    </div>\n    <transition\n      :duration=\"{ enter: 0 }\"\n      name=\"slide\"\n      @after-enter=\"afterEnter\"\n      @after-leave=\"afterLeave\"\n    >\n      <div\n        v-show=\"isCollapseOpen\"\n        v-if=\"hasChild\"\n        ref=\"collapseItems\"\n        :style=\"'max-height:' + height + 'px'\"\n        class=\"collapse-group-items\"\n      >\n        <slot/>\n      </div>\n    </transition>\n  </div>\n</template>\n<script>\n\nexport default {\n  props: {\n    activeUrl: {\n      type: String,\n      require: true,\n      default: ''\n    },\n    isActive: {\n      type: Boolean,\n      require: true,\n      default: false\n    }\n  },\n  data () {\n    return {\n      height: '',\n      originalHeight: '',\n      isCollapseOpen: true,\n      hasChild: true,\n      accordion: this.$parent.accordion\n    }\n  },\n  mounted () {\n    this.$nextTick(() => {\n      if (this.accordion === true) {\n        this.hasActive()\n      } else {\n        this.isCollapseOpen = false\n      }\n      this.height = this.originalHeight = this.$refs.collapseItems.clientHeight\n\n      if (this.$refs.collapseItems.children.length === 0) {\n        this.hasChild = false\n      }\n    })\n  },\n  methods: {\n    hasActiveUrl () {\n      return this.$route.path.indexOf(this.activeUrl) > -1\n    },\n    hasActive () {\n      if (this.isActive) {\n        this.isCollapseOpen = this.isActive\n      } else {\n        if (this.activeUrl) {\n          this.isCollapseOpen = this.hasActiveUrl()\n        } else {\n          this.isCollapseOpen = false\n        }\n      }\n    },\n    toggleCollapse () {\n      let self = this\n      if (this.accordion) {\n        if (this.isCollapseOpen === false) {\n          this.$parent.$children.filter((value) => {\n            if (value !== self) {\n              if (value.isCollapseOpen === true) {\n                value.isCollapseOpen = false\n              }\n            }\n          })\n        }\n      }\n      this.isCollapseOpen = !this.isCollapseOpen\n    },\n    afterEnter () {\n      this.height = this.originalHeight\n    },\n    afterLeave () {\n      this.height = 0\n    }\n  }\n}\n</script>\n<style scoped>\n.collapse-group-items {\n  overflow: hidden;\n  transition: max-height .3s ease-in-out;\n}\n.slide-enter-active, .slide-leave-active {\n  overflow: hidden;\n}\n.slide-leave-to {\n  max-height: 0px !important;\n}\n</style>\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -129916,6 +130233,288 @@ Vue.directive('click-outside', {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 429 */,
+/* 430 */,
+/* 431 */,
+/* 432 */,
+/* 433 */,
+/* 434 */,
+/* 435 */,
+/* 436 */,
+/* 437 */,
+/* 438 */,
+/* 439 */,
+/* 440 */,
+/* 441 */,
+/* 442 */,
+/* 443 */,
+/* 444 */,
+/* 445 */,
+/* 446 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(447);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(29)("1649d21a", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f2a51462\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./write.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f2a51462\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./write.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 447 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(13)(true);
+// imports
+
+
+// module
+exports.push([module.i, "\n.dropzone-custom-content {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  -webkit-transform: translate(-50%, -50%);\r\n          transform: translate(-50%, -50%);\r\n  text-align: center;\n}\n.dropzone-custom-title {\r\n  margin-top: 0;\r\n  color: #00b782;\n}\n.subtitle {\r\n  color: #314b5f;\n}\r\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/views/admin/tasks/task/resources/js/views/admin/tasks/task/write.vue"],"names":[],"mappings":";AA0TA;EACA,mBAAA;EACA,SAAA;EACA,UAAA;EACA,yCAAA;UAAA,iCAAA;EACA,mBAAA;CACA;AAEA;EACA,cAAA;EACA,eAAA;CACA;AAEA;EACA,eAAA;CACA","file":"write.vue","sourcesContent":["<template>\r\n  <div class=\"card-body\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-4 mt-4\">\r\n        <h5 class=\"section-semi-title\">Навзавние проблемы</h5>\r\n        <input type=\"text\" v-model=\"rewriteTask.name\" class=\"form-control\" placeholder=\"Название проблемы\" required>\r\n      </div>\r\n      <div class=\"col-md-12 mt-4\">\r\n        <h5 class=\"section-semi-title\">Описание проблемы проблемы</h5>\r\n        <textarea class=\"form-control\" v-model=\"rewriteTask.description\" placeholder=\"Описание\" rows=\"3\" />\r\n      </div>\r\n      <div class=\"col-md-6 mt-4\">\r\n        <h5 class=\"section-semi-title\">Улица</h5>\r\n        <multiselect\r\n          v-model=\"rewriteTask.street\"\r\n          id=\"ajax\"\r\n          placeholder=\"Название улицы\"\r\n          :options=\"dataStreet\"\r\n          :searchable=\"true\"\r\n          :multiple=\"false\"\r\n          @search-change=\"getStreet\"\r\n          label=\"value\"\r\n          :selectLabel=\"''\"\r\n        >\r\n        </multiselect>\r\n      </div>\r\n      <div class=\"col-md-6 mt-4\">\r\n        <h5 class=\"section-semi-title\">Номер дома</h5>\r\n        <multiselect\r\n          v-model=\"rewriteTask.numberHome\"\r\n          id=\"ajax\"\r\n          placeholder=\"Номер дома\"\r\n          :options=\"dataNumber\"\r\n          :searchable=\"true\"\r\n          :multiple=\"false\"\r\n          @search-change=\"getNumberHome\"\r\n          :selectLabel=\"''\"\r\n        >\r\n        </multiselect>\r\n      </div>\r\n      <div class=\"col-md-12 mt-4\">\r\n        <h5 class=\"section-semi-title\">Кем выявлено</h5>\r\n        <multiselect\r\n          v-model=\"rewriteTask.identified\"\r\n          :options=\"identifiedList\"\r\n          :multiple=\"true\"\r\n          placeholder=\"Кем выявлено\"\r\n          :hide-selected=\"true\"\r\n          label=\"name\"\r\n          :selectLabel=\"''\"\r\n          :searchable=\"true\"\r\n          track-by=\"id\"\r\n        />\r\n      </div>\r\n      <div class=\"col-md-12 mt-4\">\r\n        <h5 class=\"section-semi-title\">Ответсвенный</h5>\r\n        <multiselect\r\n          v-model=\"rewriteTask.responsible\"\r\n          :options=\"responsibleList\"\r\n          :hide-selected=\"true\"\r\n          :selectLabel=\"''\"\r\n          :taggable=\"true\"\r\n          placeholder=\"Ответсвтенный\"\r\n          @tag=\"addResponsibleTag\"\r\n          track-by=\"name\"\r\n          label=\"name\"\r\n        />\r\n      </div>\r\n      <div class=\"col-md-12 mt-4\">\r\n        <h5 class=\"section-semi-title\">Ответсвенный исполнитель</h5>\r\n        <input\r\n          type=\"text\"\r\n          class=\"form-control\"\r\n          v-model=\"rewriteTask.responsibleExecutor\"\r\n          placeholder=\"Ответственный исполнитель\"\r\n          required\r\n        >\r\n      </div>\r\n      <div class=\"col-md-6 mt-4\">\r\n        <h5 class=\"section-semi-title\">Дата выявления</h5>\r\n        <datepicker input-class=\"form-control\" format=\"dd.MM.yyyy\" v-model=\"rewriteTask.detectionDate\" placeholder=\"Select Date\"/>\r\n      </div>\r\n      <div class=\"col-md-6 mt-4\">\r\n        <h5 class=\"section-semi-title\">Дата устранения</h5>\r\n        <div class=\"row\">\r\n          <div class=\"col-md-8 col-12\">\r\n            <datepicker input-class=\"form-control\" format=\"dd.MM.yyyy\" v-model=\"rewriteTask.correctionDate\" placeholder=\"Select Date\"/>\r\n          </div>\r\n          <div class=\"col-md-4 col-12\">\r\n            <button class=\"btn btn-default\" @click=\"rewriteTask.correctionDate = null\">Отчистить</button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-md-6 mt-4\">\r\n        <h5 class=\"section-semi-title\">Констролный срок</h5>\r\n        <datepicker input-class=\"form-control\" format=\"dd.MM.yyyy\" v-model=\"rewriteTask.targetDate\" placeholder=\"Select Date\"/>\r\n      </div>\r\n      <div class=\"col-md-12 mt-4\">\r\n        <h5 class=\"section-semi-title\">Проведенная работа</h5>\r\n        <textarea\r\n          class=\"form-control\"\r\n          rows=\"3\"\r\n          placeholder=\"Описание проведённой работы\"\r\n          v-model=\"rewriteTask.conductedWork\"\r\n        />\r\n      </div>\r\n      <div class=\"col-12 mt-4\">\r\n        <h5 class=\"section-semi-title\">Медиа файлы</h5>\r\n        <vue-dropzone id=\"drop1\" :useCustomSlot=\"true\" :options=\"config\" @vdropzone-complete=\"afterComplete\" @vdropzone-removed-file=\"removedImage\" ref=\"myVueDropzone\">\r\n          <div class=\"dropzone-custom-content\">\r\n            <h3 class=\"dropzone-custom-title\">Перетащите свои фотографии сюда!</h3>\r\n            <div class=\"subtitle\">... или нажмит на это поле</div>\r\n          </div>\r\n        </vue-dropzone>\r\n      </div>\r\n      <div class=\"col-12 mt-4 justify-content-center align-content-center d-flex\">\r\n        <button class=\"btn btn-primary mr-1\" @click=\"save\">Сохранить</button>\r\n        <button class=\"btn btn-default ml-1\" @click=\"$router.push({name: 'tasks'})\">Отменить</button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\n  import vue2Dropzone from 'vue2-dropzone'\r\n  import Datepicker from 'vuejs-datepicker'\r\n  import VueSuggestions from 'vue-suggestions'\r\n  import Multiselect from 'vue-multiselect'\r\n  export default {\r\n    props: {\r\n    rewriteTask: {\r\n      type: Object,\r\n      require: true,\r\n      default: Object\r\n    },\r\n    task: {\r\n      type: Object,\r\n      require: true,\r\n      default: Object\r\n    },\r\n    user: {\r\n      type: Object,\r\n      require: true,\r\n      default: Object\r\n    },\r\n    allUsers: {\r\n      type: Array,\r\n      require: true,\r\n      default: Array\r\n    },\r\n    responsibleList: {\r\n      type: Array,\r\n      require: true,\r\n      default: Array\r\n    },\r\n    identifiedList: {\r\n      type: Array,\r\n      require: true,\r\n      default: Array\r\n    }\r\n  },\r\n  data () {\r\n    return {\r\n      config: {\r\n        url: \"http://clean-crm/api/taskfile\",\r\n        thumbnailWidth: null,\r\n        addRemoveLinks: true,\r\n        renameFile: function (file) {\r\n          let newName = new Date().getTime() + '_' + file.name;\r\n          return newName;\r\n        },\r\n      },\r\n      dataNumber: [],\r\n      dataStreet: [],\r\n      saved: false\r\n    }\r\n  },\r\n  components: {\r\n    vueDropzone: vue2Dropzone,\r\n    Datepicker,\r\n    VueSuggestions,\r\n    Multiselect\r\n  },\r\n  mounted () {\r\n    setTimeout(() => {\r\n      console.log(this.rewriteTask.images)\r\n      this.rewriteTask.images.forEach(image => {\r\n        typeof image.path === 'string' ? image.path = JSON.parse(image.path) : null\r\n        this.$refs.myVueDropzone.manuallyAddFile({ type: image.path.type, size: image.path.size, name: image.path.name}, image.path.file);\r\n      })\r\n    }, 1000);\r\n  },\r\n  methods: {\r\n    async removedImage (file, error, xhr) {\r\n      if(!this.saved) {\r\n        let name\r\n        if (file.constructor.name !== 'File') {\r\n          name = file.name\r\n        } else {\r\n          name = file.upload.filename\r\n        }\r\n        window.axios.delete('http://clean-crm/api/taskfile/'+name)\r\n        .then(response => {\r\n          let removeIndex = this.rewriteTask.images.map(function(item) { return item.path.name; }).indexOf(file.name);\r\n          ~removeIndex && this.rewriteTask.images.splice(removeIndex, 1);\r\n          response.data.success ? window.toastr['success']('Выполнено', response.data.success) : window.toastr['error']('Ошибка', response.data.error)\r\n        })\r\n        .catch(error => {\r\n          console.log(error)\r\n          window.toastr['error']('Ошибка', 'Не выполнено')\r\n        });\r\n      }\r\n    },\r\n    async save () {\r\n      this.$emit('save');\r\n      this.saved = true\r\n      console.log(this.task)\r\n      console.log(this.rewriteTask)\r\n      window.axios.put('/api/admin/task', this.rewriteTask)\r\n      .then(response => {\r\n        console.log(response)\r\n        response.data === 'Success' ? window.toastr['success']('Выполнено', 'Сохранено') : window.toastr['error']('Ошибка', 'Не выполнено')\r\n      })\r\n      .catch(error => {\r\n        console.log(error)\r\n        window.toastr['error']('Ошибка', 'Не выполнено')\r\n      });\r\n    },\r\n    async addResponsibleTag (responsible) {\r\n      // TODO: переделать создание тег, отправлять на сервер,\r\n      // а потом уже с новый список принимать, по списку искать новый тег и его вставлять в v-model\r\n      console.log(responsible)\r\n      responsible = {\r\n        id: Math.max.apply(Math, this.responsibleList.map(res => res.id)) + 1,\r\n        name: responsible\r\n      }\r\n      window.axios.post('/api/admin/responsibles/create', responsible).then(res => {\r\n        console.log(res)\r\n        this.responsibleList.push(responsible)\r\n        this.rewriteTask.responsible = responsible\r\n      }).catch(error => {\r\n        window.toastr['error']('Ошибка', 'Не выполнено')\r\n      })\r\n    },\r\n    afterComplete(file) {\r\n      console.log(file);\r\n      try {\r\n        let image = JSON.parse(file.xhr.response).image\r\n        image.path.name = file.upload.filename\r\n        this.rewriteTask.images.push(image)\r\n      } catch (e) {\r\n        console.warn(e)\r\n      }\r\n    },\r\n    async getNumberHome (query) {\r\n      console.log(this.rewriteTask.street + \" \" + query)\r\n      window.axios.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',\r\n        { \r\n          query: query,\r\n          locations: [\r\n            {\r\n              city: \"Красноярск\",\r\n              street_fias_id: this.rewriteTask.street.data.street_fias_id\r\n            }\r\n          ],\r\n          restrict_value: true\r\n        },\r\n        {\r\n          headers: {\r\n            \"Content-Type\": \"application/json\",\r\n            \"Accept\": \"application/json\",\r\n            \"Authorization\": \"Token be33fe1fe0328828d9632c248dcad68166e62740\",\r\n            \"X-Secret\": \"23c196abec29f8f3bafeb96f8be339c491a3bb77\"\r\n          }\r\n        }\r\n      ).then(res => {\r\n        this.dataNumber = []\r\n        res.data.suggestions.forEach(element => {\r\n          this.dataNumber .push(element.value)\r\n        });\r\n        console.log(this.dataNumber)\r\n      })\r\n    },\r\n    async getStreet (query) {\r\n      window.axios.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',\r\n        { \r\n          query: query,\r\n          locations: [\r\n            {\r\n              city: \"Красноярск\"\r\n            }\r\n          ],\r\n          restrict_value: true\r\n        },\r\n        {\r\n          headers: {\r\n            \"Content-Type\": \"application/json\",\r\n            \"Accept\": \"application/json\",\r\n            \"Authorization\": \"Token be33fe1fe0328828d9632c248dcad68166e62740\",\r\n            \"X-Secret\": \"23c196abec29f8f3bafeb96f8be339c491a3bb77\"\r\n          }\r\n        }\r\n      ).then(res => {\r\n        this.dataStreet = []\r\n        this.dataStreet = res.data.suggestions\r\n        console.log(this.dataStreet)\r\n      })\r\n    }\r\n  }\r\n}\r\n\r\n</script>\r\n\r\n<style>\r\n.dropzone-custom-content {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  transform: translate(-50%, -50%);\r\n  text-align: center;\r\n}\r\n\r\n.dropzone-custom-title {\r\n  margin-top: 0;\r\n  color: #00b782;\r\n}\r\n\r\n.subtitle {\r\n  color: #314b5f;\r\n}\r\n</style>"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+/* 448 */,
+/* 449 */,
+/* 450 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// most Object methods by ES6 should accept primitives
+var $export = __webpack_require__(14);
+var core = __webpack_require__(9);
+var fails = __webpack_require__(34);
+module.exports = function (KEY, exec) {
+  var fn = (core.Object || {})[KEY] || Object[KEY];
+  var exp = {};
+  exp[KEY] = exec(fn);
+  $export($export.S + $export.F * fails(function () { fn(1); }), 'Object', exp);
+};
+
+
+/***/ }),
+/* 451 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(452), __esModule: true };
+
+/***/ }),
+/* 452 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(453);
+var $Object = __webpack_require__(9).Object;
+module.exports = function getOwnPropertyDescriptor(it, key) {
+  return $Object.getOwnPropertyDescriptor(it, key);
+};
+
+
+/***/ }),
+/* 453 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
+var toIObject = __webpack_require__(36);
+var $getOwnPropertyDescriptor = __webpack_require__(454).f;
+
+__webpack_require__(450)('getOwnPropertyDescriptor', function () {
+  return function getOwnPropertyDescriptor(it, key) {
+    return $getOwnPropertyDescriptor(toIObject(it), key);
+  };
+});
+
+
+/***/ }),
+/* 454 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var pIE = __webpack_require__(357);
+var createDesc = __webpack_require__(47);
+var toIObject = __webpack_require__(36);
+var toPrimitive = __webpack_require__(209);
+var has = __webpack_require__(27);
+var IE8_DOM_DEFINE = __webpack_require__(208);
+var gOPD = Object.getOwnPropertyDescriptor;
+
+exports.f = __webpack_require__(16) ? gOPD : function getOwnPropertyDescriptor(O, P) {
+  O = toIObject(O);
+  P = toPrimitive(P, true);
+  if (IE8_DOM_DEFINE) try {
+    return gOPD(O, P);
+  } catch (e) { /* empty */ }
+  if (has(O, P)) return createDesc(!pIE.f.call(O, P), O[P]);
+};
+
+
+/***/ }),
+/* 455 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(456), __esModule: true };
+
+/***/ }),
+/* 456 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(457);
+var $Object = __webpack_require__(9).Object;
+module.exports = function getOwnPropertyNames(it) {
+  return $Object.getOwnPropertyNames(it);
+};
+
+
+/***/ }),
+/* 457 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.7 Object.getOwnPropertyNames(O)
+__webpack_require__(450)('getOwnPropertyNames', function () {
+  return __webpack_require__(458).f;
+});
+
+
+/***/ }),
+/* 458 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
+var toIObject = __webpack_require__(36);
+var gOPN = __webpack_require__(459).f;
+var toString = {}.toString;
+
+var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
+  ? Object.getOwnPropertyNames(window) : [];
+
+var getWindowNames = function (it) {
+  try {
+    return gOPN(it);
+  } catch (e) {
+    return windowNames.slice();
+  }
+};
+
+module.exports.f = function getOwnPropertyNames(it) {
+  return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : gOPN(toIObject(it));
+};
+
+
+/***/ }),
+/* 459 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
+var $keys = __webpack_require__(214);
+var hiddenKeys = __webpack_require__(53).concat('length', 'prototype');
+
+exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
+  return $keys(O, hiddenKeys);
+};
+
+
+/***/ }),
+/* 460 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(461), __esModule: true };
+
+/***/ }),
+/* 461 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(218);
+__webpack_require__(206);
+module.exports = __webpack_require__(462);
+
+
+/***/ }),
+/* 462 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__(12);
+var get = __webpack_require__(227);
+module.exports = __webpack_require__(9).getIterator = function (it) {
+  var iterFn = get(it);
+  if (typeof iterFn != 'function') throw TypeError(it + ' is not iterable!');
+  return anObject(iterFn.call(it));
+};
+
+
+/***/ }),
+/* 463 */,
+/* 464 */,
+/* 465 */,
+/* 466 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _defineProperty = __webpack_require__(368);
+
+var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      (0, _defineProperty2.default)(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+/***/ }),
+/* 467 */,
+/* 468 */,
+/* 469 */,
+/* 470 */,
+/* 471 */,
+/* 472 */,
+/* 473 */,
+/* 474 */,
+/* 475 */,
+/* 476 */,
+/* 477 */,
+/* 478 */,
+/* 479 */,
+/* 480 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*!
+ * vue-carousel v0.6.14
+ * (c) 2018 todd.beauchamp@ssense.com
+ * https://github.com/ssense/vue-carousel#readme
+ */
+!function(t,e){ true?module.exports=e():"function"==typeof define&&define.amd?define([],e):"object"==typeof exports?exports.VueCarousel=e():t.VueCarousel=e()}(this,function(){return function(t){function e(i){if(n[i])return n[i].exports;var r=n[i]={exports:{},id:i,loaded:!1};return t[i].call(r.exports,r,r.exports,e),r.loaded=!0,r.exports}var n={};return e.m=t,e.c=n,e.p="",e(0)}([function(t,e,n){"use strict";function i(t){return t&&t.__esModule?t:{default:t}}Object.defineProperty(e,"__esModule",{value:!0}),e.Slide=e.Carousel=void 0;var r=n(1),a=i(r),o=n(41),s=i(o),u=function(t){t.component("carousel",a.default),t.component("slide",s.default)};e.default={install:u},e.Carousel=a.default,e.Slide=s.default},function(t,e,n){function i(t){n(2)}var r=n(7)(n(8),n(46),i,null,null);t.exports=r.exports},function(t,e,n){var i=n(3);"string"==typeof i&&(i=[[t.id,i,""]]),i.locals&&(t.exports=i.locals);n(5)("80564c20",i,!0,{})},function(t,e,n){e=t.exports=n(4)(),e.push([t.id,".VueCarousel{position:relative}.VueCarousel-wrapper{width:100%;position:relative;overflow:hidden}.VueCarousel-inner{display:-ms-flexbox;display:flex;-ms-flex-direction:row;flex-direction:row;-webkit-backface-visibility:hidden;backface-visibility:hidden}",""])},function(t,e){t.exports=function(){var t=[];return t.toString=function(){for(var t=[],e=0;e<this.length;e++){var n=this[e];n[2]?t.push("@media "+n[2]+"{"+n[1]+"}"):t.push(n[1])}return t.join("")},t.i=function(e,n){"string"==typeof e&&(e=[[null,e,""]]);for(var i={},r=0;r<this.length;r++){var a=this[r][0];"number"==typeof a&&(i[a]=!0)}for(r=0;r<e.length;r++){var o=e[r];"number"==typeof o[0]&&i[o[0]]||(n&&!o[2]?o[2]=n:n&&(o[2]="("+o[2]+") and ("+n+")"),t.push(o))}},t}},function(t,e,n){function i(t){for(var e=0;e<t.length;e++){var n=t[e],i=l[n.id];if(i){i.refs++;for(var r=0;r<i.parts.length;r++)i.parts[r](n.parts[r]);for(;r<n.parts.length;r++)i.parts.push(a(n.parts[r]));i.parts.length>n.parts.length&&(i.parts.length=n.parts.length)}else{for(var o=[],r=0;r<n.parts.length;r++)o.push(a(n.parts[r]));l[n.id]={id:n.id,refs:1,parts:o}}}}function r(){var t=document.createElement("style");return t.type="text/css",d.appendChild(t),t}function a(t){var e,n,i=document.querySelector("style["+m+'~="'+t.id+'"]');if(i){if(p)return g;i.parentNode.removeChild(i)}if(b){var a=h++;i=f||(f=r()),e=o.bind(null,i,a,!1),n=o.bind(null,i,a,!0)}else i=r(),e=s.bind(null,i),n=function(){i.parentNode.removeChild(i)};return e(t),function(i){if(i){if(i.css===t.css&&i.media===t.media&&i.sourceMap===t.sourceMap)return;e(t=i)}else n()}}function o(t,e,n,i){var r=n?"":i.css;if(t.styleSheet)t.styleSheet.cssText=y(e,r);else{var a=document.createTextNode(r),o=t.childNodes;o[e]&&t.removeChild(o[e]),o.length?t.insertBefore(a,o[e]):t.appendChild(a)}}function s(t,e){var n=e.css,i=e.media,r=e.sourceMap;if(i&&t.setAttribute("media",i),v.ssrId&&t.setAttribute(m,e.id),r&&(n+="\n/*# sourceURL="+r.sources[0]+" */",n+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(r))))+" */"),t.styleSheet)t.styleSheet.cssText=n;else{for(;t.firstChild;)t.removeChild(t.firstChild);t.appendChild(document.createTextNode(n))}}var u="undefined"!=typeof document,c=n(6),l={},d=u&&(document.head||document.getElementsByTagName("head")[0]),f=null,h=0,p=!1,g=function(){},v=null,m="data-vue-ssr-id",b="undefined"!=typeof navigator&&/msie [6-9]\b/.test(navigator.userAgent.toLowerCase());t.exports=function(t,e,n,r){p=n,v=r||{};var a=c(t,e);return i(a),function(e){for(var n=[],r=0;r<a.length;r++){var o=a[r],s=l[o.id];s.refs--,n.push(s)}e?(a=c(t,e),i(a)):a=[];for(var r=0;r<n.length;r++){var s=n[r];if(0===s.refs){for(var u=0;u<s.parts.length;u++)s.parts[u]();delete l[s.id]}}}};var y=function(){var t=[];return function(e,n){return t[e]=n,t.filter(Boolean).join("\n")}}()},function(t,e){t.exports=function(t,e){for(var n=[],i={},r=0;r<e.length;r++){var a=e[r],o=a[0],s=a[1],u=a[2],c=a[3],l={id:t+":"+r,css:s,media:u,sourceMap:c};i[o]?i[o].parts.push(l):n.push(i[o]={id:o,parts:[l]})}return n}},function(t,e){t.exports=function(t,e,n,i,r){var a,o=t=t||{},s=typeof t.default;"object"!==s&&"function"!==s||(a=t,o=t.default);var u="function"==typeof o?o.options:o;e&&(u.render=e.render,u.staticRenderFns=e.staticRenderFns),i&&(u._scopeId=i);var c;if(r?(c=function(t){t=t||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext,t||"undefined"==typeof __VUE_SSR_CONTEXT__||(t=__VUE_SSR_CONTEXT__),n&&n.call(this,t),t&&t._registeredComponents&&t._registeredComponents.add(r)},u._ssrRegister=c):n&&(c=n),c){var l=u.functional,d=l?u.render:u.beforeCreate;l?u.render=function(t,e){return c.call(e),d(t,e)}:u.beforeCreate=d?[].concat(d,c):[c]}return{esModule:a,exports:o,options:u}}},function(t,e,n){"use strict";function i(t){return t&&t.__esModule?t:{default:t}}Object.defineProperty(e,"__esModule",{value:!0});var r=n(9),a=i(r),o=n(29),s=i(o),u=n(30),c=i(u),l=n(31),d=i(l),f=n(36),h=i(f),p=n(41),g=i(p);e.default={name:"carousel",beforeUpdate:function(){this.computeCarouselWidth()},components:{Navigation:d.default,Pagination:h.default,Slide:g.default},data:function(){return{browserWidth:null,carouselWidth:null,currentPage:0,dragging:!1,dragMomentum:0,dragOffset:0,dragStartY:0,dragStartX:0,isTouch:"undefined"!=typeof window&&"ontouchstart"in window,offset:0,refreshRate:16,slideCount:0}},mixins:[s.default],props:{easing:{type:String,default:"ease"},minSwipeDistance:{type:Number,default:8},navigationClickTargetSize:{type:Number,default:8},mouseDrag:{type:Boolean,default:!0},navigationEnabled:{type:Boolean,default:!1},navigationNextLabel:{type:String,default:"▶"},navigationPrevLabel:{type:String,default:"◀"},paginationActiveColor:{type:String,default:"#000000"},paginationColor:{type:String,default:"#efefef"},paginationEnabled:{type:Boolean,default:!0},paginationPadding:{type:Number,default:10},paginationSize:{type:Number,default:10},perPage:{type:Number,default:2},perPageCustom:{type:Array},resistanceCoef:{type:Number,default:20},scrollPerPage:{type:Boolean,default:!0},speed:{type:Number,default:500},loop:{type:Boolean,default:!1},navigateTo:{type:Number,default:0},spacePadding:{type:Number,default:0}},watch:{navigateTo:function(t){t!==this.currentPage&&this.goToPage(t)},currentPage:function(t){this.$emit("pageChange",t)}},computed:{breakpointSlidesPerPage:function(){if(!this.perPageCustom)return this.perPage;var t=this.perPageCustom,e=this.browserWidth,n=t.sort(function(t,e){return t[0]>e[0]?-1:1}),i=n.filter(function(t){return e>=t[0]}),r=i[0]&&i[0][1];return r||this.perPage},canAdvanceForward:function(){return this.loop||this.offset<this.maxOffset},canAdvanceBackward:function(){return this.loop||this.currentPage>0},currentPerPage:function(){return!this.perPageCustom||this.$isServer?this.perPage:this.breakpointSlidesPerPage},currentOffset:function(){return(this.offset+this.dragOffset)*-1},isHidden:function(){return this.carouselWidth<=0},maxOffset:function(){return this.slideWidth*this.slideCount-this.carouselWidth+2*this.spacePadding},pageCount:function(){return this.scrollPerPage?Math.ceil(this.slideCount/this.currentPerPage):this.slideCount},slideWidth:function(){var t=this.carouselWidth-2*this.spacePadding,e=Math.min(this.currentPerPage,this.slideCount);return t/e},transitionStyle:function(){return this.speed/1e3+"s "+this.easing+" transform"},padding:function t(){var t=this.spacePadding;return t>0&&t}},methods:{getNextPage:function(){return this.currentPage<this.pageCount-1?this.currentPage+1:this.loop?0:this.currentPage},getPreviousPage:function(){return this.currentPage>0?this.currentPage-1:this.loop?this.pageCount-1:this.currentPage},advancePage:function(t){t&&"backward"===t&&this.canAdvanceBackward?this.goToPage(this.getPreviousPage(),"navigation"):(!t||t&&"backward"!==t)&&this.canAdvanceForward&&this.goToPage(this.getNextPage(),"navigation")},attachMutationObserver:function(){var t=this,e=window.MutationObserver||window.WebKitMutationObserver||window.MozMutationObserver;if(e){var n={attributes:!0,data:!0};this.mutationObserver=new e(function(){t.$nextTick(function(){t.computeCarouselWidth()})}),this.$parent.$el&&this.mutationObserver.observe(this.$parent.$el,n)}},handleNavigation:function(t){this.advancePage(t)},detachMutationObserver:function(){this.mutationObserver&&this.mutationObserver.disconnect()},getBrowserWidth:function(){return this.browserWidth=window.innerWidth,this.browserWidth},getCarouselWidth:function(){var t=this.$refs["VueCarousel-inner"];return this.carouselWidth=t&&t.clientWidth||0,this.carouselWidth},getSlideCount:function(){this.slideCount=this.$slots&&this.$slots.default&&this.$slots.default.filter(function(t){return t.tag&&t.tag.indexOf("slide")>-1}).length||0},goToPage:function(t){t>=0&&t<=this.pageCount&&(this.offset=this.scrollPerPage?Math.min(this.slideWidth*this.currentPerPage*t,this.maxOffset):Math.min(this.slideWidth*t,this.maxOffset),this.currentPage=t)},onStart:function(t){document.addEventListener(this.isTouch?"touchend":"mouseup",this.onEnd,!0),document.addEventListener(this.isTouch?"touchmove":"mousemove",this.onDrag,!0),this.startTime=t.timeStamp,this.dragging=!0,this.dragStartX=this.isTouch?t.touches[0].clientX:t.clientX,this.dragStartY=this.isTouch?t.touches[0].clientY:t.clientY},onEnd:function(t){var e=this.isTouch?t.changedTouches[0].clientX:t.clientX,n=this.dragStartX-e;if(this.dragMomentum=n/(t.timeStamp-this.startTime),0!==this.minSwipeDistance&&Math.abs(n)>=this.minSwipeDistance){var i=this.scrollPerPage?this.slideWidth*this.currentPerPage:this.slideWidth;this.dragOffset=this.dragOffset+(0,a.default)(n)*(i/2)}this.offset+=this.dragOffset,this.dragOffset=0,this.dragging=!1,this.render(),document.removeEventListener(this.isTouch?"touchend":"mouseup",this.onEnd,!0),document.removeEventListener(this.isTouch?"touchmove":"mousemove",this.onDrag,!0)},onDrag:function(t){var e=this.isTouch?t.touches[0].clientX:t.clientX,n=this.isTouch?t.touches[0].clientY:t.clientY,i=this.dragStartX-e,r=this.dragStartY-n;if(!(this.isTouch&&Math.abs(i)<Math.abs(r))){t.preventDefault(),t.stopImmediatePropagation(),this.dragOffset=i;var a=this.offset+this.dragOffset;a<0?this.dragOffset=-Math.sqrt(-this.resistanceCoef*this.dragOffset):a>this.maxOffset&&(this.dragOffset=Math.sqrt(this.resistanceCoef*this.dragOffset))}},onResize:function(){var t=this;this.computeCarouselWidth(),this.dragging=!0,this.render(),setTimeout(function(){t.dragging=!1},this.refreshRate)},render:function(){this.offset+=Math.max(-this.currentPerPage+1,Math.min(Math.round(this.dragMomentum),this.currentPerPage-1))*this.slideWidth;var t=this.scrollPerPage?this.slideWidth*this.currentPerPage:this.slideWidth;this.offset=t*Math.round(this.offset/t),this.offset=Math.max(0,Math.min(this.offset,this.maxOffset)),this.currentPage=this.scrollPerPage?Math.round(this.offset/this.slideWidth/this.currentPerPage):Math.round(this.offset/this.slideWidth)},computeCarouselWidth:function(){this.getSlideCount(),this.getBrowserWidth(),this.getCarouselWidth(),this.setCurrentPageInBounds()},setCurrentPageInBounds:function(){if(!this.canAdvanceForward&&this.scrollPerPage){var t=this.pageCount-1;this.currentPage=t>=0?t:0,this.offset=Math.max(0,Math.min(this.offset,this.maxOffset))}}},mounted:function(){this.$isServer||(window.addEventListener("resize",(0,c.default)(this.onResize,this.refreshRate)),(this.isTouch||this.mouseDrag)&&this.$refs["VueCarousel-wrapper"].addEventListener(this.isTouch?"touchstart":"mousedown",this.onStart)),this.attachMutationObserver(),this.computeCarouselWidth()},beforeDestroy:function(){this.$isServer||(this.detachMutationObserver(),window.removeEventListener("resize",this.getBrowserWidth),this.$refs["VueCarousel-wrapper"].removeEventListener(this.isTouch?"touchstart":"mousedown",this.onStart))}}},function(t,e,n){t.exports={default:n(10),__esModule:!0}},function(t,e,n){n(11),t.exports=n(14).Math.sign},function(t,e,n){var i=n(12);i(i.S,"Math",{sign:n(28)})},function(t,e,n){var i=n(13),r=n(14),a=n(15),o=n(17),s=n(27),u="prototype",c=function(t,e,n){var l,d,f,h=t&c.F,p=t&c.G,g=t&c.S,v=t&c.P,m=t&c.B,b=t&c.W,y=p?r:r[e]||(r[e]={}),C=y[u],x=p?i:g?i[e]:(i[e]||{})[u];p&&(n=e);for(l in n)d=!h&&x&&void 0!==x[l],d&&s(y,l)||(f=d?x[l]:n[l],y[l]=p&&"function"!=typeof x[l]?n[l]:m&&d?a(f,i):b&&x[l]==f?function(t){var e=function(e,n,i){if(this instanceof t){switch(arguments.length){case 0:return new t;case 1:return new t(e);case 2:return new t(e,n)}return new t(e,n,i)}return t.apply(this,arguments)};return e[u]=t[u],e}(f):v&&"function"==typeof f?a(Function.call,f):f,v&&((y.virtual||(y.virtual={}))[l]=f,t&c.R&&C&&!C[l]&&o(C,l,f)))};c.F=1,c.G=2,c.S=4,c.P=8,c.B=16,c.W=32,c.U=64,c.R=128,t.exports=c},function(t,e){var n=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=n)},function(t,e){var n=t.exports={version:"2.5.4"};"number"==typeof __e&&(__e=n)},function(t,e,n){var i=n(16);t.exports=function(t,e,n){if(i(t),void 0===e)return t;switch(n){case 1:return function(n){return t.call(e,n)};case 2:return function(n,i){return t.call(e,n,i)};case 3:return function(n,i,r){return t.call(e,n,i,r)}}return function(){return t.apply(e,arguments)}}},function(t,e){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,e,n){var i=n(18),r=n(26);t.exports=n(22)?function(t,e,n){return i.f(t,e,r(1,n))}:function(t,e,n){return t[e]=n,t}},function(t,e,n){var i=n(19),r=n(21),a=n(25),o=Object.defineProperty;e.f=n(22)?Object.defineProperty:function(t,e,n){if(i(t),e=a(e,!0),i(n),r)try{return o(t,e,n)}catch(t){}if("get"in n||"set"in n)throw TypeError("Accessors not supported!");return"value"in n&&(t[e]=n.value),t}},function(t,e,n){var i=n(20);t.exports=function(t){if(!i(t))throw TypeError(t+" is not an object!");return t}},function(t,e){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,e,n){t.exports=!n(22)&&!n(23)(function(){return 7!=Object.defineProperty(n(24)("div"),"a",{get:function(){return 7}}).a})},function(t,e,n){t.exports=!n(23)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,e){t.exports=function(t){try{return!!t()}catch(t){return!0}}},function(t,e,n){var i=n(20),r=n(13).document,a=i(r)&&i(r.createElement);t.exports=function(t){return a?r.createElement(t):{}}},function(t,e,n){var i=n(20);t.exports=function(t,e){if(!i(t))return t;var n,r;if(e&&"function"==typeof(n=t.toString)&&!i(r=n.call(t)))return r;if("function"==typeof(n=t.valueOf)&&!i(r=n.call(t)))return r;if(!e&&"function"==typeof(n=t.toString)&&!i(r=n.call(t)))return r;throw TypeError("Can't convert object to primitive value")}},function(t,e){t.exports=function(t,e){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:e}}},function(t,e){var n={}.hasOwnProperty;t.exports=function(t,e){return n.call(t,e)}},function(t,e){t.exports=Math.sign||function(t){return 0==(t=+t)||t!=t?t:t<0?-1:1}},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var n={props:{autoplay:{type:Boolean,default:!1},autoplayTimeout:{type:Number,default:2e3},autoplayHoverPause:{type:Boolean,default:!0}},data:function(){return{autoplayInterval:null}},destroyed:function(){this.$isServer||(this.$el.removeEventListener("mouseenter",this.pauseAutoplay),this.$el.removeEventListener("mouseleave",this.startAutoplay))},methods:{pauseAutoplay:function(){this.autoplayInterval&&(this.autoplayInterval=clearInterval(this.autoplayInterval))},startAutoplay:function(){this.autoplay&&(this.autoplayInterval=setInterval(this.advancePage,this.autoplayTimeout))}},mounted:function(){!this.$isServer&&this.autoplayHoverPause&&(this.$el.addEventListener("mouseenter",this.pauseAutoplay),this.$el.addEventListener("mouseleave",this.startAutoplay)),this.startAutoplay()}};e.default=n},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var n=function(t,e,n){var i=void 0;return function(){var r=void 0,a=function(){i=null,n||t.apply(r)},o=n&&!i;clearTimeout(i),i=setTimeout(a,e),o&&t.apply(r)}};e.default=n},function(t,e,n){function i(t){n(32)}var r=n(7)(n(34),n(35),i,"data-v-7fed18e9",null);t.exports=r.exports},function(t,e,n){var i=n(33);"string"==typeof i&&(i=[[t.id,i,""]]),i.locals&&(t.exports=i.locals);n(5)("a1957e6c",i,!0,{})},function(t,e,n){e=t.exports=n(4)(),e.push([t.id,".VueCarousel-navigation-button[data-v-7fed18e9]{position:absolute;top:50%;box-sizing:border-box;color:#000;text-decoration:none;-webkit-appearance:none;-moz-appearance:none;appearance:none;border:none;background-color:transparent;padding:0;cursor:pointer;outline:none}.VueCarousel-navigation-next[data-v-7fed18e9]{right:0;transform:translateY(-50%) translateX(100%)}.VueCarousel-navigation-prev[data-v-7fed18e9]{left:0;transform:translateY(-50%) translateX(-100%)}.VueCarousel-navigation--disabled[data-v-7fed18e9]{opacity:.5;cursor:default}",""])},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.default={name:"navigation",data:function(){return{parentContainer:this.$parent}},props:{clickTargetSize:{type:Number,default:8},nextLabel:{type:String,default:"▶"},prevLabel:{type:String,default:"◀"}},computed:{canAdvanceForward:function(){return this.parentContainer.canAdvanceForward||!1},canAdvanceBackward:function(){return this.parentContainer.canAdvanceBackward||!1}},methods:{triggerPageAdvance:function(t){this.$emit("navigationclick",t)}}}},function(t,e){t.exports={render:function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"VueCarousel-navigation"},[n("button",{staticClass:"VueCarousel-navigation-button VueCarousel-navigation-prev",class:{"VueCarousel-navigation--disabled":!t.canAdvanceBackward},style:"padding: "+t.clickTargetSize+"px; margin-right: -"+t.clickTargetSize+"px;",attrs:{type:"button","aria-label":"Previous page",role:"button"},domProps:{innerHTML:t._s(t.prevLabel)},on:{click:function(e){e.preventDefault(),t.triggerPageAdvance("backward")}}}),t._v(" "),n("button",{staticClass:"VueCarousel-navigation-button VueCarousel-navigation-next",class:{"VueCarousel-navigation--disabled":!t.canAdvanceForward},style:"padding: "+t.clickTargetSize+"px; margin-left: -"+t.clickTargetSize+"px;",attrs:{type:"button","aria-label":"Next page",role:"button"},domProps:{innerHTML:t._s(t.nextLabel)},on:{click:function(e){e.preventDefault(),t.triggerPageAdvance()}}})])},staticRenderFns:[]}},function(t,e,n){function i(t){n(37)}var r=n(7)(n(39),n(40),i,"data-v-7e42136f",null);t.exports=r.exports},function(t,e,n){var i=n(38);"string"==typeof i&&(i=[[t.id,i,""]]),i.locals&&(t.exports=i.locals);n(5)("3ea8dd5f",i,!0,{})},function(t,e,n){e=t.exports=n(4)(),e.push([t.id,".VueCarousel-pagination[data-v-7e42136f]{width:100%;text-align:center}.VueCarousel-dot-container[data-v-7e42136f]{display:inline-block;margin:0 auto;padding:0}.VueCarousel-dot[data-v-7e42136f]{display:inline-block;cursor:pointer}.VueCarousel-dot-button[data-v-7e42136f]{-webkit-appearance:none;-moz-appearance:none;appearance:none;border:none;background-color:transparent;padding:0;border-radius:100%;outline:none;cursor:pointer}.VueCarousel-dot-button[data-v-7e42136f]:focus{outline:1px solid #add8e6}",""])},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.default={name:"pagination",data:function(){return{parentContainer:this.$parent}},methods:{goToPage:function(t){this.$emit("paginationclick",t)},isCurrentDot:function(t){return t===this.parentContainer.currentPage}}}},function(t,e){t.exports={render:function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{directives:[{name:"show",rawName:"v-show",value:t.parentContainer.pageCount>1,expression:"parentContainer.pageCount > 1"}],staticClass:"VueCarousel-pagination"},[n("ul",{staticClass:"VueCarousel-dot-container",attrs:{role:"tablist"}},t._l(t.parentContainer.pageCount,function(e,i){return n("li",{key:i,staticClass:"VueCarousel-dot",class:{"VueCarousel-dot--active":t.isCurrentDot(i)},style:"\n        margin-top: "+2*t.parentContainer.paginationPadding+"px;\n        padding: "+t.parentContainer.paginationPadding+"px;\n      ",attrs:{"aria-hidden":"false",role:"presentation","aria-selected":t.isCurrentDot(i)?"true":"false"},on:{click:function(e){t.goToPage(i)}}},[n("button",{staticClass:"VueCarousel-dot-button",style:"\n          width: "+t.parentContainer.paginationSize+"px;\n          height: "+t.parentContainer.paginationSize+"px;\n          background: "+(t.isCurrentDot(i)?t.parentContainer.paginationActiveColor:t.parentContainer.paginationColor)+";\n        ",attrs:{type:"button",role:"button",tabindex:i}})])}))])},staticRenderFns:[]}},function(t,e,n){function i(t){n(42)}var r=n(7)(n(44),n(45),i,null,null);t.exports=r.exports},function(t,e,n){var i=n(43);"string"==typeof i&&(i=[[t.id,i,""]]),i.locals&&(t.exports=i.locals);n(5)("e8ab14d8",i,!0,{})},function(t,e,n){e=t.exports=n(4)(),e.push([t.id,".VueCarousel-slide{-ms-flex-preferred-size:inherit;flex-basis:inherit;-ms-flex-positive:0;flex-grow:0;-ms-flex-negative:0;flex-shrink:0;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;-webkit-touch-callout:none;outline:none}",""])},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.default={name:"slide",data:function(){return{width:null}},mounted:function(){this.$isServer||this.$el.addEventListener("dragstart",function(t){return t.preventDefault()})}}},function(t,e){t.exports={render:function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"VueCarousel-slide",attrs:{tabindex:"-1"}},[t._t("default")],2)},staticRenderFns:[]}},function(t,e){t.exports={render:function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("section",{staticClass:"VueCarousel"},[n("div",{ref:"VueCarousel-wrapper",staticClass:"VueCarousel-wrapper"},[n("div",{ref:"VueCarousel-inner",staticClass:"VueCarousel-inner",style:"\n        transform: translate3d("+t.currentOffset+"px, 0, 0);\n        transition: "+(t.dragging?"none":t.transitionStyle)+";\n        ms-flex-preferred-size: "+t.slideWidth+"px;\n        webkit-flex-basis: "+t.slideWidth+"px;\n        flex-basis: "+t.slideWidth+"px;\n        visibility: "+(t.slideWidth?"visible":"hidden")+";\n        padding-left: "+t.padding+"px;\n        padding-right: "+t.padding+"px;\n      ",attrs:{role:"listbox"}},[t._t("default")],2)]),t._v(" "),t.paginationEnabled&&t.pageCount>0?n("pagination",{on:{paginationclick:function(e){t.goToPage(e,"pagination")}}}):t._e(),t._v(" "),t.navigationEnabled?n("navigation",{attrs:{clickTargetSize:t.navigationClickTargetSize,nextLabel:t.navigationNextLabel,prevLabel:t.navigationPrevLabel},on:{navigationclick:t.handleNavigation}}):t._e()],1)},staticRenderFns:[]}}])});
 
 /***/ })
 /******/ ]);

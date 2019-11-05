@@ -1,3 +1,4 @@
+'use strict'
 export default class Task {
   constructor (task) {
     for (let key in task) {
@@ -18,7 +19,10 @@ export default class Task {
         Object.defineProperty(this, '_' + CamelCaseKey + 'String', {
           get: function () {
             if (this[CamelCaseKey]) {
-              return this[CamelCaseKey].toLocaleString()
+              // return this[CamelCaseKey].getFullYear() + '-' + this[CamelCaseKey].getMonth() + '-' + this[CamelCaseKey].getDate()
+              // return this[CamelCaseKey].toJSON().substr(0, 10)
+              this[CamelCaseKey].setHours(20)
+              return this[CamelCaseKey].toJSON().substr(0, 10)
             } else {
               return ''
             }
@@ -26,5 +30,17 @@ export default class Task {
         })
       }
     }
+  }
+
+  toJSON () {
+    const jsonObj = Object.assign({}, this)
+    for (const key of Object.getOwnPropertyNames(this)) {
+      const desc = Object.getOwnPropertyDescriptor(this, key)
+      const hasGetter = desc && typeof desc.get === 'function'
+      if (hasGetter) {
+        jsonObj[key] = this[key]
+      }
+    }
+    return jsonObj
   }
 }
