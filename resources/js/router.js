@@ -11,6 +11,7 @@ import LayoutBasic from './views/layouts/LayoutBasic.vue'
 import LoginBase from './views/auth/LoginBase.vue'
 import LayoutFront from './views/layouts/LayoutFront.vue'
 import TasksView from './views/admin/tasks/task.vue'
+import TasksCreate from './views/admin/tasks/create.vue'
 
 Vue.use(VueRouter)
 
@@ -45,6 +46,11 @@ const routes = [
         path: 'task/view/:id',
         component: TasksView,
         name: 'taskView'
+      },
+      {
+        path: 'task/create',
+        component: TasksCreate,
+        name: 'taskCreate'
       }
     ]
   },

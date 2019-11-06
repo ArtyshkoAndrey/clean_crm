@@ -7,6 +7,7 @@
             <h6>Все задачи</h6>
           </div>
           <div class="card-body">
+            <button class="btn btn-primary" @click="$router.push({name: 'taskCreate'})">Создать</button>
             <table-component
               :data="getTasks"
               table-class="table"

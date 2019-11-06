@@ -18,8 +18,8 @@
             <router-link to="/admin/task/all">
               Все
             </router-link>
-            <router-link to="/admin/task/all">
-              Просроченные
+            <router-link to="/admin/task/create">
+              Создать
             </router-link>
           </v-collapse-item>
         </v-collapse>
