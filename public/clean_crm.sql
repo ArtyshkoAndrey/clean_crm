@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 25 2019 г., 10:27
--- Версия сервера: 5.6.43-log
+-- Время создания: Ноя 06 2019 г., 08:12
+-- Версия сервера: 5.7.25-log
 -- Версия PHP: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -30,17 +30,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `clean_images` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `path` text COLLATE utf8_unicode_ci NOT NULL,
+  `path` json NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Дамп данных таблицы `clean_images`
---
-
-INSERT INTO `clean_images` (`id`, `path`, `created_at`, `updated_at`) VALUES
-(1, '\"{\\\"file\\\":\\\"\\\\\\/images\\\\\\/tasks\\\\\\/123.jpg\\\",\\\"type\\\":\\\"type\\\\\\/jpg\\\",\\\"size\\\":324422,\\\"name\\\":\\\"123.jpg\\\"}\"', '2019-10-24 23:24:09', '2019-10-24 23:24:09');
 
 -- --------------------------------------------------------
 
@@ -64,8 +57,8 @@ INSERT INTO `clean_migrations` (`id`, `migration`, `batch`) VALUES
 (3, '2019_10_19_060746_create_tasks_table', 1),
 (4, '2019_10_25_013238_create_responsibles_table', 1),
 (5, '2019_10_25_015030_create_user_tasks_table', 1),
-(6, '2019_10_25_033903_create_images_table', 2),
-(7, '2019_10_25_033955_create_task_images_table', 2);
+(6, '2019_10_25_033903_create_images_table', 1),
+(7, '2019_10_25_033955_create_task_images_table', 1);
 
 -- --------------------------------------------------------
 
@@ -97,16 +90,10 @@ CREATE TABLE `clean_responsibles` (
 --
 
 INSERT INTO `clean_responsibles` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Отдел экономики и развития местного самоуправления', '2019-10-24 18:59:02', '2019-10-24 18:59:02'),
-(2, 'Глухих Р.С.', '2019-10-24 18:59:02', '2019-10-24 18:59:02'),
-(3, 'Отдел по землепользованию и благоустройству района', '2019-10-24 18:59:02', '2019-10-24 18:59:02'),
-(4, 'Отдел жилищно-коммунального хозяйства', '2019-10-24 18:59:02', '2019-10-24 18:59:02'),
-(5, 'GHbdtn', '2019-10-24 20:34:33', '2019-10-24 20:34:33'),
-(6, 'Как дела', '2019-10-24 20:34:49', '2019-10-24 20:34:49'),
-(7, 'Сибгу им. Решетнева', '2019-10-24 20:34:56', '2019-10-24 20:34:56'),
-(8, 'УК ЖСК', '2019-10-24 20:35:02', '2019-10-24 20:35:02'),
-(9, 'Привет', '2019-10-24 20:35:29', '2019-10-24 20:35:29'),
-(10, 'Пока', '2019-10-24 21:18:55', '2019-10-24 21:18:55');
+(1, 'Отдел экономики и развития местного самоуправления', '2019-11-05 06:17:28', '2019-11-05 06:17:28'),
+(2, 'Глухих Р.С.', '2019-11-05 06:17:28', '2019-11-05 06:17:28'),
+(3, 'Отдел по землепользованию и благоустройству района', '2019-11-05 06:17:28', '2019-11-05 06:17:28'),
+(4, 'Отдел жилищно-коммунального хозяйства', '2019-11-05 06:17:28', '2019-11-05 06:17:28');
 
 -- --------------------------------------------------------
 
@@ -121,7 +108,7 @@ CREATE TABLE `clean_tasks` (
   `street` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `number_home` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `date_of_detection` date NOT NULL,
+  `detection_date` date NOT NULL,
   `responsible_id` int(11) NOT NULL,
   `target_date` date NOT NULL,
   `correction_date` date DEFAULT NULL,
@@ -135,8 +122,8 @@ CREATE TABLE `clean_tasks` (
 -- Дамп данных таблицы `clean_tasks`
 --
 
-INSERT INTO `clean_tasks` (`id`, `user_id`, `name`, `street`, `number_home`, `description`, `date_of_detection`, `responsible_id`, `target_date`, `correction_date`, `responsible_executor`, `conducted_work`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Пакетик', 'Горького', '24', 'Пакет на дереве', '2019-10-21', 1, '2019-10-24', NULL, NULL, NULL, '2019-10-24 18:59:02', '2019-10-24 18:59:02');
+INSERT INTO `clean_tasks` (`id`, `user_id`, `name`, `street`, `number_home`, `description`, `detection_date`, `responsible_id`, `target_date`, `correction_date`, `responsible_executor`, `conducted_work`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Пакетик', 'пр-кт Мира', 'д 82', 'Пакет на дереве', '2019-10-21', 2, '2019-10-08', '2019-11-05', 'Я', 'Привет', '2019-11-05 06:17:28', '2019-11-06 05:12:03');
 
 -- --------------------------------------------------------
 
@@ -151,13 +138,6 @@ CREATE TABLE `clean_task_images` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Дамп данных таблицы `clean_task_images`
---
-
-INSERT INTO `clean_task_images` (`id`, `task_id`, `image_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '2019-10-24 17:00:00', '2019-10-24 17:00:00');
 
 -- --------------------------------------------------------
 
@@ -181,8 +161,8 @@ CREATE TABLE `clean_users` (
 --
 
 INSERT INTO `clean_users` (`id`, `name`, `email`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Артышко А. А.', 'artyshko.andrey@gmail.com', '$2y$10$qcS6N20sCHZs2WcN1xlG8egaPknw/1rTx5s9JAuLVImbDfRNmEjy2', 'admin', NULL, '2019-10-24 18:59:02', '2019-10-24 18:59:02'),
-(2, 'Миронов М. М.', 'artyshko.andrey1@gmail.com', '$2y$10$A6ozsMz.s9BOO/J1D9ypHeC6d7MWygI6G1SiEGH0rUDiNvbtgydLu', 'admin', NULL, '2019-10-24 18:59:02', '2019-10-24 18:59:02');
+(1, 'Артышко А. А.', 'artyshko.andrey@gmail.com', '$2y$10$xTq7dObRvtkQ5rZ1Q5ZffeN.ib3AY66x/TU4x7fy3j9BvyPN5zrkm', 'admin', NULL, '2019-11-05 06:17:28', '2019-11-05 06:17:28'),
+(2, 'Миронов М. М.', 'artyshko.andrey1@gmail.com', '$2y$10$APo.dVLSlFY.gIkL7rXxK.1Rw/h0BmEbGpJGREjN0O8ekkvSc434a', 'admin', NULL, '2019-11-05 06:17:28', '2019-11-05 06:17:28');
 
 -- --------------------------------------------------------
 
@@ -203,8 +183,8 @@ CREATE TABLE `clean_user_tasks` (
 --
 
 INSERT INTO `clean_user_tasks` (`id`, `user_id`, `task_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '2019-10-24 18:59:02', '2019-10-24 18:59:02'),
-(2, 2, 1, '2019-10-24 18:59:02', '2019-10-24 18:59:02');
+(1, 1, 1, '2019-11-05 06:17:28', '2019-11-05 06:17:28'),
+(3, 2, 1, NULL, NULL);
 
 --
 -- Индексы сохранённых таблиц
@@ -269,7 +249,7 @@ ALTER TABLE `clean_user_tasks`
 -- AUTO_INCREMENT для таблицы `clean_images`
 --
 ALTER TABLE `clean_images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT для таблицы `clean_migrations`
@@ -281,7 +261,7 @@ ALTER TABLE `clean_migrations`
 -- AUTO_INCREMENT для таблицы `clean_responsibles`
 --
 ALTER TABLE `clean_responsibles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `clean_tasks`
@@ -293,7 +273,7 @@ ALTER TABLE `clean_tasks`
 -- AUTO_INCREMENT для таблицы `clean_task_images`
 --
 ALTER TABLE `clean_task_images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT для таблицы `clean_users`
@@ -305,7 +285,7 @@ ALTER TABLE `clean_users`
 -- AUTO_INCREMENT для таблицы `clean_user_tasks`
 --
 ALTER TABLE `clean_user_tasks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
