@@ -15,27 +15,12 @@ use File;
 
 class TaskController extends Controller {
   public function all (Request $request) {
-    $tasks = Task::where('user_id', auth()->user()->id)->get();
-    if (isset($request->filter) && $request->filter !== '') {
-      $filter = $request->filter;
-      $tasks = Task::where('user_id', auth()->user()->id)->get();
-      $tasks = $tasks->filter(function($task) use ($filter) {
-        return strstr(mb_strtolower($task->street), mb_strtolower($filter)) ||
-               strstr(mb_strtolower($task->number_home), mb_strtolower($filter)) ||
-               strstr(mb_strtolower($task->description), mb_strtolower($filter)) ||
-               strstr($task->target_date->toDateString(), mb_strtolower($filter)) ||
-               strstr($task->detection_date->toDateString(), mb_strtolower($filter));
-    });
-    $tasks = $tasks->paginate(10);
-    } else if (isset($request->sortName)) {
-      $tasks = Task::where('user_id', auth()->user()->id)
-        ->when($request, function ($query, $request) {
-          return $query->orderBy($request->sortName, $request->sortType);
-      })
-      ->paginate(10);
-    } else {
-      $tasks = Task::where('user_id', 1)->paginate(10);
+    $tasks = auth()->user()->tasks;
+    foreach($request->filter as $filter) {
+      $tasks = $tasks->where($filter['field'], $filter['value']);
     }
+    // $tasks-
+    // $tasks = $tasks->paginate(10);
     return response()->json($tasks, 200);
   }
 

@@ -19,7 +19,7 @@
                   placeholder="Выберете параметр"
                   class="mt-2"
                 />
-                <a href="#" class="filter-add-button mt-2">Отфильтровать</a>
+                <button @click="getTasks" class="filter-add-button mt-2">Отфильтровать</button>
               </div>
               <div class="col-md-6">
                 <div v-for="column in choosedColumns"
@@ -38,6 +38,7 @@
                     placeholder="Выберете параметр"
                     class="mt-2"
                   />
+                  <datepicker v-else-if='column.type === "date"' input-class="form-control" format="dd.MM.yyyy" v-model="column.value"/>
                 </div>
               </div>
             </div>
@@ -49,37 +50,22 @@
             <h3>Все правонарушения</h3>
           </div>
           <div class="card-body">
-            <table-component
-              :data="getTasks"
-              table-class="table"
-              sort-by="detection_date"
-              sort-order="desc"
-              filter-placeholder="Поиск"
-              filterNoResults="Нет данных"
-              ref="tableTasks"
-            >
-              <table-column show="street" label="Улица"/>
-              <table-column show="number_home" label="Номер дома"/>
-              <table-column show="detection_date" label="ДАТА ВЫЯВЛЕНИЯ"/>
-              <table-column show="description" label="Описание"/>
-              <table-column show="target_date" label="КОНТРОЛЬНЫЙ СРОК"/>
-              <table-column
-                :sortable="false"
-                :filterable="false"
-                label=""
-              >
-                <template slot-scope="row">
-                  <div class="table__actions">
-                    <button class="btn btn-default btn-sm mr-2" @click="$router.push({name: 'taskView', params: { id: row.id}})">
-                      Изменть
-                    </button>
-                    <button class="btn btn-default btn-sm" @click="dropTask(row.id)">
-                      Удалить
-                    </button>
-                  </div>
-                </template>
-              </table-column>
-            </table-component>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">№</th>
+                  <th scope="col">First</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="task in tasks" :key="task.id">
+                  <th scope="row">{{ task.id }}</th>
+                  <td>{{ task.name }}</td>
+                  <td>{{ task.street }} {{ task.number_home }}</td>
+                  <td>{{ task.created_at }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -88,27 +74,80 @@
 </template>
 
 <script type="text/babel">
-import { TableComponent, TableColumn } from 'vue-table-component'
 import Multiselect from 'vue-multiselect'
-
+import Datepicker from 'vuejs-datepicker'
 export default {
   data () {
     return {
       'header': 'header',
-      count: 0,
+      page: 1,
       tasks: [],
       filterColumns: [{
         name: "Улица",
+        field: 'street',
         value: "",
         type: "text"
       },
       {
         name: "Дом",
+        field: 'number_home',
         value: "",
         type: "text"
       },
       {
+        name: "Название",
+        field: 'name',
+        value: "",
+        type: "text"
+      },
+      {
+        name: "Ответственный",
+        field: 'responsible',
+        value: "",
+        type: "select",
+        options: ['Глухихб Р. С.']
+      },
+      {
+        name: "Ответственый исполнитель",
+        field: 'responsible_executor',
+        value: "",
+        type: "text"
+      },
+      {
+        name: "Дата выявления",
+        field: 'detection_date',
+        value: "",
+        type: "date"
+      },
+      {
+        name: "Дата выявления",
+        field: 'detection_date',
+        value: "",
+        type: "date"
+      },
+      {
+        name: "Контрольный срок",
+        field: 'target_date',
+        value: "",
+        type: "date"
+      },
+      {
+        name: "Дата устранения",
+        field: 'correction_date',
+        value: "",
+        type: "date"
+      },
+      {
+        name: "Кем выявлено",
+        field: 'identified',
+        value: "",
+        type: "select",
+        options: ['Артышко А. А.']
+      },
+      
+      {
         name: "Статус",
+        field: 'status',
         value: "",
         type: "select",
         options: ["В работе", "Просроченные", "Выполненные"]
@@ -119,12 +158,11 @@ export default {
     }
   },
   components: {
-    TableComponent,
-    TableColumn,
-    Multiselect
+    Multiselect,
+    Datepicker
   },
   mounted () {
-    // this.getTasks()
+    this.getTasks()
   },
   watch: {
     currentChoose: function (val) {
@@ -134,9 +172,6 @@ export default {
     }
   },
   methods: {
-    taskDetails (id) {
-      console.log(id)
-    },
     checkColor(row) {
       let endDay = new Date()
       endDay.setDate(row.target_date.slice(0, 2))
@@ -149,26 +184,22 @@ export default {
         return 'table-danger'
       }
     },
-    async getTasks ({ page, filter, sort }) {
-      console.log( page, filter)
-      sort ? console.log(sort) : null
-      let response = await window.axios.get('/api/admin/task/get', {
-        params: {
-          page: page,
-          filter: filter,
-          sortName: sort.fieldName,
-          sortType: sort.order
+    async getTasks () {
+      let params = {}
+      params.filter = []
+      this.choosedColumns.forEach(column => {
+        if (column.type === 'text') {
+          column.value !== '' ? params.filter.push(column) : null
         }
       })
-      console.log(response)
-      return {
-        data: response.data.data,
-        pagination: {
-          totalPages: response.data.last_page,
-          currentPage: page,
-          count: response.data.count
-        }
-      }
+      params.page = this.page
+      await window.axios.post('/api/admin/task/get', params)
+      .then(response => {
+        console.log(response)
+        this.tasks = response.data
+      })
+      .catch(error => console.log(error))
+      .finally(() => (this.loading = false));
     },
     async dropTask (id) {
       let response = await window.axios.post('/api/admin/task/' + id, { _method: 'DELETE' })

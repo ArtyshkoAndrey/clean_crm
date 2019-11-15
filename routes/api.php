@@ -15,24 +15,6 @@ use App\Model\Task;
 |
 */
 
-Route::get('/test', function(Request $request) {
-    $tasks = Task::where('user_id', 1)->get();
-    if (isset($request->filter) && $request->filter !== '') {
-      echo 'TEST \n';
-      $tasks = Task::where('user_id', 1)->where('street', 'LIKE', "%{$request->filter}%")->orWhere('number_home', 'LIKE', "%{$request->filter}%")->orWhere('description', 'LIKE', "%{$request->filter}%")->orWhere('target_date', 'LIKE', "%{$request->filter}%")->orWhere('detection_date', 'LIKE', "%{$request->filter}%")->paginate(10);
-    } else if (isset($request->sortName)) {
-      $tasks = Task::where('user_id', 1)
-        ->when($request, function ($query, $request) {
-          return $query->orderBy($request->sortName, $request->sortType);
-      })
-      ->paginate(10);
-    } else {
-      $tasks = Task::where('user_id', 1)->paginate(10);
-    }
-  return response()->json($tasks, 200);
-});
-
-
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login','AuthController@authenticate');
     Route::post('register','AuthController@registration');
@@ -60,7 +42,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'api.auth'], function (){
     'as' => 'admin.responsibles.create', 'uses' => 'UserController@responsibleCreate'
   ]);
   Route::group(['prefix' => 'task'], function () {
-    Route::get('/get', [
+    Route::post('/get', [
       'as' => 'admin.task.all', 'uses' => 'TaskController@all'
     ]);
     Route::post('/view/{id}', [

@@ -39,12 +39,13 @@ class User extends Authenticatable implements JWTSubject
 
     protected $with = ['profile', 'roles'];
 
-    public function profile() {
-        
+    public function tasks() {  
+        return $this->hasMany('App\Model\Task');
+    }
+    public function profile() {  
         return $this->hasOne('App\Model\Profile');
     }
     public function roles() {
-        
         return $this->belongsToMany(config('roles.models.role'));
     }
 
