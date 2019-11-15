@@ -15,11 +15,26 @@
               <span class="icon-fa arrow icon-fa-fw"/>
             </a>
 
+            <router-link to="/admin/task/create">
+              Создать
+            </router-link>
             <router-link to="/admin/task/all">
               Все
             </router-link>
-            <router-link to="/admin/task/create">
-              Создать
+            <router-link to="/admin/task/working">
+              В работе
+            </router-link>
+            <router-link to="/admin/task/completed">
+              Устраненные
+            </router-link>
+            <router-link to="/admin/task/overdue">
+              Просроченные
+            </router-link>
+          </v-collapse-item>
+
+          <v-collapse-item active-url="/admin">
+            <router-link slot="item-title" to="/admin">
+              <i class="icon-fa icon-fa-dashboard"/>Аналитика
             </router-link>
           </v-collapse-item>
         </v-collapse>

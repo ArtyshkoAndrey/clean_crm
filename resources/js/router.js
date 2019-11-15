@@ -13,6 +13,9 @@ import LayoutFront from './views/layouts/LayoutFront.vue'
 import TasksView from './views/admin/tasks/task.vue'
 import TasksCreate from './views/admin/tasks/create.vue'
 import ProfilePage from './views/admin/profile/index.vue'
+import TasksWorking from './views/admin/tasks/working.vue'
+import TasksOverdue from './views/admin/tasks/overdue.vue'
+import TasksCompleted from './views/admin/tasks/completed.vue'
 
 Vue.use(VueRouter)
 
@@ -55,8 +58,23 @@ const routes = [
       },
       {
         path: 'task/create',
-        component: TasksCreate,
+        // component: TasksCreate,
         name: 'taskCreate'
+      },
+      {
+        path: 'task/working',
+        component: TasksWorking,
+        name: 'tasksWorking'
+      },
+      {
+        path: 'task/overdue',
+        component: TasksOverdue,
+        name: 'tasksOverdue'
+      },
+      {
+        path: 'task/completed',
+        component: TasksCompleted,
+        name: 'tasksCompleted'
       }
     ]
   },

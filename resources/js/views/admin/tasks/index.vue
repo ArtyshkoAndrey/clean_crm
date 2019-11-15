@@ -4,10 +4,40 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <h6>Все задачи</h6>
+            <h3>Фильтры</h3>
           </div>
           <div class="card-body">
-            <button class="btn btn-primary" @click="$router.push({name: 'taskCreate'})">Создать</button>
+            <div class="row">
+              <div class="col-12 col-md-6 mt-2">
+                <multiselect
+                  :options="['first thing', 'second thing', 'third thing']"
+                  :hide-selected="true"
+                  :selectLabel="''"
+                  :taggable="true"
+                  placeholder="Первый фильтр"
+                />
+              </div>
+              <div class="col-12 col-md-6 mt-2">
+                <multiselect
+                  :options="['first thing', 'second thing', 'third thing']"
+                  :hide-selected="true"
+                  :selectLabel="''"
+                  :taggable="true"
+                  placeholder="Первый фильтр"
+                />
+              </div>
+              <div class="col-12 col-md-6 mt-2">
+                <a href="#" class="filter-add-button">Добавить фильтр</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Все правонарушения</h3>
+          </div>
+          <div class="card-body">
             <table-component
               :data="getTasks"
               table-class="table"
@@ -48,6 +78,8 @@
 
 <script type="text/babel">
 import { TableComponent, TableColumn } from 'vue-table-component'
+import Multiselect from 'vue-multiselect'
+
 export default {
   data () {
     return {
@@ -59,7 +91,8 @@ export default {
   },
   components: {
     TableComponent,
-    TableColumn
+    TableColumn,
+    Multiselect
   },
   mounted () {
     // this.getTasks()
@@ -125,5 +158,19 @@ export default {
 .fade-enter,
 .fade-leave-to {
     opacity: 0
+}
+
+.filter-add-button {
+  display: block;
+  border: 1px solid gray;
+  padding: .5rem 1rem;
+  text-align: center;
+  transition-duration: .5s;
+}
+
+.filter-add-button:hover {
+  background: lightgray;
+  transition-duration: .5s;
+  border-color: lightgray;
 }
 </style>

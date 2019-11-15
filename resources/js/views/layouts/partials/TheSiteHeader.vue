@@ -15,7 +15,7 @@
       </div>
     </a>
     <ul class="action-list">
-      <li>
+      <!-- <li>
         <v-dropdown :show-arrow="false">
           <a slot="activator" href="#">
             <i class="icon-fa icon-fa-plus"/>
@@ -65,7 +65,7 @@
             </v-dropdown-item>
           </div>
         </v-dropdown>
-      </li>
+      </li> -->
       <li>
         <v-dropdown :show-arrow="false">
           <a

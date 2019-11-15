@@ -36876,6 +36876,18 @@ var _index3 = __webpack_require__(396);
 
 var _index4 = _interopRequireDefault(_index3);
 
+var _working = __webpack_require__(478);
+
+var _working2 = _interopRequireDefault(_working);
+
+var _overdue = __webpack_require__(483);
+
+var _overdue2 = _interopRequireDefault(_overdue);
+
+var _completed = __webpack_require__(488);
+
+var _completed2 = _interopRequireDefault(_completed);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _vue2.default.use(_vueRouter2.default);
@@ -36910,8 +36922,20 @@ var routes = [{
     name: 'taskView'
   }, {
     path: 'task/create',
-    component: _create2.default,
+    // component: TasksCreate,
     name: 'taskCreate'
+  }, {
+    path: 'task/working',
+    component: _working2.default,
+    name: 'tasksWorking'
+  }, {
+    path: 'task/overdue',
+    component: _overdue2.default,
+    name: 'tasksOverdue'
+  }, {
+    path: 'task/completed',
+    component: _completed2.default,
+    name: 'tasksCompleted'
   }]
 }, {
   path: '/',
@@ -38908,6 +38932,18 @@ exports.default = {
     }
   }
 }; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -51955,16 +51991,14 @@ var staticRenderFns = [
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12 col-lg-6 col-xl-3" }, [
         _c("a", { staticClass: "dashbox", attrs: { href: "#" } }, [
-          _c("i", {
-            staticClass: "icon-fa icon-fa-check-circle-o text-primary"
-          }),
+          _c("i", { staticClass: "icon-fa icon-fa-clock-o text-warning" }),
           _vm._v(" "),
           _c("span", { staticClass: "title" }, [
             _vm._v("\n          35\n        ")
           ]),
           _vm._v(" "),
           _c("span", { staticClass: "desc" }, [
-            _vm._v("\n          Выполнемые\n        ")
+            _vm._v("\n          В работе\n        ")
           ])
         ])
       ]),
@@ -51979,6 +52013,22 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("span", { staticClass: "desc" }, [
             _vm._v("\n          Просроченные\n        ")
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-12 col-lg-6 col-xl-3" }, [
+        _c("a", { staticClass: "dashbox", attrs: { href: "#" } }, [
+          _c("i", {
+            staticClass: "icon-fa icon-fa-check-circle-o text-success"
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "title" }, [
+            _vm._v("\n          30\n        ")
+          ]),
+          _vm._v(" "),
+          _c("span", { staticClass: "desc" }, [
+            _vm._v("\n          Устраненные\n        ")
           ])
         ])
       ])
@@ -52134,7 +52184,7 @@ exports = module.exports = __webpack_require__(9)(true);
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active,\r\n.fade-leave-active {\r\n    -webkit-transition: opacity .5s;\r\n    transition: opacity .5s\n}\n.fade-enter,\r\n.fade-leave-to {\r\n    opacity: 0\n}\r\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/views/admin/tasks/resources/js/views/admin/tasks/index.vue"],"names":[],"mappings":";AAuHA;;IAEA,gCAAA;IAAA,uBAAA;CACA;AAEA;;IAEA,UAAA;CACA","file":"index.vue","sourcesContent":["<template>\r\n  <div class=\"main-content\">\r\n    <div class=\"row\">\r\n      <div class=\"col-12\">\r\n        <div class=\"card\">\r\n          <div class=\"card-header\">\r\n            <h6>Все задачи</h6>\r\n          </div>\r\n          <div class=\"card-body\">\r\n            <button class=\"btn btn-primary\" @click=\"$router.push({name: 'taskCreate'})\">Создать</button>\r\n            <table-component\r\n              :data=\"getTasks\"\r\n              table-class=\"table\"\r\n              sort-by=\"detection_date\"\r\n              sort-order=\"desc\"\r\n              filter-placeholder=\"Поиск\"\r\n              filterNoResults=\"Нет данных\"\r\n              ref=\"tableTasks\"\r\n            >\r\n              <table-column show=\"street\" label=\"Улица\"/>\r\n              <table-column show=\"number_home\" label=\"Номер дома\"/>\r\n              <table-column show=\"detection_date\" label=\"ДАТА ВЫЯВЛЕНИЯ\"/>\r\n              <table-column show=\"description\" label=\"Описание\"/>\r\n              <table-column show=\"target_date\" label=\"КОНТРОЛЬНЫЙ СРОК\"/>\r\n              <table-column\r\n                :sortable=\"false\"\r\n                :filterable=\"false\"\r\n                label=\"\"\r\n              >\r\n                <template slot-scope=\"row\">\r\n                  <div class=\"table__actions\">\r\n                    <button class=\"btn btn-default btn-sm mr-2\" @click=\"$router.push({name: 'taskView', params: { id: row.id}})\">\r\n                      Изменть\r\n                    </button>\r\n                    <button class=\"btn btn-default btn-sm\" @click=\"dropTask(row.id)\">\r\n                      Удалить\r\n                    </button>\r\n                  </div>\r\n                </template>\r\n              </table-column>\r\n            </table-component>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n<script type=\"text/babel\">\r\nimport { TableComponent, TableColumn } from 'vue-table-component'\r\nexport default {\r\n  data () {\r\n    return {\r\n      'header': 'header',\r\n      count: 0,\r\n      tasks: [],\r\n      loading: true\r\n    }\r\n  },\r\n  components: {\r\n    TableComponent,\r\n    TableColumn\r\n  },\r\n  mounted () {\r\n    // this.getTasks()\r\n  },\r\n  methods: {\r\n    taskDetails (id) {\r\n      console.log(id)\r\n    },\r\n    checkColor(row) {\r\n      let endDay = new Date()\r\n      endDay.setDate(row.target_date.slice(0, 2))\r\n      endDay.setMonth(parseInt(row.target_date.slice(3, 5)) - 1)\r\n      endDay.setFullYear(row.target_date.slice(6, 10))\r\n      endDay = Date.parse(endDay)\r\n      let nowDay = Date.now()\r\n      if (nowDay >= endDay) {\r\n\r\n        return 'table-danger'\r\n      }\r\n    },\r\n    async getTasks ({ page, filter, sort }) {\r\n      console.log( page, filter)\r\n      sort ? console.log(sort) : null\r\n      let response = await window.axios.get('/api/admin/task/get', {\r\n        params: {\r\n          page: page,\r\n          filter: filter,\r\n          sortName: sort.fieldName,\r\n          sortType: sort.order\r\n        }\r\n      })\r\n      console.log(response)\r\n      return {\r\n        data: response.data.data,\r\n        pagination: {\r\n          totalPages: response.data.last_page,\r\n          currentPage: page,\r\n          count: response.data.count\r\n        }\r\n      }\r\n    },\r\n    async dropTask (id) {\r\n      let response = await window.axios.post('/api/admin/task/' + id, { _method: 'DELETE' })\r\n      console.log(response)\r\n      if (response.status == 200 && response.data == 'Success') {\r\n        window.toastr['success']('Задача удалена', 'Выполнено')\r\n        this.$refs.tableTasks.refresh()\r\n      } else {\r\n        window.toastr['error']('Ошибка', 'Не выполнено')\r\n        this.$refs.tableTasks.refresh()\r\n      }\r\n    }\r\n  }\r\n}\r\n</script>\r\n\r\n<style>\r\n.fade-enter-active,\r\n.fade-leave-active {\r\n    transition: opacity .5s\r\n}\r\n\r\n.fade-enter,\r\n.fade-leave-to {\r\n    opacity: 0\r\n}\r\n</style>"],"sourceRoot":""}]);
+exports.push([module.i, "\n.fade-enter-active,\r\n.fade-leave-active {\r\n    -webkit-transition: opacity .5s;\r\n    transition: opacity .5s\n}\n.fade-enter,\r\n.fade-leave-to {\r\n    opacity: 0\n}\n.filter-add-button {\r\n  display: block;\r\n  border: 1px solid gray;\r\n  padding: .5rem 1rem;\r\n  text-align: center;\r\n  -webkit-transition-duration: .5s;\r\n          transition-duration: .5s;\n}\n.filter-add-button:hover {\r\n  background: lightgray;\r\n  -webkit-transition-duration: .5s;\r\n          transition-duration: .5s;\r\n  border-color: lightgray;\n}\r\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/views/admin/tasks/resources/js/views/admin/tasks/index.vue"],"names":[],"mappings":";AAwJA;;IAEA,gCAAA;IAAA,uBAAA;CACA;AAEA;;IAEA,UAAA;CACA;AAEA;EACA,eAAA;EACA,uBAAA;EACA,oBAAA;EACA,mBAAA;EACA,iCAAA;UAAA,yBAAA;CACA;AAEA;EACA,sBAAA;EACA,iCAAA;UAAA,yBAAA;EACA,wBAAA;CACA","file":"index.vue","sourcesContent":["<template>\r\n  <div class=\"main-content\">\r\n    <div class=\"row\">\r\n      <div class=\"col-12\">\r\n        <div class=\"card\">\r\n          <div class=\"card-header\">\r\n            <h3>Фильтры</h3>\r\n          </div>\r\n          <div class=\"card-body\">\r\n            <div class=\"row\">\r\n              <div class=\"col-12 col-md-6 mt-2\">\r\n                <multiselect\r\n                  :options=\"['first thing', 'second thing', 'third thing']\"\r\n                  :hide-selected=\"true\"\r\n                  :selectLabel=\"''\"\r\n                  :taggable=\"true\"\r\n                  placeholder=\"Первый фильтр\"\r\n                />\r\n              </div>\r\n              <div class=\"col-12 col-md-6 mt-2\">\r\n                <multiselect\r\n                  :options=\"['first thing', 'second thing', 'third thing']\"\r\n                  :hide-selected=\"true\"\r\n                  :selectLabel=\"''\"\r\n                  :taggable=\"true\"\r\n                  placeholder=\"Первый фильтр\"\r\n                />\r\n              </div>\r\n              <div class=\"col-12 col-md-6 mt-2\">\r\n                <a href=\"#\" class=\"filter-add-button\">Добавить фильтр</a>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"card\">\r\n          <div class=\"card-header\">\r\n            <h3>Все правонарушения</h3>\r\n          </div>\r\n          <div class=\"card-body\">\r\n            <table-component\r\n              :data=\"getTasks\"\r\n              table-class=\"table\"\r\n              sort-by=\"detection_date\"\r\n              sort-order=\"desc\"\r\n              filter-placeholder=\"Поиск\"\r\n              filterNoResults=\"Нет данных\"\r\n              ref=\"tableTasks\"\r\n            >\r\n              <table-column show=\"street\" label=\"Улица\"/>\r\n              <table-column show=\"number_home\" label=\"Номер дома\"/>\r\n              <table-column show=\"detection_date\" label=\"ДАТА ВЫЯВЛЕНИЯ\"/>\r\n              <table-column show=\"description\" label=\"Описание\"/>\r\n              <table-column show=\"target_date\" label=\"КОНТРОЛЬНЫЙ СРОК\"/>\r\n              <table-column\r\n                :sortable=\"false\"\r\n                :filterable=\"false\"\r\n                label=\"\"\r\n              >\r\n                <template slot-scope=\"row\">\r\n                  <div class=\"table__actions\">\r\n                    <button class=\"btn btn-default btn-sm mr-2\" @click=\"$router.push({name: 'taskView', params: { id: row.id}})\">\r\n                      Изменть\r\n                    </button>\r\n                    <button class=\"btn btn-default btn-sm\" @click=\"dropTask(row.id)\">\r\n                      Удалить\r\n                    </button>\r\n                  </div>\r\n                </template>\r\n              </table-column>\r\n            </table-component>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n<script type=\"text/babel\">\r\nimport { TableComponent, TableColumn } from 'vue-table-component'\r\nimport Multiselect from 'vue-multiselect'\r\n\r\nexport default {\r\n  data () {\r\n    return {\r\n      'header': 'header',\r\n      count: 0,\r\n      tasks: [],\r\n      loading: true\r\n    }\r\n  },\r\n  components: {\r\n    TableComponent,\r\n    TableColumn,\r\n    Multiselect\r\n  },\r\n  mounted () {\r\n    // this.getTasks()\r\n  },\r\n  methods: {\r\n    taskDetails (id) {\r\n      console.log(id)\r\n    },\r\n    checkColor(row) {\r\n      let endDay = new Date()\r\n      endDay.setDate(row.target_date.slice(0, 2))\r\n      endDay.setMonth(parseInt(row.target_date.slice(3, 5)) - 1)\r\n      endDay.setFullYear(row.target_date.slice(6, 10))\r\n      endDay = Date.parse(endDay)\r\n      let nowDay = Date.now()\r\n      if (nowDay >= endDay) {\r\n\r\n        return 'table-danger'\r\n      }\r\n    },\r\n    async getTasks ({ page, filter, sort }) {\r\n      console.log( page, filter)\r\n      sort ? console.log(sort) : null\r\n      let response = await window.axios.get('/api/admin/task/get', {\r\n        params: {\r\n          page: page,\r\n          filter: filter,\r\n          sortName: sort.fieldName,\r\n          sortType: sort.order\r\n        }\r\n      })\r\n      console.log(response)\r\n      return {\r\n        data: response.data.data,\r\n        pagination: {\r\n          totalPages: response.data.last_page,\r\n          currentPage: page,\r\n          count: response.data.count\r\n        }\r\n      }\r\n    },\r\n    async dropTask (id) {\r\n      let response = await window.axios.post('/api/admin/task/' + id, { _method: 'DELETE' })\r\n      console.log(response)\r\n      if (response.status == 200 && response.data == 'Success') {\r\n        window.toastr['success']('Задача удалена', 'Выполнено')\r\n        this.$refs.tableTasks.refresh()\r\n      } else {\r\n        window.toastr['error']('Ошибка', 'Не выполнено')\r\n        this.$refs.tableTasks.refresh()\r\n      }\r\n    }\r\n  }\r\n}\r\n</script>\r\n\r\n<style>\r\n.fade-enter-active,\r\n.fade-leave-active {\r\n    transition: opacity .5s\r\n}\r\n\r\n.fade-enter,\r\n.fade-leave-to {\r\n    opacity: 0\r\n}\r\n\r\n.filter-add-button {\r\n  display: block;\r\n  border: 1px solid gray;\r\n  padding: .5rem 1rem;\r\n  text-align: center;\r\n  transition-duration: .5s;\r\n}\r\n\r\n.filter-add-button:hover {\r\n  background: lightgray;\r\n  transition-duration: .5s;\r\n  border-color: lightgray;\r\n}\r\n</style>"],"sourceRoot":""}]);
 
 // exports
 
@@ -52160,7 +52210,90 @@ var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
 var _vueTableComponent = __webpack_require__(305);
 
+var _vueMultiselect = __webpack_require__(203);
+
+var _vueMultiselect2 = _interopRequireDefault(_vueMultiselect);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
   data: function data() {
@@ -52174,7 +52307,8 @@ exports.default = {
 
   components: {
     TableComponent: _vueTableComponent.TableComponent,
-    TableColumn: _vueTableComponent.TableColumn
+    TableColumn: _vueTableComponent.TableColumn,
+    Multiselect: _vueMultiselect2.default
   },
   mounted: function mounted() {
     // this.getTasks()
@@ -52274,54 +52408,7 @@ exports.default = {
       }))();
     }
   }
-}; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+};
 
 /***/ }),
 /* 305 */
@@ -57444,23 +57531,54 @@ var render = function() {
         _c("div", { staticClass: "card" }, [
           _vm._m(0),
           _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "row" }, [
+              _c(
+                "div",
+                { staticClass: "col-12 col-md-6 mt-2" },
+                [
+                  _c("multiselect", {
+                    attrs: {
+                      options: ["first thing", "second thing", "third thing"],
+                      "hide-selected": true,
+                      selectLabel: "",
+                      taggable: true,
+                      placeholder: "Первый фильтр"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-12 col-md-6 mt-2" },
+                [
+                  _c("multiselect", {
+                    attrs: {
+                      options: ["first thing", "second thing", "third thing"],
+                      "hide-selected": true,
+                      selectLabel: "",
+                      taggable: true,
+                      placeholder: "Первый фильтр"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._m(1)
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card" }, [
+          _vm._m(2),
+          _vm._v(" "),
           _c(
             "div",
             { staticClass: "card-body" },
             [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  on: {
-                    click: function($event) {
-                      _vm.$router.push({ name: "taskCreate" })
-                    }
-                  }
-                },
-                [_vm._v("Создать")]
-              ),
-              _vm._v(" "),
               _c(
                 "table-component",
                 {
@@ -57562,7 +57680,25 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h6", [_vm._v("Все задачи")])
+      _c("h3", [_vm._v("Фильтры")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-12 col-md-6 mt-2" }, [
+      _c("a", { staticClass: "filter-add-button", attrs: { href: "#" } }, [
+        _vm._v("Добавить фильтр")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", [_vm._v("Все правонарушения")])
     ])
   }
 ]
@@ -59374,104 +59510,6 @@ var render = function() {
             [
               _c(
                 "a",
-                { attrs: { slot: "activator", href: "#" }, slot: "activator" },
-                [_c("i", { staticClass: "icon-fa icon-fa-plus" })]
-              ),
-              _vm._v(" "),
-              _c("v-dropdown-item", [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("i", { staticClass: "icon-fa icon-fa-edit" }),
-                  _vm._v(" New Post\n          ")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("v-dropdown-item", [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("i", { staticClass: "icon-fa icon-fa-tag" }),
-                  _vm._v(" New Category\n          ")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("v-dropdown-divider"),
-              _vm._v(" "),
-              _c("v-dropdown-item", [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("i", { staticClass: "icon-fa icon-fa-star" }),
-                  _vm._v(" Separated link\n          ")
-                ])
-              ])
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "li",
-        [
-          _c("v-dropdown", { attrs: { "show-arrow": false } }, [
-            _c(
-              "a",
-              {
-                attrs: {
-                  slot: "activator",
-                  href: "#",
-                  "data-toggle": "dropdown",
-                  "aria-haspopup": "true",
-                  "aria-expanded": "false"
-                },
-                slot: "activator"
-              },
-              [_c("i", { staticClass: "icon-fa icon-fa-bell" })]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "notification-dropdown" },
-              [
-                _c("h6", { staticClass: "dropdown-header" }, [
-                  _vm._v("\n            Notifications\n          ")
-                ]),
-                _vm._v(" "),
-                _c("v-dropdown-item", [
-                  _c(
-                    "a",
-                    { staticClass: "dropdown-item", attrs: { href: "#" } },
-                    [
-                      _c("i", { staticClass: "icon-fa icon-fa-user" }),
-                      _vm._v(" New User was Registered\n            ")
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("v-dropdown-item", [
-                  _c(
-                    "a",
-                    { staticClass: "dropdown-item", attrs: { href: "#" } },
-                    [
-                      _c("i", { staticClass: "icon-fa icon-fa-comment" }),
-                      _vm._v(" A Comment has been posted.\n            ")
-                    ]
-                  )
-                ])
-              ],
-              1
-            )
-          ])
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "li",
-        [
-          _c(
-            "v-dropdown",
-            { attrs: { "show-arrow": false } },
-            [
-              _c(
-                "a",
                 {
                   staticClass: "avatar",
                   attrs: {
@@ -59767,13 +59805,46 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
+                  _c("router-link", { attrs: { to: "/admin/task/create" } }, [
+                    _vm._v("\n            Создать\n          ")
+                  ]),
+                  _vm._v(" "),
                   _c("router-link", { attrs: { to: "/admin/task/all" } }, [
                     _vm._v("\n            Все\n          ")
                   ]),
                   _vm._v(" "),
-                  _c("router-link", { attrs: { to: "/admin/task/create" } }, [
-                    _vm._v("\n            Создать\n          ")
+                  _c("router-link", { attrs: { to: "/admin/task/working" } }, [
+                    _vm._v("\n            В работе\n          ")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    { attrs: { to: "/admin/task/completed" } },
+                    [_vm._v("\n            Устраненные\n          ")]
+                  ),
+                  _vm._v(" "),
+                  _c("router-link", { attrs: { to: "/admin/task/overdue" } }, [
+                    _vm._v("\n            Просроченные\n          ")
                   ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-collapse-item",
+                { attrs: { "active-url": "/admin" } },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      attrs: { slot: "item-title", to: "/admin" },
+                      slot: "item-title"
+                    },
+                    [
+                      _c("i", { staticClass: "icon-fa icon-fa-dashboard" }),
+                      _vm._v("Аналитика\n          ")
+                    ]
+                  )
                 ],
                 1
               )
@@ -132365,6 +132436,1224 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-2122fd83", module.exports)
+  }
+}
+
+/***/ }),
+/* 478 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(479)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(481)
+/* template */
+var __vue_template__ = __webpack_require__(482)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\js\\views\\admin\\tasks\\working.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2afd533a", Component.options)
+  } else {
+    hotAPI.reload("data-v-2afd533a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 479 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(480);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(18)("07462d65", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2afd533a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./working.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2afd533a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./working.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 480 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(9)(true);
+// imports
+
+
+// module
+exports.push([module.i, "\n.fade-enter-active,\r\n.fade-leave-active {\r\n    -webkit-transition: opacity .5s;\r\n    transition: opacity .5s\n}\n.fade-enter,\r\n.fade-leave-to {\r\n    opacity: 0\n}\r\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/views/admin/tasks/resources/js/views/admin/tasks/working.vue"],"names":[],"mappings":";AAsHA;;IAEA,gCAAA;IAAA,uBAAA;CACA;AAEA;;IAEA,UAAA;CACA","file":"working.vue","sourcesContent":["<template>\r\n  <div class=\"main-content\">\r\n    <div class=\"row\">\r\n      <div class=\"col-12\">\r\n        <div class=\"card\">\r\n          <div class=\"card-header\">\r\n            <h3>Правонарушения, находящиеся в стадии выполнения</h3>\r\n          </div>\r\n          <div class=\"card-body\">\r\n            <table-component\r\n              :data=\"getTasks\"\r\n              table-class=\"table\"\r\n              sort-by=\"detection_date\"\r\n              sort-order=\"desc\"\r\n              filter-placeholder=\"Поиск\"\r\n              filterNoResults=\"Нет данных\"\r\n              ref=\"tableTasks\"\r\n            >\r\n              <table-column show=\"street\" label=\"Улица\"/>\r\n              <table-column show=\"number_home\" label=\"Номер дома\"/>\r\n              <table-column show=\"detection_date\" label=\"ДАТА ВЫЯВЛЕНИЯ\"/>\r\n              <table-column show=\"description\" label=\"Описание\"/>\r\n              <table-column show=\"target_date\" label=\"КОНТРОЛЬНЫЙ СРОК\"/>\r\n              <table-column\r\n                :sortable=\"false\"\r\n                :filterable=\"false\"\r\n                label=\"\"\r\n              >\r\n                <template slot-scope=\"row\">\r\n                  <div class=\"table__actions\">\r\n                    <button class=\"btn btn-default btn-sm mr-2\" @click=\"$router.push({name: 'taskView', params: { id: row.id}})\">\r\n                      Изменть\r\n                    </button>\r\n                    <button class=\"btn btn-default btn-sm\" @click=\"dropTask(row.id)\">\r\n                      Удалить\r\n                    </button>\r\n                  </div>\r\n                </template>\r\n              </table-column>\r\n            </table-component>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n<script type=\"text/babel\">\r\nimport { TableComponent, TableColumn } from 'vue-table-component'\r\nexport default {\r\n  data () {\r\n    return {\r\n      'header': 'header',\r\n      count: 0,\r\n      tasks: [],\r\n      loading: true\r\n    }\r\n  },\r\n  components: {\r\n    TableComponent,\r\n    TableColumn\r\n  },\r\n  mounted () {\r\n    // this.getTasks()\r\n  },\r\n  methods: {\r\n    taskDetails (id) {\r\n      console.log(id)\r\n    },\r\n    checkColor(row) {\r\n      let endDay = new Date()\r\n      endDay.setDate(row.target_date.slice(0, 2))\r\n      endDay.setMonth(parseInt(row.target_date.slice(3, 5)) - 1)\r\n      endDay.setFullYear(row.target_date.slice(6, 10))\r\n      endDay = Date.parse(endDay)\r\n      let nowDay = Date.now()\r\n      if (nowDay >= endDay) {\r\n\r\n        return 'table-danger'\r\n      }\r\n    },\r\n    async getTasks ({ page, filter, sort }) {\r\n      console.log( page, filter)\r\n      sort ? console.log(sort) : null\r\n      let response = await window.axios.get('/api/admin/task/get', {\r\n        params: {\r\n          page: page,\r\n          filter: filter,\r\n          sortName: sort.fieldName,\r\n          sortType: sort.order\r\n        }\r\n      })\r\n      console.log(response)\r\n      return {\r\n        data: response.data.data,\r\n        pagination: {\r\n          totalPages: response.data.last_page,\r\n          currentPage: page,\r\n          count: response.data.count\r\n        }\r\n      }\r\n    },\r\n    async dropTask (id) {\r\n      let response = await window.axios.post('/api/admin/task/' + id, { _method: 'DELETE' })\r\n      console.log(response)\r\n      if (response.status == 200 && response.data == 'Success') {\r\n        window.toastr['success']('Задача удалена', 'Выполнено')\r\n        this.$refs.tableTasks.refresh()\r\n      } else {\r\n        window.toastr['error']('Ошибка', 'Не выполнено')\r\n        this.$refs.tableTasks.refresh()\r\n      }\r\n    }\r\n  }\r\n}\r\n</script>\r\n\r\n<style>\r\n.fade-enter-active,\r\n.fade-leave-active {\r\n    transition: opacity .5s\r\n}\r\n\r\n.fade-enter,\r\n.fade-leave-to {\r\n    opacity: 0\r\n}\r\n</style>"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+/* 481 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _regenerator = __webpack_require__(14);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(15);
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _vueTableComponent = __webpack_require__(305);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  data: function data() {
+    return {
+      'header': 'header',
+      count: 0,
+      tasks: [],
+      loading: true
+    };
+  },
+
+  components: {
+    TableComponent: _vueTableComponent.TableComponent,
+    TableColumn: _vueTableComponent.TableColumn
+  },
+  mounted: function mounted() {
+    // this.getTasks()
+  },
+
+  methods: {
+    taskDetails: function taskDetails(id) {
+      console.log(id);
+    },
+    checkColor: function checkColor(row) {
+      var endDay = new Date();
+      endDay.setDate(row.target_date.slice(0, 2));
+      endDay.setMonth(parseInt(row.target_date.slice(3, 5)) - 1);
+      endDay.setFullYear(row.target_date.slice(6, 10));
+      endDay = Date.parse(endDay);
+      var nowDay = Date.now();
+      if (nowDay >= endDay) {
+
+        return 'table-danger';
+      }
+    },
+    getTasks: function getTasks(_ref) {
+      var _this = this;
+
+      var page = _ref.page,
+          filter = _ref.filter,
+          sort = _ref.sort;
+      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+        var response;
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                console.log(page, filter);
+                sort ? console.log(sort) : null;
+                _context.next = 4;
+                return window.axios.get('/api/admin/task/get', {
+                  params: {
+                    page: page,
+                    filter: filter,
+                    sortName: sort.fieldName,
+                    sortType: sort.order
+                  }
+                });
+
+              case 4:
+                response = _context.sent;
+
+                console.log(response);
+                return _context.abrupt('return', {
+                  data: response.data.data,
+                  pagination: {
+                    totalPages: response.data.last_page,
+                    currentPage: page,
+                    count: response.data.count
+                  }
+                });
+
+              case 7:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, _this);
+      }))();
+    },
+    dropTask: function dropTask(id) {
+      var _this2 = this;
+
+      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
+        var response;
+        return _regenerator2.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return window.axios.post('/api/admin/task/' + id, { _method: 'DELETE' });
+
+              case 2:
+                response = _context2.sent;
+
+                console.log(response);
+                if (response.status == 200 && response.data == 'Success') {
+                  window.toastr['success']('Задача удалена', 'Выполнено');
+                  _this2.$refs.tableTasks.refresh();
+                } else {
+                  window.toastr['error']('Ошибка', 'Не выполнено');
+                  _this2.$refs.tableTasks.refresh();
+                }
+
+              case 5:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, _this2);
+      }))();
+    }
+  }
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/***/ }),
+/* 482 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "main-content" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
+              _c(
+                "table-component",
+                {
+                  ref: "tableTasks",
+                  attrs: {
+                    data: _vm.getTasks,
+                    "table-class": "table",
+                    "sort-by": "detection_date",
+                    "sort-order": "desc",
+                    "filter-placeholder": "Поиск",
+                    filterNoResults: "Нет данных"
+                  }
+                },
+                [
+                  _c("table-column", {
+                    attrs: { show: "street", label: "Улица" }
+                  }),
+                  _vm._v(" "),
+                  _c("table-column", {
+                    attrs: { show: "number_home", label: "Номер дома" }
+                  }),
+                  _vm._v(" "),
+                  _c("table-column", {
+                    attrs: { show: "detection_date", label: "ДАТА ВЫЯВЛЕНИЯ" }
+                  }),
+                  _vm._v(" "),
+                  _c("table-column", {
+                    attrs: { show: "description", label: "Описание" }
+                  }),
+                  _vm._v(" "),
+                  _c("table-column", {
+                    attrs: { show: "target_date", label: "КОНТРОЛЬНЫЙ СРОК" }
+                  }),
+                  _vm._v(" "),
+                  _c("table-column", {
+                    attrs: { sortable: false, filterable: false, label: "" },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "default",
+                        fn: function(row) {
+                          return [
+                            _c("div", { staticClass: "table__actions" }, [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-default btn-sm mr-2",
+                                  on: {
+                                    click: function($event) {
+                                      _vm.$router.push({
+                                        name: "taskView",
+                                        params: { id: row.id }
+                                      })
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    Изменть\n                  "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-default btn-sm",
+                                  on: {
+                                    click: function($event) {
+                                      _vm.dropTask(row.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    Удалить\n                  "
+                                  )
+                                ]
+                              )
+                            ])
+                          ]
+                        }
+                      }
+                    ])
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", [_vm._v("Правонарушения, находящиеся в стадии выполнения")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2afd533a", module.exports)
+  }
+}
+
+/***/ }),
+/* 483 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(484)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(486)
+/* template */
+var __vue_template__ = __webpack_require__(487)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\js\\views\\admin\\tasks\\overdue.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f641fdae", Component.options)
+  } else {
+    hotAPI.reload("data-v-f641fdae", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 484 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(485);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(18)("0899e5a2", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f641fdae\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./overdue.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f641fdae\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./overdue.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 485 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(9)(true);
+// imports
+
+
+// module
+exports.push([module.i, "\n.fade-enter-active,\r\n.fade-leave-active {\r\n    -webkit-transition: opacity .5s;\r\n    transition: opacity .5s\n}\n.fade-enter,\r\n.fade-leave-to {\r\n    opacity: 0\n}\r\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/views/admin/tasks/resources/js/views/admin/tasks/overdue.vue"],"names":[],"mappings":";AAsHA;;IAEA,gCAAA;IAAA,uBAAA;CACA;AAEA;;IAEA,UAAA;CACA","file":"overdue.vue","sourcesContent":["<template>\r\n  <div class=\"main-content\">\r\n    <div class=\"row\">\r\n      <div class=\"col-12\">\r\n        <div class=\"card\">\r\n          <div class=\"card-header\">\r\n            <h3>Просроченные правонарушения</h3>\r\n          </div>\r\n          <div class=\"card-body\">\r\n            <table-component\r\n              :data=\"getTasks\"\r\n              table-class=\"table\"\r\n              sort-by=\"detection_date\"\r\n              sort-order=\"desc\"\r\n              filter-placeholder=\"Поиск\"\r\n              filterNoResults=\"Нет данных\"\r\n              ref=\"tableTasks\"\r\n            >\r\n              <table-column show=\"street\" label=\"Улица\"/>\r\n              <table-column show=\"number_home\" label=\"Номер дома\"/>\r\n              <table-column show=\"detection_date\" label=\"ДАТА ВЫЯВЛЕНИЯ\"/>\r\n              <table-column show=\"description\" label=\"Описание\"/>\r\n              <table-column show=\"target_date\" label=\"КОНТРОЛЬНЫЙ СРОК\"/>\r\n              <table-column\r\n                :sortable=\"false\"\r\n                :filterable=\"false\"\r\n                label=\"\"\r\n              >\r\n                <template slot-scope=\"row\">\r\n                  <div class=\"table__actions\">\r\n                    <button class=\"btn btn-default btn-sm mr-2\" @click=\"$router.push({name: 'taskView', params: { id: row.id}})\">\r\n                      Изменть\r\n                    </button>\r\n                    <button class=\"btn btn-default btn-sm\" @click=\"dropTask(row.id)\">\r\n                      Удалить\r\n                    </button>\r\n                  </div>\r\n                </template>\r\n              </table-column>\r\n            </table-component>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n<script type=\"text/babel\">\r\nimport { TableComponent, TableColumn } from 'vue-table-component'\r\nexport default {\r\n  data () {\r\n    return {\r\n      'header': 'header',\r\n      count: 0,\r\n      tasks: [],\r\n      loading: true\r\n    }\r\n  },\r\n  components: {\r\n    TableComponent,\r\n    TableColumn\r\n  },\r\n  mounted () {\r\n    // this.getTasks()\r\n  },\r\n  methods: {\r\n    taskDetails (id) {\r\n      console.log(id)\r\n    },\r\n    checkColor(row) {\r\n      let endDay = new Date()\r\n      endDay.setDate(row.target_date.slice(0, 2))\r\n      endDay.setMonth(parseInt(row.target_date.slice(3, 5)) - 1)\r\n      endDay.setFullYear(row.target_date.slice(6, 10))\r\n      endDay = Date.parse(endDay)\r\n      let nowDay = Date.now()\r\n      if (nowDay >= endDay) {\r\n\r\n        return 'table-danger'\r\n      }\r\n    },\r\n    async getTasks ({ page, filter, sort }) {\r\n      console.log( page, filter)\r\n      sort ? console.log(sort) : null\r\n      let response = await window.axios.get('/api/admin/task/get', {\r\n        params: {\r\n          page: page,\r\n          filter: filter,\r\n          sortName: sort.fieldName,\r\n          sortType: sort.order\r\n        }\r\n      })\r\n      console.log(response)\r\n      return {\r\n        data: response.data.data,\r\n        pagination: {\r\n          totalPages: response.data.last_page,\r\n          currentPage: page,\r\n          count: response.data.count\r\n        }\r\n      }\r\n    },\r\n    async dropTask (id) {\r\n      let response = await window.axios.post('/api/admin/task/' + id, { _method: 'DELETE' })\r\n      console.log(response)\r\n      if (response.status == 200 && response.data == 'Success') {\r\n        window.toastr['success']('Задача удалена', 'Выполнено')\r\n        this.$refs.tableTasks.refresh()\r\n      } else {\r\n        window.toastr['error']('Ошибка', 'Не выполнено')\r\n        this.$refs.tableTasks.refresh()\r\n      }\r\n    }\r\n  }\r\n}\r\n</script>\r\n\r\n<style>\r\n.fade-enter-active,\r\n.fade-leave-active {\r\n    transition: opacity .5s\r\n}\r\n\r\n.fade-enter,\r\n.fade-leave-to {\r\n    opacity: 0\r\n}\r\n</style>"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+/* 486 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _regenerator = __webpack_require__(14);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(15);
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _vueTableComponent = __webpack_require__(305);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  data: function data() {
+    return {
+      'header': 'header',
+      count: 0,
+      tasks: [],
+      loading: true
+    };
+  },
+
+  components: {
+    TableComponent: _vueTableComponent.TableComponent,
+    TableColumn: _vueTableComponent.TableColumn
+  },
+  mounted: function mounted() {
+    // this.getTasks()
+  },
+
+  methods: {
+    taskDetails: function taskDetails(id) {
+      console.log(id);
+    },
+    checkColor: function checkColor(row) {
+      var endDay = new Date();
+      endDay.setDate(row.target_date.slice(0, 2));
+      endDay.setMonth(parseInt(row.target_date.slice(3, 5)) - 1);
+      endDay.setFullYear(row.target_date.slice(6, 10));
+      endDay = Date.parse(endDay);
+      var nowDay = Date.now();
+      if (nowDay >= endDay) {
+
+        return 'table-danger';
+      }
+    },
+    getTasks: function getTasks(_ref) {
+      var _this = this;
+
+      var page = _ref.page,
+          filter = _ref.filter,
+          sort = _ref.sort;
+      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+        var response;
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                console.log(page, filter);
+                sort ? console.log(sort) : null;
+                _context.next = 4;
+                return window.axios.get('/api/admin/task/get', {
+                  params: {
+                    page: page,
+                    filter: filter,
+                    sortName: sort.fieldName,
+                    sortType: sort.order
+                  }
+                });
+
+              case 4:
+                response = _context.sent;
+
+                console.log(response);
+                return _context.abrupt('return', {
+                  data: response.data.data,
+                  pagination: {
+                    totalPages: response.data.last_page,
+                    currentPage: page,
+                    count: response.data.count
+                  }
+                });
+
+              case 7:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, _this);
+      }))();
+    },
+    dropTask: function dropTask(id) {
+      var _this2 = this;
+
+      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
+        var response;
+        return _regenerator2.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return window.axios.post('/api/admin/task/' + id, { _method: 'DELETE' });
+
+              case 2:
+                response = _context2.sent;
+
+                console.log(response);
+                if (response.status == 200 && response.data == 'Success') {
+                  window.toastr['success']('Задача удалена', 'Выполнено');
+                  _this2.$refs.tableTasks.refresh();
+                } else {
+                  window.toastr['error']('Ошибка', 'Не выполнено');
+                  _this2.$refs.tableTasks.refresh();
+                }
+
+              case 5:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, _this2);
+      }))();
+    }
+  }
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/***/ }),
+/* 487 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "main-content" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
+              _c(
+                "table-component",
+                {
+                  ref: "tableTasks",
+                  attrs: {
+                    data: _vm.getTasks,
+                    "table-class": "table",
+                    "sort-by": "detection_date",
+                    "sort-order": "desc",
+                    "filter-placeholder": "Поиск",
+                    filterNoResults: "Нет данных"
+                  }
+                },
+                [
+                  _c("table-column", {
+                    attrs: { show: "street", label: "Улица" }
+                  }),
+                  _vm._v(" "),
+                  _c("table-column", {
+                    attrs: { show: "number_home", label: "Номер дома" }
+                  }),
+                  _vm._v(" "),
+                  _c("table-column", {
+                    attrs: { show: "detection_date", label: "ДАТА ВЫЯВЛЕНИЯ" }
+                  }),
+                  _vm._v(" "),
+                  _c("table-column", {
+                    attrs: { show: "description", label: "Описание" }
+                  }),
+                  _vm._v(" "),
+                  _c("table-column", {
+                    attrs: { show: "target_date", label: "КОНТРОЛЬНЫЙ СРОК" }
+                  }),
+                  _vm._v(" "),
+                  _c("table-column", {
+                    attrs: { sortable: false, filterable: false, label: "" },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "default",
+                        fn: function(row) {
+                          return [
+                            _c("div", { staticClass: "table__actions" }, [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-default btn-sm mr-2",
+                                  on: {
+                                    click: function($event) {
+                                      _vm.$router.push({
+                                        name: "taskView",
+                                        params: { id: row.id }
+                                      })
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    Изменть\n                  "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-default btn-sm",
+                                  on: {
+                                    click: function($event) {
+                                      _vm.dropTask(row.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    Удалить\n                  "
+                                  )
+                                ]
+                              )
+                            ])
+                          ]
+                        }
+                      }
+                    ])
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", [_vm._v("Просроченные правонарушения")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-f641fdae", module.exports)
+  }
+}
+
+/***/ }),
+/* 488 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(489)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(491)
+/* template */
+var __vue_template__ = __webpack_require__(492)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\js\\views\\admin\\tasks\\completed.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-83fd6dd8", Component.options)
+  } else {
+    hotAPI.reload("data-v-83fd6dd8", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 489 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(490);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(18)("0b50997a", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-83fd6dd8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./completed.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-83fd6dd8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./completed.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 490 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(9)(true);
+// imports
+
+
+// module
+exports.push([module.i, "\n.fade-enter-active,\r\n.fade-leave-active {\r\n    -webkit-transition: opacity .5s;\r\n    transition: opacity .5s\n}\n.fade-enter,\r\n.fade-leave-to {\r\n    opacity: 0\n}\r\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/views/admin/tasks/resources/js/views/admin/tasks/completed.vue"],"names":[],"mappings":";AAsHA;;IAEA,gCAAA;IAAA,uBAAA;CACA;AAEA;;IAEA,UAAA;CACA","file":"completed.vue","sourcesContent":["<template>\r\n  <div class=\"main-content\">\r\n    <div class=\"row\">\r\n      <div class=\"col-12\">\r\n        <div class=\"card\">\r\n          <div class=\"card-header\">\r\n            <h3>Исправленные правонарушения</h3>\r\n          </div>\r\n          <div class=\"card-body\">\r\n            <table-component\r\n              :data=\"getTasks\"\r\n              table-class=\"table\"\r\n              sort-by=\"detection_date\"\r\n              sort-order=\"desc\"\r\n              filter-placeholder=\"Поиск\"\r\n              filterNoResults=\"Нет данных\"\r\n              ref=\"tableTasks\"\r\n            >\r\n              <table-column show=\"street\" label=\"Улица\"/>\r\n              <table-column show=\"number_home\" label=\"Номер дома\"/>\r\n              <table-column show=\"detection_date\" label=\"ДАТА ВЫЯВЛЕНИЯ\"/>\r\n              <table-column show=\"description\" label=\"Описание\"/>\r\n              <table-column show=\"target_date\" label=\"КОНТРОЛЬНЫЙ СРОК\"/>\r\n              <table-column\r\n                :sortable=\"false\"\r\n                :filterable=\"false\"\r\n                label=\"\"\r\n              >\r\n                <template slot-scope=\"row\">\r\n                  <div class=\"table__actions\">\r\n                    <button class=\"btn btn-default btn-sm mr-2\" @click=\"$router.push({name: 'taskView', params: { id: row.id}})\">\r\n                      Изменть\r\n                    </button>\r\n                    <button class=\"btn btn-default btn-sm\" @click=\"dropTask(row.id)\">\r\n                      Удалить\r\n                    </button>\r\n                  </div>\r\n                </template>\r\n              </table-column>\r\n            </table-component>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n<script type=\"text/babel\">\r\nimport { TableComponent, TableColumn } from 'vue-table-component'\r\nexport default {\r\n  data () {\r\n    return {\r\n      'header': 'header',\r\n      count: 0,\r\n      tasks: [],\r\n      loading: true\r\n    }\r\n  },\r\n  components: {\r\n    TableComponent,\r\n    TableColumn\r\n  },\r\n  mounted () {\r\n    // this.getTasks()\r\n  },\r\n  methods: {\r\n    taskDetails (id) {\r\n      console.log(id)\r\n    },\r\n    checkColor(row) {\r\n      let endDay = new Date()\r\n      endDay.setDate(row.target_date.slice(0, 2))\r\n      endDay.setMonth(parseInt(row.target_date.slice(3, 5)) - 1)\r\n      endDay.setFullYear(row.target_date.slice(6, 10))\r\n      endDay = Date.parse(endDay)\r\n      let nowDay = Date.now()\r\n      if (nowDay >= endDay) {\r\n\r\n        return 'table-danger'\r\n      }\r\n    },\r\n    async getTasks ({ page, filter, sort }) {\r\n      console.log( page, filter)\r\n      sort ? console.log(sort) : null\r\n      let response = await window.axios.get('/api/admin/task/get', {\r\n        params: {\r\n          page: page,\r\n          filter: filter,\r\n          sortName: sort.fieldName,\r\n          sortType: sort.order\r\n        }\r\n      })\r\n      console.log(response)\r\n      return {\r\n        data: response.data.data,\r\n        pagination: {\r\n          totalPages: response.data.last_page,\r\n          currentPage: page,\r\n          count: response.data.count\r\n        }\r\n      }\r\n    },\r\n    async dropTask (id) {\r\n      let response = await window.axios.post('/api/admin/task/' + id, { _method: 'DELETE' })\r\n      console.log(response)\r\n      if (response.status == 200 && response.data == 'Success') {\r\n        window.toastr['success']('Задача удалена', 'Выполнено')\r\n        this.$refs.tableTasks.refresh()\r\n      } else {\r\n        window.toastr['error']('Ошибка', 'Не выполнено')\r\n        this.$refs.tableTasks.refresh()\r\n      }\r\n    }\r\n  }\r\n}\r\n</script>\r\n\r\n<style>\r\n.fade-enter-active,\r\n.fade-leave-active {\r\n    transition: opacity .5s\r\n}\r\n\r\n.fade-enter,\r\n.fade-leave-to {\r\n    opacity: 0\r\n}\r\n</style>"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+/* 491 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _regenerator = __webpack_require__(14);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(15);
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _vueTableComponent = __webpack_require__(305);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  data: function data() {
+    return {
+      'header': 'header',
+      count: 0,
+      tasks: [],
+      loading: true
+    };
+  },
+
+  components: {
+    TableComponent: _vueTableComponent.TableComponent,
+    TableColumn: _vueTableComponent.TableColumn
+  },
+  mounted: function mounted() {
+    // this.getTasks()
+  },
+
+  methods: {
+    taskDetails: function taskDetails(id) {
+      console.log(id);
+    },
+    checkColor: function checkColor(row) {
+      var endDay = new Date();
+      endDay.setDate(row.target_date.slice(0, 2));
+      endDay.setMonth(parseInt(row.target_date.slice(3, 5)) - 1);
+      endDay.setFullYear(row.target_date.slice(6, 10));
+      endDay = Date.parse(endDay);
+      var nowDay = Date.now();
+      if (nowDay >= endDay) {
+
+        return 'table-danger';
+      }
+    },
+    getTasks: function getTasks(_ref) {
+      var _this = this;
+
+      var page = _ref.page,
+          filter = _ref.filter,
+          sort = _ref.sort;
+      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+        var response;
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                console.log(page, filter);
+                sort ? console.log(sort) : null;
+                _context.next = 4;
+                return window.axios.get('/api/admin/task/get', {
+                  params: {
+                    page: page,
+                    filter: filter,
+                    sortName: sort.fieldName,
+                    sortType: sort.order
+                  }
+                });
+
+              case 4:
+                response = _context.sent;
+
+                console.log(response);
+                return _context.abrupt('return', {
+                  data: response.data.data,
+                  pagination: {
+                    totalPages: response.data.last_page,
+                    currentPage: page,
+                    count: response.data.count
+                  }
+                });
+
+              case 7:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, _this);
+      }))();
+    },
+    dropTask: function dropTask(id) {
+      var _this2 = this;
+
+      return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
+        var response;
+        return _regenerator2.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return window.axios.post('/api/admin/task/' + id, { _method: 'DELETE' });
+
+              case 2:
+                response = _context2.sent;
+
+                console.log(response);
+                if (response.status == 200 && response.data == 'Success') {
+                  window.toastr['success']('Задача удалена', 'Выполнено');
+                  _this2.$refs.tableTasks.refresh();
+                } else {
+                  window.toastr['error']('Ошибка', 'Не выполнено');
+                  _this2.$refs.tableTasks.refresh();
+                }
+
+              case 5:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, _this2);
+      }))();
+    }
+  }
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/***/ }),
+/* 492 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "main-content" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
+              _c(
+                "table-component",
+                {
+                  ref: "tableTasks",
+                  attrs: {
+                    data: _vm.getTasks,
+                    "table-class": "table",
+                    "sort-by": "detection_date",
+                    "sort-order": "desc",
+                    "filter-placeholder": "Поиск",
+                    filterNoResults: "Нет данных"
+                  }
+                },
+                [
+                  _c("table-column", {
+                    attrs: { show: "street", label: "Улица" }
+                  }),
+                  _vm._v(" "),
+                  _c("table-column", {
+                    attrs: { show: "number_home", label: "Номер дома" }
+                  }),
+                  _vm._v(" "),
+                  _c("table-column", {
+                    attrs: { show: "detection_date", label: "ДАТА ВЫЯВЛЕНИЯ" }
+                  }),
+                  _vm._v(" "),
+                  _c("table-column", {
+                    attrs: { show: "description", label: "Описание" }
+                  }),
+                  _vm._v(" "),
+                  _c("table-column", {
+                    attrs: { show: "target_date", label: "КОНТРОЛЬНЫЙ СРОК" }
+                  }),
+                  _vm._v(" "),
+                  _c("table-column", {
+                    attrs: { sortable: false, filterable: false, label: "" },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "default",
+                        fn: function(row) {
+                          return [
+                            _c("div", { staticClass: "table__actions" }, [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-default btn-sm mr-2",
+                                  on: {
+                                    click: function($event) {
+                                      _vm.$router.push({
+                                        name: "taskView",
+                                        params: { id: row.id }
+                                      })
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    Изменть\n                  "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-default btn-sm",
+                                  on: {
+                                    click: function($event) {
+                                      _vm.dropTask(row.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    Удалить\n                  "
+                                  )
+                                ]
+                              )
+                            ])
+                          ]
+                        }
+                      }
+                    ])
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", [_vm._v("Исправленные правонарушения")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-83fd6dd8", module.exports)
   }
 }
 

@@ -4,12 +4,12 @@
       <div class="col-md-12 col-lg-6 col-xl-3">
         <!-- TODO: роутинг в задачи которые выполняются -->
         <a class="dashbox" href="#">
-          <i class="icon-fa icon-fa-check-circle-o text-primary"/>
+          <i class="icon-fa icon-fa-clock-o text-warning"/>
           <span class="title">
             35
           </span>
           <span class="desc">
-            Выполнемые
+            В работе
           </span>
         </a>
       </div>
@@ -22,6 +22,18 @@
           </span>
           <span class="desc">
             Просроченные
+          </span>
+        </a>
+      </div>
+      <div class="col-md-12 col-lg-6 col-xl-3">
+        <!-- TODO: роутинг в задачи которые просроченные -->
+        <a class="dashbox" href="#">
+          <i class="icon-fa icon-fa-check-circle-o text-success"/>
+          <span class="title">
+            30
+          </span>
+          <span class="desc">
+            Устраненные
           </span>
         </a>
       </div>
