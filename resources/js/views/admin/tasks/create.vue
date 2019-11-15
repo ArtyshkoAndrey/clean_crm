@@ -6,7 +6,7 @@
           <div key=1 class="card" v-if='!loading'>
             <div class="card-header">
               <div class="col-12 d-flex align-items-center justify-content-between">
-                <h6 class="font-weight-bold d-flex h-100">Создание новой задачи</h6>
+                <h3 class="d-flex h-100">Создание новой задачи</h3>
               </div>
             </div>
             <Write
@@ -23,7 +23,7 @@
           </div>
           <div key=2 class="card" v-else>
             <div class="card-header">
-              <h6>Загрузка</h6>
+              <h3>Загрузка</h3>
             </div>
             <div class="card-body">
               <div class="d-flex justify-content-center">
@@ -111,5 +111,9 @@ export default {
 .fade-enter,
 .fade-leave-active {
   opacity: 0
+}
+
+.form-control[readonly] {
+  background: #fff;
 }
 </style>

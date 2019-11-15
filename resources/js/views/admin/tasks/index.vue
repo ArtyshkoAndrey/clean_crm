@@ -8,26 +8,37 @@
           </div>
           <div class="card-body">
             <div class="row">
-              <div class="col-12 col-md-6 mt-2">
+              <div class="col-md-6 d-flex flex-column justify-content-between">
                 <multiselect
-                  :options="['first thing', 'second thing', 'third thing']"
+                  v-model="currentChoose"
+                  :options="filterColumns"
                   :hide-selected="true"
                   :selectLabel="''"
-                  :taggable="true"
-                  placeholder="Первый фильтр"
+                  track-by="name"
+                  label="name"
+                  placeholder="Выберете параметр"
+                  class="mt-2"
                 />
+                <a href="#" class="filter-add-button mt-2">Отфильтровать</a>
               </div>
-              <div class="col-12 col-md-6 mt-2">
-                <multiselect
-                  :options="['first thing', 'second thing', 'third thing']"
-                  :hide-selected="true"
-                  :selectLabel="''"
-                  :taggable="true"
-                  placeholder="Первый фильтр"
-                />
-              </div>
-              <div class="col-12 col-md-6 mt-2">
-                <a href="#" class="filter-add-button">Добавить фильтр</a>
+              <div class="col-md-6">
+                <div v-for="column in choosedColumns"
+                  v-bind:key="column.name">
+                  <input v-if="column.type == 'text'"
+                    v-model="column.value"
+                    v-bind:key="column.name"
+                    :placeholder="column.name"
+                    type="text"
+                    class="form-control mt-2">
+                  <multiselect v-else-if="column.type == 'select'"
+                    v-model="column.value"
+                    :options="column.options"
+                    :hide-selected="true"
+                    :selectLabel="''"
+                    placeholder="Выберете параметр"
+                    class="mt-2"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -86,6 +97,24 @@ export default {
       'header': 'header',
       count: 0,
       tasks: [],
+      filterColumns: [{
+        name: "Улица",
+        value: "",
+        type: "text"
+      },
+      {
+        name: "Дом",
+        value: "",
+        type: "text"
+      },
+      {
+        name: "Статус",
+        value: "",
+        type: "select",
+        options: ["В работе", "Просроченные", "Выполненные"]
+      }],
+      choosedColumns: [],
+      currentChoose: "",
       loading: true
     }
   },
@@ -96,6 +125,13 @@ export default {
   },
   mounted () {
     // this.getTasks()
+  },
+  watch: {
+    currentChoose: function (val) {
+      this.filterColumns.splice(this.filterColumns.indexOf(val), 1)
+      this.choosedColumns.push(val)
+      console.log(this.filterColumns, this.choosedColumns)
+    }
   },
   methods: {
     taskDetails (id) {

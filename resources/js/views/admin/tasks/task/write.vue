@@ -1,12 +1,12 @@
 <template>
   <div class="card-body">
     <div class="row">
-      <div class="col-md-4 mt-4">
-        <h5 class="section-semi-title">Навзавние проблемы</h5>
+      <div class="col-md-6 mt-1">
+        <h5 class="section-semi-title">Название нарушения</h5>
         <input type="text" v-model="rewriteTask.name" class="form-control" placeholder="Название проблемы" required>
       </div>
       <div class="col-md-12 mt-4">
-        <h5 class="section-semi-title">Описание проблемы проблемы</h5>
+        <h5 class="section-semi-title">Описание нарушения</h5>
         <textarea class="form-control" v-model="rewriteTask.description" placeholder="Описание" rows="3" />
       </div>
       <div class="col-md-6 mt-4">
@@ -53,21 +53,21 @@
         />
       </div>
       <div class="col-md-12 mt-4">
-        <h5 class="section-semi-title">Ответсвенный</h5>
+        <h5 class="section-semi-title">Ответственный</h5>
         <multiselect
           v-model="rewriteTask.responsible"
           :options="responsibleList"
           :hide-selected="true"
           :selectLabel="''"
           :taggable="true"
-          placeholder="Ответсвтенный"
+          placeholder="Ответственный"
           @tag="addResponsibleTag"
           track-by="name"
           label="name"
         />
       </div>
       <div class="col-md-12 mt-4">
-        <h5 class="section-semi-title">Ответсвенный исполнитель</h5>
+        <h5 class="section-semi-title">Ответственный исполнитель</h5>
         <input
           type="text"
           class="form-control"
@@ -81,19 +81,19 @@
         <datepicker input-class="form-control" format="dd.MM.yyyy" v-model="rewriteTask.detectionDate" placeholder="Select Date"/>
       </div>
       <div class="col-md-6 mt-4">
+        <h5 class="section-semi-title">Контрольный срок</h5>
+        <datepicker input-class="form-control" format="dd.MM.yyyy" v-model="rewriteTask.targetDate" placeholder="Select Date"/>
+      </div>
+      <div class="col-md-6 mt-4">
         <h5 class="section-semi-title">Дата устранения</h5>
         <div class="row">
           <div class="col-md-8 col-12">
             <datepicker input-class="form-control" format="dd.MM.yyyy" v-model="rewriteTask.correctionDate" placeholder="Select Date"/>
           </div>
           <div class="col-md-4 col-12">
-            <button class="btn btn-default" @click="rewriteTask.correctionDate = null">Отчистить</button>
+            <button class="btn btn-default" @click="rewriteTask.correctionDate = null">Очистить</button>
           </div>
         </div>
-      </div>
-      <div class="col-md-6 mt-4">
-        <h5 class="section-semi-title">Констролный срок</h5>
-        <datepicker input-class="form-control" format="dd.MM.yyyy" v-model="rewriteTask.targetDate" placeholder="Select Date"/>
       </div>
       <div class="col-md-12 mt-4">
         <h5 class="section-semi-title">Проведенная работа</h5>
@@ -108,7 +108,7 @@
         <h5 class="section-semi-title">Медиа файлы</h5>
         <vue-dropzone id="drop1" :useCustomSlot="true" :options="config" @vdropzone-complete="afterComplete" @vdropzone-removed-file="removedImage" ref="myVueDropzone">
           <div class="dropzone-custom-content">
-            <h3 class="dropzone-custom-title">Перетащите свои фотографии сюда!</h3>
+            <h3 class="dropzone-custom-title mt-2">Перетащите свои фотографии сюда!</h3>
             <div class="subtitle">... или нажмит на это поле</div>
           </div>
         </vue-dropzone>
@@ -121,11 +121,39 @@
   </div>
 </template>
 
+
+<style scoped>
+.dropzone-custom-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.dropzone-custom-title {
+  margin-top: 0;
+  color: #00b782;
+}
+
+.subtitle {
+  color: #314b5f;
+}
+
+.form-control[readonly] {
+  background: #fff;
+}
+
+.dropzone-custom-title {
+  color: #000;
+}
+</style>
+
 <script>
-  import vue2Dropzone from 'vue2-dropzone'
   import Datepicker from 'vuejs-datepicker'
   import VueSuggestions from 'vue-suggestions'
   import Multiselect from 'vue-multiselect'
+  import vue2Dropzone from 'vue2-dropzone'
   export default {
     props: {
     rewriteTask: {
@@ -316,22 +344,3 @@
 }
 
 </script>
-
-<style>
-.dropzone-custom-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-.dropzone-custom-title {
-  margin-top: 0;
-  color: #00b782;
-}
-
-.subtitle {
-  color: #314b5f;
-}
-</style>
