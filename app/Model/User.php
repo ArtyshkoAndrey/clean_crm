@@ -45,7 +45,7 @@ class User extends Authenticatable implements JWTSubject
     }
     public function roles() {
         
-        return $this->belongsToMany('jeremykenedy\LaravelRoles\Models\Permission');
+        return $this->belongsToMany(config('roles.models.role'));
     }
 
     public function getJWTIdentifier()

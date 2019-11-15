@@ -31,7 +31,7 @@ export default {
 
   async check () {
     let response = await axios.get('/api/auth/check')
-    console.log(response.data.authenticated)
+    // console.log(response.data)
     window.user = response.data.user
     return !!response.data.authenticated
   }
