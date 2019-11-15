@@ -247,18 +247,19 @@
     async save () {
       this.$emit('save');
       this.saved = true
-      if (this.type === 'update')
-      console.log(this.task)
-      console.log(this.rewriteTask)
-      window.axios.put('/api/admin/task', this.rewriteTask)
-      .then(response => {
-        console.log(response)
-        response.data === 'Success' ? window.toastr['success']('Выполнено', 'Сохранено') : window.toastr['error']('Ошибка', 'Не выполнено')
-      })
-      .catch(error => {
-        console.log(error)
-        window.toastr['error']('Ошибка', 'Не выполнено')
-      });
+      if (this.type === 'update') {
+        console.log(this.task)
+        console.log(this.rewriteTask)
+        window.axios.put('/api/admin/task', this.rewriteTask)
+        .then(response => {
+          console.log(response)
+          response.data === 'Success' ? window.toastr['success']('Выполнено', 'Сохранено') : window.toastr['error']('Ошибка', 'Не выполнено')
+        })
+        .catch(error => {
+          console.log(error)
+          window.toastr['error']('Ошибка', 'Не выполнено')
+        });
+      }
     },
     async addResponsibleTag (responsible) {
       // TODO: переделать создание тег, отправлять на сервер,

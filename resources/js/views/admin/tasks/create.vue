@@ -67,7 +67,16 @@ export default {
     this.getTask(this.$route.params.id)    
   },
   methods: {
-    onSave() {
+    async onSave() {
+      await window.axios.post('/api/admin/task', this.rewriteTask)
+      .then(response => {
+        console.log(response)
+        response.data === 'Success' ? window.toastr['success']('Выполнено', 'Сохранено') : window.toastr['error']('Ошибка', 'Не выполнено')
+      })
+      .catch(error => {
+        console.log(error)
+        window.toastr['error']('Ошибка', 'Не выполнено')
+      })
       console.log('Save')
     },
     async getTask (id) {

@@ -69,6 +69,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'api.auth'], function (){
     Route::put('/', [
       'as' => 'admin.task.update', 'uses' => 'TaskController@update'
     ]);
+    Route::post('/', [
+      'as' => 'admin.task.create', 'uses' => 'TaskController@create'
+    ]);
     Route::delete('/{id}', [
       'as' => 'admin.task.drop', 'uses' => 'TaskController@drop'
     ]);

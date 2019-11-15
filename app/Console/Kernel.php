@@ -3,6 +3,9 @@
 namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
+use App\Model\Image;
+use App\Model\Task;
+use File;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
@@ -26,6 +29,17 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->call(function () {
+            $images = Image::all();
+            foreach($images as $image) {
+                // dd($image->path['file']);
+                if (!file_exists(public_path().$image->path['file'])) {
+                    $image->tasks()->sync([]);
+                    
+                    $image->delete();
+                }
+            }
+        })->everyMinute();
     }
 
     /**
