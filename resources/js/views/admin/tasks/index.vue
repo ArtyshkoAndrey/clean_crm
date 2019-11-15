@@ -185,17 +185,7 @@ export default {
 }
 </script>
 
-<style>
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity .5s
-}
-
-.fade-enter,
-.fade-leave-to {
-    opacity: 0
-}
-
+<style scoped>
 .filter-add-button {
   display: block;
   border: 1px solid gray;
