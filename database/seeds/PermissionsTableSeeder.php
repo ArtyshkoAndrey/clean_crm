@@ -40,6 +40,24 @@ class PermissionsTableSeeder extends Seeder
                 'description' => 'Can delete users',
                 'model'       => 'Permission',
             ],
+            [
+                'name'        => 'Can Create Problems',
+                'slug'        => 'create.problems',
+                'description' => 'Can Create Problems',
+                'model'       => 'Permission',
+            ],
+            [
+                'name'        => 'Can Edit Problems',
+                'slug'        => 'edit.problems',
+                'description' => 'Can Edit Problems',
+                'model'       => 'Permission',
+            ],
+            [
+                'name'        => 'Can Delete Problems',
+                'slug'        => 'delete.problems',
+                'description' => 'Can Delete Problems',
+                'model'       => 'Permission',
+            ],
         ];
 
         /*

@@ -37,11 +37,15 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    protected $with = ['profile'];
+    protected $with = ['profile', 'roles'];
 
     public function profile() {
         
         return $this->hasOne('App\Model\Profile');
+    }
+    public function roles() {
+        
+        return $this->belongsToMany('jeremykenedy\LaravelRoles\Models\Permission');
     }
 
     public function getJWTIdentifier()

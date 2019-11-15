@@ -23,5 +23,14 @@ class ConnectRelationshipsSeeder extends Seeder
         foreach ($permissions as $permission) {
             $roleAdmin->attachPermission($permission);
         }
+
+        $roleModerate = config('roles.models.role')::where('name', '=', 'Manager')->first();
+        $roleUser = config('roles.models.role')::where('name', '=', 'User')->first();
+        foreach ($permissions as $permission) {
+            if ($permission->slug !== 'edit.users' || $permission->slug !== 'create.users' || $permission->slug !== 'delete.users' || $permission->slug !== 'delete.problems') {
+                $roleModerate->attachPermission($permission);
+                $roleUser->attachPermission($permission);
+            }
+        }
     }
 }

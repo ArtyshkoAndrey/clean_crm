@@ -24,17 +24,19 @@ class UsersTableSeeder extends Seeder
             'avatar' => 'https://sun9-49.userapi.com/c857132/v857132657/2d7ed/emmP4VZJXng.jpg',
         ]);
 
-        User::create([
+        $admin = User::create([
             'email' => 'artyshko.andrey@gmail.com',
             'name' => 'Артышко А. А.',
             'password' => bcrypt('241298art'),
             'profile_id' => 1
         ]);
+        $admin->attachRole(config('roles.models.role')::where('name', '=', 'Admin')->first());
         User::create([
             'email' => 'artyshko.andrey1@gmail.com',
             'name' => 'Миронов М. М.',
             'password' => bcrypt('241298art')
         ]);
+
         Task::create([
             'user_id' => 1,
             'name' => 'Пакетик',

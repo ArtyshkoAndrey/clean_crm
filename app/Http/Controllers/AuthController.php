@@ -62,7 +62,7 @@ class AuthController extends Controller
         } catch (JWTException $e) {
             return response(['authenticated' => false]);
         }
-        return response(['authenticated' => true]);
+        return response(['authenticated' => true, 'user' => JWTAuth::user()]);
     }
 
     public function logout()
