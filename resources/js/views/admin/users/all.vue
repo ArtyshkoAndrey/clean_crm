@@ -19,6 +19,8 @@
 							<table-column show="avatar" label=""/>
               <table-column show="name" label="ФИО"/>
               <table-column show="email" label="Email"/>
+							<table-column show="department" label="Отдел"/>
+							<table-column show="role" label="Роль"/>
               <table-column show="birthday" label="Дата рождения"/>
               <table-column
                 :sortable="false"
@@ -27,7 +29,7 @@
               >
                 <template slot-scope="row">
                   <div class="table__actions">
-                    <button class="btn btn-default btn-sm mr-2" @click="$router.push({name: 'taskView', params: { id: row.id}})">
+                    <button class="btn btn-default btn-sm mr-2" @click="$router.push({name: 'userView', params: { id: row.id}})">
                       Изменть
                     </button>
                     <button class="btn btn-default btn-sm" @click="dropTask(row.id)">

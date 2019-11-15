@@ -12,8 +12,14 @@
             <div class="card-body">
 							<div class="row">
                 <div class="col-md-6 mt-1">
-                    <h5 class="section-semi-title">ФИО пользователя</h5>
-                    <input type="text"  class="form-control" placeholder="ФИО пользователя" required>
+                  <!-- <label class="field a-field a-field_a1">
+                    <input class="field__input a-field__input" placeholder="Иванов Иван Иванович" required>
+                    <span class="a-field__label-wrap">
+                      <span class="a-field__label">ФИО</span>
+                    </span>
+                  </label> -->
+                  <h5 class="section-semi-title">ФИО пользователя</h5>
+                  <input type="text"  class="form-control" placeholder="ФИО пользователя" required>
                 </div>
                 <div class="col-md-6 mt-1">
                     <h5 class="section-semi-title">Email</h5>
@@ -21,26 +27,34 @@
                 </div>
 								<div class="col-md-6 mt-4">
                     <h5 class="section-semi-title">Дата рождения</h5>
-                    <datepicker input-class="form-control" format="dd.MM.yyyy" v-model="rewriteTask.detectionDate" placeholder="Select Date"/>
+                    <datepicker input-class="form-control" format="dd.MM.yyyy" placeholder="Выберите дату"/>
+                </div>
+								<div class="col-md-6 mt-4">
+                    <h5 class="section-semi-title">Роль (уровень доступа)</h5>
+                    <multiselect
+                    :hide-selected="true"
+										:options="[]"
+                    :selectLabel="''"
+                    placeholder="Роль"
+                    track-by="name"
+                    label="name"
+                    />
                 </div>
                 
                 <div class="col-md-12 mt-4">
-                    <h5 class="section-semi-title">Ответственный</h5>
+                    <h5 class="section-semi-title">Отдел</h5>
                     <multiselect
-                    v-model="rewriteTask.responsible"
-                    :options="responsibleList"
                     :hide-selected="true"
+										:options="[]"
                     :selectLabel="''"
-                    :taggable="true"
                     placeholder="Ответственный"
-                    @tag="addResponsibleTag"
                     track-by="name"
                     label="name"
                     />
                 </div>
                 <div class="col-12 mt-4 justify-content-center align-content-center d-flex">
-                    <button class="btn btn-primary mr-1" @click="save">Сохранить</button>
-                    <button class="btn btn-default ml-1" @click="$router.push({name: 'tasks'})">Отменить</button>
+                    <button class="btn btn-primary mr-1" >Сохранить</button>
+                    <button class="btn btn-default ml-1" @click="$router.push({name: 'users'})">Отменить</button>
                 </div>
                 </div>
             </div>
@@ -64,7 +78,8 @@
 </template>
 
 <script type="text/babel">
-
+import Datepicker from 'vuejs-datepicker'
+import Multiselect from 'vue-multiselect'
 
 export default {
   data () {
@@ -73,7 +88,7 @@ export default {
       rewriteTask: {},
       user: {},
       allUsers: [],
-      loading: true,
+      loading: false,
       config: {
         url: "http://clean-crm/api/taskfile",
         thumbnailWidth: null,
@@ -83,44 +98,14 @@ export default {
     }
   },
   components: {
-    
+		Datepicker,
+		Multiselect
   },
   created() {
        
   },
   methods: {
-    onSave() {
-      console.log('Save')
-    },
-    // async getTask (id) {
-    //   let userResponse = await window.axios.post('/api/admin/profile')
-    //   let identifiedResponse = await window.axios.post('/api/admin/users')
-    //   let responsibleResponse = await window.axios.post('/api/admin/responsibles')
-    //   this.identifiedList = identifiedResponse.data
-    //   this.responsibleList = responsibleResponse.data
-    //   this.user = userResponse.data
-    //   let task = {
-    //     user_id: this.user.id,
-    //     name: '',
-    //     streat: {
-    //       value: ''
-    //     },
-    //     number_home: '',
-    //     description: '',
-    //     detection_date: null,
-    //     responsible: null,
-    //     target_date: null,
-    //     correction_date: null,
-    //     responsible_executor: '',
-    //     conducted_work: '',
-    //     identified: [
-    //       this.user
-    //     ],
-    //     images: []
-    //   }
-    //   this.rewriteTask = new Task(task)
-    //   this.loading = false
-    // }
+   
   }
 }
 </script>

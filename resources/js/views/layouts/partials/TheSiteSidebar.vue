@@ -46,7 +46,7 @@
 
           <v-collapse-item active-url="/admin/task">
             <a slot="item-title" href="#">
-              <i class="icon-fa icon-fa-tasks"/>Роли (права)
+              <i class="icon-fa icon-fa-tasks"/>Уровени доступа
               <span class="icon-fa arrow icon-fa-fw"/>
             </a>
             <router-link to="/admin/role/create">

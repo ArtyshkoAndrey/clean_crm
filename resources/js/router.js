@@ -99,6 +99,9 @@ const routes = [
       },
       {
         path: 'user',
+        component: {
+          render (c) { return c('router-view') }
+        },
         children: [
           {
             path: 'all',
@@ -119,6 +122,9 @@ const routes = [
       },
       {
         path: 'role',
+        component: {
+          render (c) { return c('router-view') }
+        },
         children: [
           {
             path: 'all',
@@ -139,6 +145,9 @@ const routes = [
       },
       {
         path: 'department',
+        component: {
+          render (c) { return c('router-view') }
+        },
         children: [
           {
             path: 'all',
