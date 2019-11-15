@@ -16,7 +16,7 @@ import VCollapseItem from './components/collapse/VCollapseItem'
  */
 import 'vue-tabs-component/docs/resources/tabs-component.css'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
-import 'vue2-dropzone/dist/vue2Dropzone.css'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
 /**
  * Global plugins

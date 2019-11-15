@@ -40053,19 +40053,19 @@ function withParams(paramsOrClosure, maybeValidator) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(355)
+  __webpack_require__(490)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(357)
 /* template */
-var __vue_template__ = __webpack_require__(372)
+var __vue_template__ = __webpack_require__(492)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-f2a51462"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -57291,7 +57291,7 @@ exports = module.exports = __webpack_require__(6)(true);
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active,\r\n.fade-leave-active {\r\n    -webkit-transition: opacity .5s;\r\n    transition: opacity .5s\n}\n.fade-enter,\r\n.fade-leave-to {\r\n    opacity: 0\n}\n.filter-add-button {\r\n  display: block;\r\n  border: 1px solid gray;\r\n  padding: .5rem 1rem;\r\n  text-align: center;\r\n  -webkit-transition-duration: .5s;\r\n          transition-duration: .5s;\n}\n.filter-add-button:hover {\r\n  background: lightgray;\r\n  -webkit-transition-duration: .5s;\r\n          transition-duration: .5s;\r\n  border-color: lightgray;\n}\r\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/views/admin/tasks/resources/js/views/admin/tasks/index.vue"],"names":[],"mappings":";AAwJA;;IAEA,gCAAA;IAAA,uBAAA;CACA;AAEA;;IAEA,UAAA;CACA;AAEA;EACA,eAAA;EACA,uBAAA;EACA,oBAAA;EACA,mBAAA;EACA,iCAAA;UAAA,yBAAA;CACA;AAEA;EACA,sBAAA;EACA,iCAAA;UAAA,yBAAA;EACA,wBAAA;CACA","file":"index.vue","sourcesContent":["<template>\r\n  <div class=\"main-content\">\r\n    <div class=\"row\">\r\n      <div class=\"col-12\">\r\n        <div class=\"card\">\r\n          <div class=\"card-header\">\r\n            <h3>Фильтры</h3>\r\n          </div>\r\n          <div class=\"card-body\">\r\n            <div class=\"row\">\r\n              <div class=\"col-12 col-md-6 mt-2\">\r\n                <multiselect\r\n                  :options=\"['first thing', 'second thing', 'third thing']\"\r\n                  :hide-selected=\"true\"\r\n                  :selectLabel=\"''\"\r\n                  :taggable=\"true\"\r\n                  placeholder=\"Первый фильтр\"\r\n                />\r\n              </div>\r\n              <div class=\"col-12 col-md-6 mt-2\">\r\n                <multiselect\r\n                  :options=\"['first thing', 'second thing', 'third thing']\"\r\n                  :hide-selected=\"true\"\r\n                  :selectLabel=\"''\"\r\n                  :taggable=\"true\"\r\n                  placeholder=\"Первый фильтр\"\r\n                />\r\n              </div>\r\n              <div class=\"col-12 col-md-6 mt-2\">\r\n                <a href=\"#\" class=\"filter-add-button\">Добавить фильтр</a>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"card\">\r\n          <div class=\"card-header\">\r\n            <h3>Все правонарушения</h3>\r\n          </div>\r\n          <div class=\"card-body\">\r\n            <table-component\r\n              :data=\"getTasks\"\r\n              table-class=\"table\"\r\n              sort-by=\"detection_date\"\r\n              sort-order=\"desc\"\r\n              filter-placeholder=\"Поиск\"\r\n              filterNoResults=\"Нет данных\"\r\n              ref=\"tableTasks\"\r\n            >\r\n              <table-column show=\"street\" label=\"Улица\"/>\r\n              <table-column show=\"number_home\" label=\"Номер дома\"/>\r\n              <table-column show=\"detection_date\" label=\"ДАТА ВЫЯВЛЕНИЯ\"/>\r\n              <table-column show=\"description\" label=\"Описание\"/>\r\n              <table-column show=\"target_date\" label=\"КОНТРОЛЬНЫЙ СРОК\"/>\r\n              <table-column\r\n                :sortable=\"false\"\r\n                :filterable=\"false\"\r\n                label=\"\"\r\n              >\r\n                <template slot-scope=\"row\">\r\n                  <div class=\"table__actions\">\r\n                    <button class=\"btn btn-default btn-sm mr-2\" @click=\"$router.push({name: 'taskView', params: { id: row.id}})\">\r\n                      Изменть\r\n                    </button>\r\n                    <button class=\"btn btn-default btn-sm\" @click=\"dropTask(row.id)\">\r\n                      Удалить\r\n                    </button>\r\n                  </div>\r\n                </template>\r\n              </table-column>\r\n            </table-component>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n<script type=\"text/babel\">\r\nimport { TableComponent, TableColumn } from 'vue-table-component'\r\nimport Multiselect from 'vue-multiselect'\r\n\r\nexport default {\r\n  data () {\r\n    return {\r\n      'header': 'header',\r\n      count: 0,\r\n      tasks: [],\r\n      loading: true\r\n    }\r\n  },\r\n  components: {\r\n    TableComponent,\r\n    TableColumn,\r\n    Multiselect\r\n  },\r\n  mounted () {\r\n    // this.getTasks()\r\n  },\r\n  methods: {\r\n    taskDetails (id) {\r\n      console.log(id)\r\n    },\r\n    checkColor(row) {\r\n      let endDay = new Date()\r\n      endDay.setDate(row.target_date.slice(0, 2))\r\n      endDay.setMonth(parseInt(row.target_date.slice(3, 5)) - 1)\r\n      endDay.setFullYear(row.target_date.slice(6, 10))\r\n      endDay = Date.parse(endDay)\r\n      let nowDay = Date.now()\r\n      if (nowDay >= endDay) {\r\n\r\n        return 'table-danger'\r\n      }\r\n    },\r\n    async getTasks ({ page, filter, sort }) {\r\n      console.log( page, filter)\r\n      sort ? console.log(sort) : null\r\n      let response = await window.axios.get('/api/admin/task/get', {\r\n        params: {\r\n          page: page,\r\n          filter: filter,\r\n          sortName: sort.fieldName,\r\n          sortType: sort.order\r\n        }\r\n      })\r\n      console.log(response)\r\n      return {\r\n        data: response.data.data,\r\n        pagination: {\r\n          totalPages: response.data.last_page,\r\n          currentPage: page,\r\n          count: response.data.count\r\n        }\r\n      }\r\n    },\r\n    async dropTask (id) {\r\n      let response = await window.axios.post('/api/admin/task/' + id, { _method: 'DELETE' })\r\n      console.log(response)\r\n      if (response.status == 200 && response.data == 'Success') {\r\n        window.toastr['success']('Задача удалена', 'Выполнено')\r\n        this.$refs.tableTasks.refresh()\r\n      } else {\r\n        window.toastr['error']('Ошибка', 'Не выполнено')\r\n        this.$refs.tableTasks.refresh()\r\n      }\r\n    }\r\n  }\r\n}\r\n</script>\r\n\r\n<style>\r\n.fade-enter-active,\r\n.fade-leave-active {\r\n    transition: opacity .5s\r\n}\r\n\r\n.fade-enter,\r\n.fade-leave-to {\r\n    opacity: 0\r\n}\r\n\r\n.filter-add-button {\r\n  display: block;\r\n  border: 1px solid gray;\r\n  padding: .5rem 1rem;\r\n  text-align: center;\r\n  transition-duration: .5s;\r\n}\r\n\r\n.filter-add-button:hover {\r\n  background: lightgray;\r\n  transition-duration: .5s;\r\n  border-color: lightgray;\r\n}\r\n</style>"],"sourceRoot":""}]);
+exports.push([module.i, "\n.fade-enter-active,\r\n.fade-leave-active {\r\n    -webkit-transition: opacity .5s;\r\n    transition: opacity .5s\n}\n.fade-enter,\r\n.fade-leave-to {\r\n    opacity: 0\n}\n.filter-add-button {\r\n  display: block;\r\n  border: 1px solid gray;\r\n  padding: .5rem 1rem;\r\n  text-align: center;\r\n  -webkit-transition-duration: .5s;\r\n          transition-duration: .5s;\n}\n.filter-add-button:hover {\r\n  background: lightgray;\r\n  -webkit-transition-duration: .5s;\r\n          transition-duration: .5s;\r\n  border-color: lightgray;\n}\r\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/views/admin/tasks/resources/js/views/admin/tasks/index.vue"],"names":[],"mappings":";AA4LA;;IAEA,gCAAA;IAAA,uBAAA;CACA;AAEA;;IAEA,UAAA;CACA;AAEA;EACA,eAAA;EACA,uBAAA;EACA,oBAAA;EACA,mBAAA;EACA,iCAAA;UAAA,yBAAA;CACA;AAEA;EACA,sBAAA;EACA,iCAAA;UAAA,yBAAA;EACA,wBAAA;CACA","file":"index.vue","sourcesContent":["<template>\r\n  <div class=\"main-content\">\r\n    <div class=\"row\">\r\n      <div class=\"col-12\">\r\n        <div class=\"card\">\r\n          <div class=\"card-header\">\r\n            <h3>Фильтры</h3>\r\n          </div>\r\n          <div class=\"card-body\">\r\n            <div class=\"row\">\r\n              <div class=\"col-md-6 d-flex flex-column justify-content-between\">\r\n                <multiselect\r\n                  v-model=\"currentChoose\"\r\n                  :options=\"filterColumns\"\r\n                  :hide-selected=\"true\"\r\n                  :selectLabel=\"''\"\r\n                  track-by=\"name\"\r\n                  label=\"name\"\r\n                  placeholder=\"Выберете параметр\"\r\n                  class=\"mt-2\"\r\n                />\r\n                <a href=\"#\" class=\"filter-add-button mt-2\">Отфильтровать</a>\r\n              </div>\r\n              <div class=\"col-md-6\">\r\n                <div v-for=\"column in choosedColumns\"\r\n                  v-bind:key=\"column.name\">\r\n                  <input v-if=\"column.type == 'text'\"\r\n                    v-model=\"column.value\"\r\n                    v-bind:key=\"column.name\"\r\n                    :placeholder=\"column.name\"\r\n                    type=\"text\"\r\n                    class=\"form-control mt-2\">\r\n                  <multiselect v-else-if=\"column.type == 'select'\"\r\n                    v-model=\"column.value\"\r\n                    :options=\"column.options\"\r\n                    :hide-selected=\"true\"\r\n                    :selectLabel=\"''\"\r\n                    placeholder=\"Выберете параметр\"\r\n                    class=\"mt-2\"\r\n                  />\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"card\">\r\n          <div class=\"card-header\">\r\n            <h3>Все правонарушения</h3>\r\n          </div>\r\n          <div class=\"card-body\">\r\n            <table-component\r\n              :data=\"getTasks\"\r\n              table-class=\"table\"\r\n              sort-by=\"detection_date\"\r\n              sort-order=\"desc\"\r\n              filter-placeholder=\"Поиск\"\r\n              filterNoResults=\"Нет данных\"\r\n              ref=\"tableTasks\"\r\n            >\r\n              <table-column show=\"street\" label=\"Улица\"/>\r\n              <table-column show=\"number_home\" label=\"Номер дома\"/>\r\n              <table-column show=\"detection_date\" label=\"ДАТА ВЫЯВЛЕНИЯ\"/>\r\n              <table-column show=\"description\" label=\"Описание\"/>\r\n              <table-column show=\"target_date\" label=\"КОНТРОЛЬНЫЙ СРОК\"/>\r\n              <table-column\r\n                :sortable=\"false\"\r\n                :filterable=\"false\"\r\n                label=\"\"\r\n              >\r\n                <template slot-scope=\"row\">\r\n                  <div class=\"table__actions\">\r\n                    <button class=\"btn btn-default btn-sm mr-2\" @click=\"$router.push({name: 'taskView', params: { id: row.id}})\">\r\n                      Изменть\r\n                    </button>\r\n                    <button class=\"btn btn-default btn-sm\" @click=\"dropTask(row.id)\">\r\n                      Удалить\r\n                    </button>\r\n                  </div>\r\n                </template>\r\n              </table-column>\r\n            </table-component>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n<script type=\"text/babel\">\r\nimport { TableComponent, TableColumn } from 'vue-table-component'\r\nimport Multiselect from 'vue-multiselect'\r\n\r\nexport default {\r\n  data () {\r\n    return {\r\n      'header': 'header',\r\n      count: 0,\r\n      tasks: [],\r\n      filterColumns: [{\r\n        name: \"Улица\",\r\n        value: \"\",\r\n        type: \"text\"\r\n      },\r\n      {\r\n        name: \"Дом\",\r\n        value: \"\",\r\n        type: \"text\"\r\n      },\r\n      {\r\n        name: \"Статус\",\r\n        value: \"\",\r\n        type: \"select\",\r\n        options: [\"В работе\", \"Просроченные\", \"Выполненные\"]\r\n      }],\r\n      choosedColumns: [],\r\n      currentChoose: \"\",\r\n      loading: true\r\n    }\r\n  },\r\n  components: {\r\n    TableComponent,\r\n    TableColumn,\r\n    Multiselect\r\n  },\r\n  mounted () {\r\n    // this.getTasks()\r\n  },\r\n  watch: {\r\n    currentChoose: function (val) {\r\n      this.filterColumns.splice(this.filterColumns.indexOf(val), 1)\r\n      this.choosedColumns.push(val)\r\n      console.log(this.filterColumns, this.choosedColumns)\r\n    }\r\n  },\r\n  methods: {\r\n    taskDetails (id) {\r\n      console.log(id)\r\n    },\r\n    checkColor(row) {\r\n      let endDay = new Date()\r\n      endDay.setDate(row.target_date.slice(0, 2))\r\n      endDay.setMonth(parseInt(row.target_date.slice(3, 5)) - 1)\r\n      endDay.setFullYear(row.target_date.slice(6, 10))\r\n      endDay = Date.parse(endDay)\r\n      let nowDay = Date.now()\r\n      if (nowDay >= endDay) {\r\n\r\n        return 'table-danger'\r\n      }\r\n    },\r\n    async getTasks ({ page, filter, sort }) {\r\n      console.log( page, filter)\r\n      sort ? console.log(sort) : null\r\n      let response = await window.axios.get('/api/admin/task/get', {\r\n        params: {\r\n          page: page,\r\n          filter: filter,\r\n          sortName: sort.fieldName,\r\n          sortType: sort.order\r\n        }\r\n      })\r\n      console.log(response)\r\n      return {\r\n        data: response.data.data,\r\n        pagination: {\r\n          totalPages: response.data.last_page,\r\n          currentPage: page,\r\n          count: response.data.count\r\n        }\r\n      }\r\n    },\r\n    async dropTask (id) {\r\n      let response = await window.axios.post('/api/admin/task/' + id, { _method: 'DELETE' })\r\n      console.log(response)\r\n      if (response.status == 200 && response.data == 'Success') {\r\n        window.toastr['success']('Задача удалена', 'Выполнено')\r\n        this.$refs.tableTasks.refresh()\r\n      } else {\r\n        window.toastr['error']('Ошибка', 'Не выполнено')\r\n        this.$refs.tableTasks.refresh()\r\n      }\r\n    }\r\n  }\r\n}\r\n</script>\r\n\r\n<style>\r\n.fade-enter-active,\r\n.fade-leave-active {\r\n    transition: opacity .5s\r\n}\r\n\r\n.fade-enter,\r\n.fade-leave-to {\r\n    opacity: 0\r\n}\r\n\r\n.filter-add-button {\r\n  display: block;\r\n  border: 1px solid gray;\r\n  padding: .5rem 1rem;\r\n  text-align: center;\r\n  transition-duration: .5s;\r\n}\r\n\r\n.filter-add-button:hover {\r\n  background: lightgray;\r\n  transition-duration: .5s;\r\n  border-color: lightgray;\r\n}\r\n</style>"],"sourceRoot":""}]);
 
 // exports
 
@@ -57401,6 +57401,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
   data: function data() {
@@ -57408,6 +57419,22 @@ exports.default = {
       'header': 'header',
       count: 0,
       tasks: [],
+      filterColumns: [{
+        name: "Улица",
+        value: "",
+        type: "text"
+      }, {
+        name: "Дом",
+        value: "",
+        type: "text"
+      }, {
+        name: "Статус",
+        value: "",
+        type: "select",
+        options: ["В работе", "Просроченные", "Выполненные"]
+      }],
+      choosedColumns: [],
+      currentChoose: "",
       loading: true
     };
   },
@@ -57421,6 +57448,13 @@ exports.default = {
     // this.getTasks()
   },
 
+  watch: {
+    currentChoose: function currentChoose(val) {
+      this.filterColumns.splice(this.filterColumns.indexOf(val), 1);
+      this.choosedColumns.push(val);
+      console.log(this.filterColumns, this.choosedColumns);
+    }
+  },
   methods: {
     taskDetails: function taskDetails(id) {
       console.log(id);
@@ -57535,45 +57569,102 @@ var render = function() {
             _c("div", { staticClass: "row" }, [
               _c(
                 "div",
-                { staticClass: "col-12 col-md-6 mt-2" },
+                {
+                  staticClass:
+                    "col-md-6 d-flex flex-column justify-content-between"
+                },
                 [
                   _c("multiselect", {
+                    staticClass: "mt-2",
                     attrs: {
-                      options: ["first thing", "second thing", "third thing"],
+                      options: _vm.filterColumns,
                       "hide-selected": true,
                       selectLabel: "",
-                      taggable: true,
-                      placeholder: "Первый фильтр"
+                      "track-by": "name",
+                      label: "name",
+                      placeholder: "Выберете параметр"
+                    },
+                    model: {
+                      value: _vm.currentChoose,
+                      callback: function($$v) {
+                        _vm.currentChoose = $$v
+                      },
+                      expression: "currentChoose"
                     }
-                  })
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "filter-add-button mt-2",
+                      attrs: { href: "#" }
+                    },
+                    [_vm._v("Отфильтровать")]
+                  )
                 ],
                 1
               ),
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "col-12 col-md-6 mt-2" },
-                [
-                  _c("multiselect", {
-                    attrs: {
-                      options: ["first thing", "second thing", "third thing"],
-                      "hide-selected": true,
-                      selectLabel: "",
-                      taggable: true,
-                      placeholder: "Первый фильтр"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _vm._m(1)
+                { staticClass: "col-md-6" },
+                _vm._l(_vm.choosedColumns, function(column) {
+                  return _c(
+                    "div",
+                    { key: column.name },
+                    [
+                      column.type == "text"
+                        ? _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: column.value,
+                                expression: "column.value"
+                              }
+                            ],
+                            key: column.name,
+                            staticClass: "form-control mt-2",
+                            attrs: { placeholder: column.name, type: "text" },
+                            domProps: { value: column.value },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(column, "value", $event.target.value)
+                              }
+                            }
+                          })
+                        : column.type == "select"
+                          ? _c("multiselect", {
+                              staticClass: "mt-2",
+                              attrs: {
+                                options: column.options,
+                                "hide-selected": true,
+                                selectLabel: "",
+                                placeholder: "Выберете параметр"
+                              },
+                              model: {
+                                value: column.value,
+                                callback: function($$v) {
+                                  _vm.$set(column, "value", $$v)
+                                },
+                                expression: "column.value"
+                              }
+                            })
+                          : _vm._e()
+                    ],
+                    1
+                  )
+                })
+              )
             ])
           ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "card" }, [
-          _vm._m(2),
+          _vm._m(1),
           _vm._v(" "),
           _c(
             "div",
@@ -57681,16 +57772,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("h3", [_vm._v("Фильтры")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12 col-md-6 mt-2" }, [
-      _c("a", { staticClass: "filter-add-button", attrs: { href: "#" } }, [
-        _vm._v("Добавить фильтр")
-      ])
     ])
   },
   function() {
@@ -60396,46 +60477,8 @@ exports.default = {
 //
 
 /***/ }),
-/* 355 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(356);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(12)("1649d21a", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f2a51462\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./write.vue", function() {
-     var newContent = require("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f2a51462\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./write.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 356 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(6)(true);
-// imports
-
-
-// module
-exports.push([module.i, "\n.dropzone-custom-content {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  -webkit-transform: translate(-50%, -50%);\r\n          transform: translate(-50%, -50%);\r\n  text-align: center;\n}\n.dropzone-custom-title {\r\n  margin-top: 0;\r\n  color: #00b782;\n}\n.subtitle {\r\n  color: #314b5f;\n}\r\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/views/admin/tasks/task/resources/js/views/admin/tasks/task/write.vue"],"names":[],"mappings":";AAgUA;EACA,mBAAA;EACA,SAAA;EACA,UAAA;EACA,yCAAA;UAAA,iCAAA;EACA,mBAAA;CACA;AAEA;EACA,cAAA;EACA,eAAA;CACA;AAEA;EACA,eAAA;CACA","file":"write.vue","sourcesContent":["<template>\r\n  <div class=\"card-body\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-4 mt-4\">\r\n        <h5 class=\"section-semi-title\">Навзавние проблемы</h5>\r\n        <input type=\"text\" v-model=\"rewriteTask.name\" class=\"form-control\" placeholder=\"Название проблемы\" required>\r\n      </div>\r\n      <div class=\"col-md-12 mt-4\">\r\n        <h5 class=\"section-semi-title\">Описание проблемы проблемы</h5>\r\n        <textarea class=\"form-control\" v-model=\"rewriteTask.description\" placeholder=\"Описание\" rows=\"3\" />\r\n      </div>\r\n      <div class=\"col-md-6 mt-4\">\r\n        <h5 class=\"section-semi-title\">Улица</h5>\r\n        <multiselect\r\n          v-model=\"rewriteTask.street\"\r\n          id=\"ajax\"\r\n          placeholder=\"Название улицы\"\r\n          :options=\"dataStreet\"\r\n          :searchable=\"true\"\r\n          :multiple=\"false\"\r\n          @search-change=\"getStreet\"\r\n          label=\"value\"\r\n          :selectLabel=\"''\"\r\n        >\r\n        </multiselect>\r\n      </div>\r\n      <div class=\"col-md-6 mt-4\">\r\n        <h5 class=\"section-semi-title\">Номер дома</h5>\r\n        <multiselect\r\n          v-model=\"rewriteTask.numberHome\"\r\n          id=\"ajax\"\r\n          placeholder=\"Номер дома\"\r\n          :options=\"dataNumber\"\r\n          :searchable=\"true\"\r\n          :multiple=\"false\"\r\n          @search-change=\"getNumberHome\"\r\n          :selectLabel=\"''\"\r\n        >\r\n        </multiselect>\r\n      </div>\r\n      <div class=\"col-md-12 mt-4\">\r\n        <h5 class=\"section-semi-title\">Кем выявлено</h5>\r\n        <multiselect\r\n          v-model=\"rewriteTask.identified\"\r\n          :options=\"identifiedList\"\r\n          :multiple=\"true\"\r\n          placeholder=\"Кем выявлено\"\r\n          :hide-selected=\"true\"\r\n          label=\"name\"\r\n          :selectLabel=\"''\"\r\n          :searchable=\"true\"\r\n          track-by=\"id\"\r\n        />\r\n      </div>\r\n      <div class=\"col-md-12 mt-4\">\r\n        <h5 class=\"section-semi-title\">Ответсвенный</h5>\r\n        <multiselect\r\n          v-model=\"rewriteTask.responsible\"\r\n          :options=\"responsibleList\"\r\n          :hide-selected=\"true\"\r\n          :selectLabel=\"''\"\r\n          :taggable=\"true\"\r\n          placeholder=\"Ответсвтенный\"\r\n          @tag=\"addResponsibleTag\"\r\n          track-by=\"name\"\r\n          label=\"name\"\r\n        />\r\n      </div>\r\n      <div class=\"col-md-12 mt-4\">\r\n        <h5 class=\"section-semi-title\">Ответсвенный исполнитель</h5>\r\n        <input\r\n          type=\"text\"\r\n          class=\"form-control\"\r\n          v-model=\"rewriteTask.responsibleExecutor\"\r\n          placeholder=\"Ответственный исполнитель\"\r\n          required\r\n        >\r\n      </div>\r\n      <div class=\"col-md-6 mt-4\">\r\n        <h5 class=\"section-semi-title\">Дата выявления</h5>\r\n        <datepicker input-class=\"form-control\" format=\"dd.MM.yyyy\" v-model=\"rewriteTask.detectionDate\" placeholder=\"Select Date\"/>\r\n      </div>\r\n      <div class=\"col-md-6 mt-4\">\r\n        <h5 class=\"section-semi-title\">Дата устранения</h5>\r\n        <div class=\"row\">\r\n          <div class=\"col-md-8 col-12\">\r\n            <datepicker input-class=\"form-control\" format=\"dd.MM.yyyy\" v-model=\"rewriteTask.correctionDate\" placeholder=\"Select Date\"/>\r\n          </div>\r\n          <div class=\"col-md-4 col-12\">\r\n            <button class=\"btn btn-default\" @click=\"rewriteTask.correctionDate = null\">Отчистить</button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-md-6 mt-4\">\r\n        <h5 class=\"section-semi-title\">Констролный срок</h5>\r\n        <datepicker input-class=\"form-control\" format=\"dd.MM.yyyy\" v-model=\"rewriteTask.targetDate\" placeholder=\"Select Date\"/>\r\n      </div>\r\n      <div class=\"col-md-12 mt-4\">\r\n        <h5 class=\"section-semi-title\">Проведенная работа</h5>\r\n        <textarea\r\n          class=\"form-control\"\r\n          rows=\"3\"\r\n          placeholder=\"Описание проведённой работы\"\r\n          v-model=\"rewriteTask.conductedWork\"\r\n        />\r\n      </div>\r\n      <div class=\"col-12 mt-4\">\r\n        <h5 class=\"section-semi-title\">Медиа файлы</h5>\r\n        <vue-dropzone id=\"drop1\" :useCustomSlot=\"true\" :options=\"config\" @vdropzone-complete=\"afterComplete\" @vdropzone-removed-file=\"removedImage\" ref=\"myVueDropzone\">\r\n          <div class=\"dropzone-custom-content\">\r\n            <h3 class=\"dropzone-custom-title\">Перетащите свои фотографии сюда!</h3>\r\n            <div class=\"subtitle\">... или нажмит на это поле</div>\r\n          </div>\r\n        </vue-dropzone>\r\n      </div>\r\n      <div class=\"col-12 mt-4 justify-content-center align-content-center d-flex\">\r\n        <button class=\"btn btn-primary mr-1\" @click=\"save\">Сохранить</button>\r\n        <button class=\"btn btn-default ml-1\" @click=\"$router.push({name: 'tasks'})\">Отменить</button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n<script>\r\n  import vue2Dropzone from 'vue2-dropzone'\r\n  import Datepicker from 'vuejs-datepicker'\r\n  import VueSuggestions from 'vue-suggestions'\r\n  import Multiselect from 'vue-multiselect'\r\n  export default {\r\n    props: {\r\n    rewriteTask: {\r\n      type: Object,\r\n      require: true,\r\n      default: Object\r\n    },\r\n    rewriteTask: {\r\n      type: Object,\r\n      require: true,\r\n      default: {}\r\n    },\r\n    task: {\r\n      type: Object,\r\n      require: true,\r\n      default: Object\r\n    },\r\n    user: {\r\n      type: Object,\r\n      require: true,\r\n      default: Object\r\n    },\r\n    allUsers: {\r\n      type: Array,\r\n      require: true,\r\n      default: Array\r\n    },\r\n    responsibleList: {\r\n      type: Array,\r\n      require: true,\r\n      default: Array\r\n    },\r\n    identifiedList: {\r\n      type: Array,\r\n      require: true,\r\n      default: Array\r\n    }\r\n  },\r\n  data () {\r\n    return {\r\n      config: {\r\n        url: \"http://clean-crm/api/taskfile\",\r\n        thumbnailWidth: null,\r\n        addRemoveLinks: true,\r\n        renameFile: function (file) {\r\n          let newName = new Date().getTime() + '_' + file.name;\r\n          return newName;\r\n        },\r\n      },\r\n      dataNumber: [],\r\n      dataStreet: [],\r\n      saved: false\r\n    }\r\n  },\r\n  components: {\r\n    vueDropzone: vue2Dropzone,\r\n    Datepicker,\r\n    VueSuggestions,\r\n    Multiselect\r\n  },\r\n  mounted () {\r\n    setTimeout(() => {\r\n      console.log(this.rewriteTask.images)\r\n      this.rewriteTask.images.forEach(image => {\r\n        typeof image.path === 'string' ? image.path = JSON.parse(image.path) : null\r\n        this.$refs.myVueDropzone.manuallyAddFile({ type: image.path.type, size: image.path.size, name: image.path.name}, image.path.file);\r\n      })\r\n    }, 1000);\r\n  },\r\n  methods: {\r\n    async removedImage (file, error, xhr) {\r\n      if(!this.saved) {\r\n        let name\r\n        if (file.constructor.name !== 'File') {\r\n          name = file.name\r\n        } else {\r\n          name = file.upload.filename\r\n        }\r\n        window.axios.delete('http://clean-crm/api/taskfile/'+name)\r\n        .then(response => {\r\n          let removeIndex = this.rewriteTask.images.map(function(item) { return item.path.name; }).indexOf(file.name);\r\n          ~removeIndex && this.rewriteTask.images.splice(removeIndex, 1);\r\n          response.data.success ? window.toastr['success']('Выполнено', response.data.success) : window.toastr['error']('Ошибка', response.data.error)\r\n        })\r\n        .catch(error => {\r\n          console.log(error)\r\n          window.toastr['error']('Ошибка', 'Не выполнено')\r\n        });\r\n      }\r\n    },\r\n    async save () {\r\n      this.$emit('save');\r\n      this.saved = true\r\n      if (this.type === 'update')\r\n      console.log(this.task)\r\n      console.log(this.rewriteTask)\r\n      window.axios.put('/api/admin/task', this.rewriteTask)\r\n      .then(response => {\r\n        console.log(response)\r\n        response.data === 'Success' ? window.toastr['success']('Выполнено', 'Сохранено') : window.toastr['error']('Ошибка', 'Не выполнено')\r\n      })\r\n      .catch(error => {\r\n        console.log(error)\r\n        window.toastr['error']('Ошибка', 'Не выполнено')\r\n      });\r\n    },\r\n    async addResponsibleTag (responsible) {\r\n      // TODO: переделать создание тег, отправлять на сервер,\r\n      // а потом уже с новый список принимать, по списку искать новый тег и его вставлять в v-model\r\n      console.log(responsible)\r\n      responsible = {\r\n        id: Math.max.apply(Math, this.responsibleList.map(res => res.id)) + 1,\r\n        name: responsible\r\n      }\r\n      window.axios.post('/api/admin/responsibles/create', responsible).then(res => {\r\n        console.log(res)\r\n        this.responsibleList.push(responsible)\r\n        this.rewriteTask.responsible = responsible\r\n      }).catch(error => {\r\n        window.toastr['error']('Ошибка', 'Не выполнено')\r\n      })\r\n    },\r\n    afterComplete(file) {\r\n      console.log(file);\r\n      try {\r\n        let image = JSON.parse(file.xhr.response).image\r\n        image.path.name = file.upload.filename\r\n        this.rewriteTask.images.push(image)\r\n      } catch (e) {\r\n        console.warn(e)\r\n      }\r\n    },\r\n    async getNumberHome (query) {\r\n      console.log(this.rewriteTask.street + \" \" + query)\r\n      window.axios.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',\r\n        { \r\n          query: query,\r\n          locations: [\r\n            {\r\n              city: \"Красноярск\",\r\n              street_fias_id: this.rewriteTask.street.data.street_fias_id\r\n            }\r\n          ],\r\n          restrict_value: true\r\n        },\r\n        {\r\n          headers: {\r\n            \"Content-Type\": \"application/json\",\r\n            \"Accept\": \"application/json\",\r\n            \"Authorization\": \"Token be33fe1fe0328828d9632c248dcad68166e62740\",\r\n            \"X-Secret\": \"23c196abec29f8f3bafeb96f8be339c491a3bb77\"\r\n          }\r\n        }\r\n      ).then(res => {\r\n        this.dataNumber = []\r\n        res.data.suggestions.forEach(element => {\r\n          this.dataNumber .push(element.value)\r\n        });\r\n        console.log(this.dataNumber)\r\n      })\r\n    },\r\n    async getStreet (query) {\r\n      window.axios.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',\r\n        { \r\n          query: query,\r\n          locations: [\r\n            {\r\n              city: \"Красноярск\"\r\n            }\r\n          ],\r\n          restrict_value: true\r\n        },\r\n        {\r\n          headers: {\r\n            \"Content-Type\": \"application/json\",\r\n            \"Accept\": \"application/json\",\r\n            \"Authorization\": \"Token be33fe1fe0328828d9632c248dcad68166e62740\",\r\n            \"X-Secret\": \"23c196abec29f8f3bafeb96f8be339c491a3bb77\"\r\n          }\r\n        }\r\n      ).then(res => {\r\n        this.dataStreet = []\r\n        this.dataStreet = res.data.suggestions\r\n        console.log(this.dataStreet)\r\n      })\r\n    }\r\n  }\r\n}\r\n\r\n</script>\r\n\r\n<style>\r\n.dropzone-custom-content {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  transform: translate(-50%, -50%);\r\n  text-align: center;\r\n}\r\n\r\n.dropzone-custom-title {\r\n  margin-top: 0;\r\n  color: #00b782;\r\n}\r\n\r\n.subtitle {\r\n  color: #314b5f;\r\n}\r\n</style>"],"sourceRoot":""}]);
-
-// exports
-
-
-/***/ }),
+/* 355 */,
+/* 356 */,
 /* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -60581,10 +60624,34 @@ var _props; //
 //
 //
 //
-
-var _vue2Dropzone = __webpack_require__(361);
-
-var _vue2Dropzone2 = _interopRequireDefault(_vue2Dropzone);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var _vuejsDatepicker = __webpack_require__(202);
 
@@ -60597,6 +60664,10 @@ var _vueSuggestions2 = _interopRequireDefault(_vueSuggestions);
 var _vueMultiselect = __webpack_require__(43);
 
 var _vueMultiselect2 = _interopRequireDefault(_vueMultiselect);
+
+var _vue2Dropzone = __webpack_require__(361);
+
+var _vue2Dropzone2 = _interopRequireDefault(_vue2Dropzone);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -86483,432 +86554,7 @@ if (false) {
 }
 
 /***/ }),
-/* 372 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card-body" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-4 mt-4" }, [
-        _c("h5", { staticClass: "section-semi-title" }, [
-          _vm._v("Навзавние проблемы")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.rewriteTask.name,
-              expression: "rewriteTask.name"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: {
-            type: "text",
-            placeholder: "Название проблемы",
-            required: ""
-          },
-          domProps: { value: _vm.rewriteTask.name },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.rewriteTask, "name", $event.target.value)
-            }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-12 mt-4" }, [
-        _c("h5", { staticClass: "section-semi-title" }, [
-          _vm._v("Описание проблемы проблемы")
-        ]),
-        _vm._v(" "),
-        _c("textarea", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.rewriteTask.description,
-              expression: "rewriteTask.description"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { placeholder: "Описание", rows: "3" },
-          domProps: { value: _vm.rewriteTask.description },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.rewriteTask, "description", $event.target.value)
-            }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-md-6 mt-4" },
-        [
-          _c("h5", { staticClass: "section-semi-title" }, [_vm._v("Улица")]),
-          _vm._v(" "),
-          _c("multiselect", {
-            attrs: {
-              id: "ajax",
-              placeholder: "Название улицы",
-              options: _vm.dataStreet,
-              searchable: true,
-              multiple: false,
-              label: "value",
-              selectLabel: ""
-            },
-            on: { "search-change": _vm.getStreet },
-            model: {
-              value: _vm.rewriteTask.street,
-              callback: function($$v) {
-                _vm.$set(_vm.rewriteTask, "street", $$v)
-              },
-              expression: "rewriteTask.street"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-md-6 mt-4" },
-        [
-          _c("h5", { staticClass: "section-semi-title" }, [
-            _vm._v("Номер дома")
-          ]),
-          _vm._v(" "),
-          _c("multiselect", {
-            attrs: {
-              id: "ajax",
-              placeholder: "Номер дома",
-              options: _vm.dataNumber,
-              searchable: true,
-              multiple: false,
-              selectLabel: ""
-            },
-            on: { "search-change": _vm.getNumberHome },
-            model: {
-              value: _vm.rewriteTask.numberHome,
-              callback: function($$v) {
-                _vm.$set(_vm.rewriteTask, "numberHome", $$v)
-              },
-              expression: "rewriteTask.numberHome"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-md-12 mt-4" },
-        [
-          _c("h5", { staticClass: "section-semi-title" }, [
-            _vm._v("Кем выявлено")
-          ]),
-          _vm._v(" "),
-          _c("multiselect", {
-            attrs: {
-              options: _vm.identifiedList,
-              multiple: true,
-              placeholder: "Кем выявлено",
-              "hide-selected": true,
-              label: "name",
-              selectLabel: "",
-              searchable: true,
-              "track-by": "id"
-            },
-            model: {
-              value: _vm.rewriteTask.identified,
-              callback: function($$v) {
-                _vm.$set(_vm.rewriteTask, "identified", $$v)
-              },
-              expression: "rewriteTask.identified"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-md-12 mt-4" },
-        [
-          _c("h5", { staticClass: "section-semi-title" }, [
-            _vm._v("Ответсвенный")
-          ]),
-          _vm._v(" "),
-          _c("multiselect", {
-            attrs: {
-              options: _vm.responsibleList,
-              "hide-selected": true,
-              selectLabel: "",
-              taggable: true,
-              placeholder: "Ответсвтенный",
-              "track-by": "name",
-              label: "name"
-            },
-            on: { tag: _vm.addResponsibleTag },
-            model: {
-              value: _vm.rewriteTask.responsible,
-              callback: function($$v) {
-                _vm.$set(_vm.rewriteTask, "responsible", $$v)
-              },
-              expression: "rewriteTask.responsible"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-12 mt-4" }, [
-        _c("h5", { staticClass: "section-semi-title" }, [
-          _vm._v("Ответсвенный исполнитель")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.rewriteTask.responsibleExecutor,
-              expression: "rewriteTask.responsibleExecutor"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: {
-            type: "text",
-            placeholder: "Ответственный исполнитель",
-            required: ""
-          },
-          domProps: { value: _vm.rewriteTask.responsibleExecutor },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(
-                _vm.rewriteTask,
-                "responsibleExecutor",
-                $event.target.value
-              )
-            }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-md-6 mt-4" },
-        [
-          _c("h5", { staticClass: "section-semi-title" }, [
-            _vm._v("Дата выявления")
-          ]),
-          _vm._v(" "),
-          _c("datepicker", {
-            attrs: {
-              "input-class": "form-control",
-              format: "dd.MM.yyyy",
-              placeholder: "Select Date"
-            },
-            model: {
-              value: _vm.rewriteTask.detectionDate,
-              callback: function($$v) {
-                _vm.$set(_vm.rewriteTask, "detectionDate", $$v)
-              },
-              expression: "rewriteTask.detectionDate"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6 mt-4" }, [
-        _c("h5", { staticClass: "section-semi-title" }, [
-          _vm._v("Дата устранения")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            { staticClass: "col-md-8 col-12" },
-            [
-              _c("datepicker", {
-                attrs: {
-                  "input-class": "form-control",
-                  format: "dd.MM.yyyy",
-                  placeholder: "Select Date"
-                },
-                model: {
-                  value: _vm.rewriteTask.correctionDate,
-                  callback: function($$v) {
-                    _vm.$set(_vm.rewriteTask, "correctionDate", $$v)
-                  },
-                  expression: "rewriteTask.correctionDate"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-4 col-12" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-default",
-                on: {
-                  click: function($event) {
-                    _vm.rewriteTask.correctionDate = null
-                  }
-                }
-              },
-              [_vm._v("Отчистить")]
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-md-6 mt-4" },
-        [
-          _c("h5", { staticClass: "section-semi-title" }, [
-            _vm._v("Констролный срок")
-          ]),
-          _vm._v(" "),
-          _c("datepicker", {
-            attrs: {
-              "input-class": "form-control",
-              format: "dd.MM.yyyy",
-              placeholder: "Select Date"
-            },
-            model: {
-              value: _vm.rewriteTask.targetDate,
-              callback: function($$v) {
-                _vm.$set(_vm.rewriteTask, "targetDate", $$v)
-              },
-              expression: "rewriteTask.targetDate"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-12 mt-4" }, [
-        _c("h5", { staticClass: "section-semi-title" }, [
-          _vm._v("Проведенная работа")
-        ]),
-        _vm._v(" "),
-        _c("textarea", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.rewriteTask.conductedWork,
-              expression: "rewriteTask.conductedWork"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { rows: "3", placeholder: "Описание проведённой работы" },
-          domProps: { value: _vm.rewriteTask.conductedWork },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.rewriteTask, "conductedWork", $event.target.value)
-            }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-12 mt-4" },
-        [
-          _c("h5", { staticClass: "section-semi-title" }, [
-            _vm._v("Медиа файлы")
-          ]),
-          _vm._v(" "),
-          _c(
-            "vue-dropzone",
-            {
-              ref: "myVueDropzone",
-              attrs: { id: "drop1", useCustomSlot: true, options: _vm.config },
-              on: {
-                "vdropzone-complete": _vm.afterComplete,
-                "vdropzone-removed-file": _vm.removedImage
-              }
-            },
-            [
-              _c("div", { staticClass: "dropzone-custom-content" }, [
-                _c("h3", { staticClass: "dropzone-custom-title" }, [
-                  _vm._v("Перетащите свои фотографии сюда!")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "subtitle" }, [
-                  _vm._v("... или нажмит на это поле")
-                ])
-              ])
-            ]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "col-12 mt-4 justify-content-center align-content-center d-flex"
-        },
-        [
-          _c(
-            "button",
-            { staticClass: "btn btn-primary mr-1", on: { click: _vm.save } },
-            [_vm._v("Сохранить")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-default ml-1",
-              on: {
-                click: function($event) {
-                  _vm.$router.push({ name: "tasks" })
-                }
-              }
-            },
-            [_vm._v("Отменить")]
-          )
-        ]
-      )
-    ])
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-f2a51462", module.exports)
-  }
-}
-
-/***/ }),
+/* 372 */,
 /* 373 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -87567,7 +87213,7 @@ exports = module.exports = __webpack_require__(6)(true);
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active[data-v-2122fd83] {\r\n  -webkit-transition: opacity .5s;\r\n  transition: opacity .5s\n}\n.fade-enter[data-v-2122fd83],\r\n.fade-leave-active[data-v-2122fd83] {\r\n  opacity: 0\n}\r\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/views/admin/tasks/resources/js/views/admin/tasks/create.vue"],"names":[],"mappings":";AA0GA;EACA,gCAAA;EAAA,uBAAA;CACA;AAEA;;EAEA,UAAA;CACA","file":"create.vue","sourcesContent":["<template>\r\n  <div class=\"main-content\">\r\n    <div class=\"row\">\r\n      <div class=\"col-12\">\r\n        <transition name=\"fade\" mode=\"out-in\">\r\n          <div key=1 class=\"card\" v-if='!loading'>\r\n            <div class=\"card-header\">\r\n              <div class=\"col-12 d-flex align-items-center justify-content-between\">\r\n                <h6 class=\"font-weight-bold d-flex h-100\">Создание новой задачи</h6>\r\n              </div>\r\n            </div>\r\n            <Write\r\n            :rewriteTask='rewriteTask'\r\n            :task='{}'\r\n            :user='user'\r\n            :allUsers='allUsers'\r\n            :responsibleList='responsibleList'\r\n            :identifiedList='identifiedList'\r\n            :type=\"'create'\"\r\n            @save='onSave'\r\n            >\r\n            </Write>\r\n          </div>\r\n          <div key=2 class=\"card\" v-else>\r\n            <div class=\"card-header\">\r\n              <h6>Загрузка</h6>\r\n            </div>\r\n            <div class=\"card-body\">\r\n              <div class=\"d-flex justify-content-center\">\r\n                <div class=\"spinner-grow text-primary\" role=\"status\">\r\n                  <span class=\"sr-only\">Loading...</span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </transition>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n<script type=\"text/babel\">\r\nimport Write from './task/write.vue'\r\nimport Read from './task/read.vue'\r\nimport Task from '../../../helpers/Task'\r\nexport default {\r\n  data () {\r\n    return {\r\n      'header': 'header',\r\n      rewriteTask: {},\r\n      user: {},\r\n      allUsers: [],\r\n      loading: true,\r\n      config: {\r\n        url: \"http://clean-crm/api/taskfile\",\r\n        thumbnailWidth: null,\r\n      },\r\n      responsibleList: [],\r\n      identifiedList: []\r\n    }\r\n  },\r\n  components: {\r\n    Write,\r\n    Read\r\n  },\r\n  created() {\r\n    this.getTask(this.$route.params.id)    \r\n  },\r\n  methods: {\r\n    onSave() {\r\n      console.log('Save')\r\n    },\r\n    async getTask (id) {\r\n      let userResponse = await window.axios.post('/api/admin/profile')\r\n      let identifiedResponse = await window.axios.post('/api/admin/users')\r\n      let responsibleResponse = await window.axios.post('/api/admin/responsibles')\r\n      this.identifiedList = identifiedResponse.data\r\n      this.responsibleList = responsibleResponse.data\r\n      this.user = userResponse.data\r\n      let task = {\r\n        user_id: this.user.id,\r\n        name: '',\r\n        streat: {\r\n          value: ''\r\n        },\r\n        number_home: '',\r\n        description: '',\r\n        detection_date: null,\r\n        responsible: null,\r\n        target_date: null,\r\n        correction_date: null,\r\n        responsible_executor: '',\r\n        conducted_work: '',\r\n        identified: [\r\n          this.user\r\n        ],\r\n        images: []\r\n      }\r\n      this.rewriteTask = new Task(task)\r\n      this.loading = false\r\n    }\r\n  }\r\n}\r\n</script>\r\n\r\n<style scoped>\r\n.fade-enter-active {\r\n  transition: opacity .5s\r\n}\r\n\r\n.fade-enter,\r\n.fade-leave-active {\r\n  opacity: 0\r\n}\r\n</style>"],"sourceRoot":""}]);
+exports.push([module.i, "\n.fade-enter-active[data-v-2122fd83] {\r\n  -webkit-transition: opacity .5s;\r\n  transition: opacity .5s\n}\n.fade-enter[data-v-2122fd83],\r\n.fade-leave-active[data-v-2122fd83] {\r\n  opacity: 0\n}\n.form-control[readonly][data-v-2122fd83] {\r\n  background: #fff;\n}\r\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/views/admin/tasks/resources/js/views/admin/tasks/create.vue"],"names":[],"mappings":";AA0GA;EACA,gCAAA;EAAA,uBAAA;CACA;AAEA;;EAEA,UAAA;CACA;AAEA;EACA,iBAAA;CACA","file":"create.vue","sourcesContent":["<template>\r\n  <div class=\"main-content\">\r\n    <div class=\"row\">\r\n      <div class=\"col-12\">\r\n        <transition name=\"fade\" mode=\"out-in\">\r\n          <div key=1 class=\"card\" v-if='!loading'>\r\n            <div class=\"card-header\">\r\n              <div class=\"col-12 d-flex align-items-center justify-content-between\">\r\n                <h3 class=\"d-flex h-100\">Создание новой задачи</h3>\r\n              </div>\r\n            </div>\r\n            <Write\r\n            :rewriteTask='rewriteTask'\r\n            :task='{}'\r\n            :user='user'\r\n            :allUsers='allUsers'\r\n            :responsibleList='responsibleList'\r\n            :identifiedList='identifiedList'\r\n            :type=\"'create'\"\r\n            @save='onSave'\r\n            >\r\n            </Write>\r\n          </div>\r\n          <div key=2 class=\"card\" v-else>\r\n            <div class=\"card-header\">\r\n              <h3>Загрузка</h3>\r\n            </div>\r\n            <div class=\"card-body\">\r\n              <div class=\"d-flex justify-content-center\">\r\n                <div class=\"spinner-grow text-primary\" role=\"status\">\r\n                  <span class=\"sr-only\">Loading...</span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </transition>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n<script type=\"text/babel\">\r\nimport Write from './task/write.vue'\r\nimport Read from './task/read.vue'\r\nimport Task from '../../../helpers/Task'\r\nexport default {\r\n  data () {\r\n    return {\r\n      'header': 'header',\r\n      rewriteTask: {},\r\n      user: {},\r\n      allUsers: [],\r\n      loading: true,\r\n      config: {\r\n        url: \"http://clean-crm/api/taskfile\",\r\n        thumbnailWidth: null,\r\n      },\r\n      responsibleList: [],\r\n      identifiedList: []\r\n    }\r\n  },\r\n  components: {\r\n    Write,\r\n    Read\r\n  },\r\n  created() {\r\n    this.getTask(this.$route.params.id)    \r\n  },\r\n  methods: {\r\n    onSave() {\r\n      console.log('Save')\r\n    },\r\n    async getTask (id) {\r\n      let userResponse = await window.axios.post('/api/admin/profile')\r\n      let identifiedResponse = await window.axios.post('/api/admin/users')\r\n      let responsibleResponse = await window.axios.post('/api/admin/responsibles')\r\n      this.identifiedList = identifiedResponse.data\r\n      this.responsibleList = responsibleResponse.data\r\n      this.user = userResponse.data\r\n      let task = {\r\n        user_id: this.user.id,\r\n        name: '',\r\n        streat: {\r\n          value: ''\r\n        },\r\n        number_home: '',\r\n        description: '',\r\n        detection_date: null,\r\n        responsible: null,\r\n        target_date: null,\r\n        correction_date: null,\r\n        responsible_executor: '',\r\n        conducted_work: '',\r\n        identified: [\r\n          this.user\r\n        ],\r\n        images: []\r\n      }\r\n      this.rewriteTask = new Task(task)\r\n      this.loading = false\r\n    }\r\n  }\r\n}\r\n</script>\r\n\r\n<style scoped>\r\n.fade-enter-active {\r\n  transition: opacity .5s\r\n}\r\n\r\n.fade-enter,\r\n.fade-leave-active {\r\n  opacity: 0\r\n}\r\n\r\n.form-control[readonly] {\r\n  background: #fff;\r\n}\r\n</style>"],"sourceRoot":""}]);
 
 // exports
 
@@ -87762,11 +87408,9 @@ var render = function() {
                             "col-12 d-flex align-items-center justify-content-between"
                         },
                         [
-                          _c(
-                            "h6",
-                            { staticClass: "font-weight-bold d-flex h-100" },
-                            [_vm._v("Создание новой задачи")]
-                          )
+                          _c("h3", { staticClass: "d-flex h-100" }, [
+                            _vm._v("Создание новой задачи")
+                          ])
                         ]
                       )
                     ]),
@@ -87788,7 +87432,7 @@ var render = function() {
                 )
               : _c("div", { key: "2", staticClass: "card" }, [
                   _c("div", { staticClass: "card-header" }, [
-                    _c("h6", [_vm._v("Загрузка")])
+                    _c("h3", [_vm._v("Загрузка")])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "card-body" }, [
@@ -90585,7 +90229,7 @@ __webpack_require__(440);
 
 __webpack_require__(443);
 
-__webpack_require__(445);
+__webpack_require__(493);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -104714,51 +104358,8 @@ exports.push([module.i, "fieldset[disabled] .multiselect{pointer-events:none}.mu
 
 
 /***/ }),
-/* 445 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(446);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(45)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../css-loader/index.js!./vue2Dropzone.css", function() {
-			var newContent = require("!!../../css-loader/index.js!./vue2Dropzone.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 446 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(6)(false);
-// imports
-
-
-// module
-exports.push([module.i, "/*\n * The MIT License\n * Copyright (c) 2012 Matias Meno <m@tias.me>\n */\n@-webkit-keyframes passing-through {\n  0% {\n    opacity: 0;\n    -webkit-transform: translateY(40px);\n    -moz-transform: translateY(40px);\n    -ms-transform: translateY(40px);\n    -o-transform: translateY(40px);\n    transform: translateY(40px); }\n  30%, 70% {\n    opacity: 1;\n    -webkit-transform: translateY(0px);\n    -moz-transform: translateY(0px);\n    -ms-transform: translateY(0px);\n    -o-transform: translateY(0px);\n    transform: translateY(0px); }\n  100% {\n    opacity: 0;\n    -webkit-transform: translateY(-40px);\n    -moz-transform: translateY(-40px);\n    -ms-transform: translateY(-40px);\n    -o-transform: translateY(-40px);\n    transform: translateY(-40px); } }\n@-moz-keyframes passing-through {\n  0% {\n    opacity: 0;\n    -webkit-transform: translateY(40px);\n    -moz-transform: translateY(40px);\n    -ms-transform: translateY(40px);\n    -o-transform: translateY(40px);\n    transform: translateY(40px); }\n  30%, 70% {\n    opacity: 1;\n    -webkit-transform: translateY(0px);\n    -moz-transform: translateY(0px);\n    -ms-transform: translateY(0px);\n    -o-transform: translateY(0px);\n    transform: translateY(0px); }\n  100% {\n    opacity: 0;\n    -webkit-transform: translateY(-40px);\n    -moz-transform: translateY(-40px);\n    -ms-transform: translateY(-40px);\n    -o-transform: translateY(-40px);\n    transform: translateY(-40px); } }\n@keyframes passing-through {\n  0% {\n    opacity: 0;\n    -webkit-transform: translateY(40px);\n    -moz-transform: translateY(40px);\n    -ms-transform: translateY(40px);\n    -o-transform: translateY(40px);\n    transform: translateY(40px); }\n  30%, 70% {\n    opacity: 1;\n    -webkit-transform: translateY(0px);\n    -moz-transform: translateY(0px);\n    -ms-transform: translateY(0px);\n    -o-transform: translateY(0px);\n    transform: translateY(0px); }\n  100% {\n    opacity: 0;\n    -webkit-transform: translateY(-40px);\n    -moz-transform: translateY(-40px);\n    -ms-transform: translateY(-40px);\n    -o-transform: translateY(-40px);\n    transform: translateY(-40px); } }\n@-webkit-keyframes slide-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: translateY(40px);\n    -moz-transform: translateY(40px);\n    -ms-transform: translateY(40px);\n    -o-transform: translateY(40px);\n    transform: translateY(40px); }\n  30% {\n    opacity: 1;\n    -webkit-transform: translateY(0px);\n    -moz-transform: translateY(0px);\n    -ms-transform: translateY(0px);\n    -o-transform: translateY(0px);\n    transform: translateY(0px); } }\n@-moz-keyframes slide-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: translateY(40px);\n    -moz-transform: translateY(40px);\n    -ms-transform: translateY(40px);\n    -o-transform: translateY(40px);\n    transform: translateY(40px); }\n  30% {\n    opacity: 1;\n    -webkit-transform: translateY(0px);\n    -moz-transform: translateY(0px);\n    -ms-transform: translateY(0px);\n    -o-transform: translateY(0px);\n    transform: translateY(0px); } }\n@keyframes slide-in {\n  0% {\n    opacity: 0;\n    -webkit-transform: translateY(40px);\n    -moz-transform: translateY(40px);\n    -ms-transform: translateY(40px);\n    -o-transform: translateY(40px);\n    transform: translateY(40px); }\n  30% {\n    opacity: 1;\n    -webkit-transform: translateY(0px);\n    -moz-transform: translateY(0px);\n    -ms-transform: translateY(0px);\n    -o-transform: translateY(0px);\n    transform: translateY(0px); } }\n@-webkit-keyframes pulse {\n  0% {\n    -webkit-transform: scale(1);\n    -moz-transform: scale(1);\n    -ms-transform: scale(1);\n    -o-transform: scale(1);\n    transform: scale(1); }\n  10% {\n    -webkit-transform: scale(1.1);\n    -moz-transform: scale(1.1);\n    -ms-transform: scale(1.1);\n    -o-transform: scale(1.1);\n    transform: scale(1.1); }\n  20% {\n    -webkit-transform: scale(1);\n    -moz-transform: scale(1);\n    -ms-transform: scale(1);\n    -o-transform: scale(1);\n    transform: scale(1); } }\n@-moz-keyframes pulse {\n  0% {\n    -webkit-transform: scale(1);\n    -moz-transform: scale(1);\n    -ms-transform: scale(1);\n    -o-transform: scale(1);\n    transform: scale(1); }\n  10% {\n    -webkit-transform: scale(1.1);\n    -moz-transform: scale(1.1);\n    -ms-transform: scale(1.1);\n    -o-transform: scale(1.1);\n    transform: scale(1.1); }\n  20% {\n    -webkit-transform: scale(1);\n    -moz-transform: scale(1);\n    -ms-transform: scale(1);\n    -o-transform: scale(1);\n    transform: scale(1); } }\n@keyframes pulse {\n  0% {\n    -webkit-transform: scale(1);\n    -moz-transform: scale(1);\n    -ms-transform: scale(1);\n    -o-transform: scale(1);\n    transform: scale(1); }\n  10% {\n    -webkit-transform: scale(1.1);\n    -moz-transform: scale(1.1);\n    -ms-transform: scale(1.1);\n    -o-transform: scale(1.1);\n    transform: scale(1.1); }\n  20% {\n    -webkit-transform: scale(1);\n    -moz-transform: scale(1);\n    -ms-transform: scale(1);\n    -o-transform: scale(1);\n    transform: scale(1); } }\n.dropzone, .dropzone * {\n  box-sizing: border-box; }\n\n.dropzone {\n  min-height: 150px;\n  border: 2px solid rgba(0, 0, 0, 0.3);\n  background: white;\n  padding: 20px 20px; }\n  .dropzone.dz-clickable {\n    cursor: pointer; }\n    .dropzone.dz-clickable * {\n      cursor: default; }\n    .dropzone.dz-clickable .dz-message, .dropzone.dz-clickable .dz-message * {\n      cursor: pointer; }\n  .dropzone.dz-started .dz-message {\n    display: none; }\n  .dropzone.dz-drag-hover {\n    border-style: solid; }\n    .dropzone.dz-drag-hover .dz-message {\n      opacity: 0.5; }\n  .dropzone .dz-message {\n    text-align: center;\n    margin: 2em 0; }\n  .dropzone .dz-preview {\n    position: relative;\n    display: inline-block;\n    vertical-align: top;\n    margin: 16px;\n    min-height: 100px; }\n    .dropzone .dz-preview:hover {\n      z-index: 1000; }\n      .dropzone .dz-preview:hover .dz-details {\n        opacity: 1; }\n    .dropzone .dz-preview.dz-file-preview .dz-image {\n      border-radius: 20px;\n      background: #999;\n      background: linear-gradient(to bottom, #eee, #ddd); }\n    .dropzone .dz-preview.dz-file-preview .dz-details {\n      opacity: 1; }\n    .dropzone .dz-preview.dz-image-preview {\n      background: white; }\n      .dropzone .dz-preview.dz-image-preview .dz-details {\n        -webkit-transition: opacity 0.2s linear;\n        -moz-transition: opacity 0.2s linear;\n        -ms-transition: opacity 0.2s linear;\n        -o-transition: opacity 0.2s linear;\n        transition: opacity 0.2s linear; }\n    .dropzone .dz-preview .dz-remove {\n      font-size: 14px;\n      text-align: center;\n      display: block;\n      cursor: pointer;\n      border: none; }\n      .dropzone .dz-preview .dz-remove:hover {\n        text-decoration: underline; }\n    .dropzone .dz-preview:hover .dz-details {\n      opacity: 1; }\n    .dropzone .dz-preview .dz-details {\n      z-index: 20;\n      position: absolute;\n      top: 0;\n      left: 0;\n      opacity: 0;\n      font-size: 13px;\n      min-width: 100%;\n      max-width: 100%;\n      padding: 2em 1em;\n      text-align: center;\n      color: rgba(0, 0, 0, 0.9);\n      line-height: 150%; }\n      .dropzone .dz-preview .dz-details .dz-size {\n        margin-bottom: 1em;\n        font-size: 16px; }\n      .dropzone .dz-preview .dz-details .dz-filename {\n        white-space: nowrap; }\n        .dropzone .dz-preview .dz-details .dz-filename:hover span {\n          border: 1px solid rgba(200, 200, 200, 0.8);\n          background-color: rgba(255, 255, 255, 0.8); }\n        .dropzone .dz-preview .dz-details .dz-filename:not(:hover) {\n          overflow: hidden;\n          text-overflow: ellipsis; }\n          .dropzone .dz-preview .dz-details .dz-filename:not(:hover) span {\n            border: 1px solid transparent; }\n      .dropzone .dz-preview .dz-details .dz-filename span, .dropzone .dz-preview .dz-details .dz-size span {\n        background-color: rgba(255, 255, 255, 0.4);\n        padding: 0 0.4em;\n        border-radius: 3px; }\n    .dropzone .dz-preview:hover .dz-image img {\n      -webkit-transform: scale(1.05, 1.05);\n      -moz-transform: scale(1.05, 1.05);\n      -ms-transform: scale(1.05, 1.05);\n      -o-transform: scale(1.05, 1.05);\n      transform: scale(1.05, 1.05);\n      -webkit-filter: blur(8px);\n      filter: blur(8px); }\n    .dropzone .dz-preview .dz-image {\n      border-radius: 20px;\n      overflow: hidden;\n      width: 120px;\n      height: 120px;\n      position: relative;\n      display: block;\n      z-index: 10; }\n      .dropzone .dz-preview .dz-image img {\n        display: block; }\n    .dropzone .dz-preview.dz-success .dz-success-mark {\n      -webkit-animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1);\n      -moz-animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1);\n      -ms-animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1);\n      -o-animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1);\n      animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1); }\n    .dropzone .dz-preview.dz-error .dz-error-mark {\n      opacity: 1;\n      -webkit-animation: slide-in 3s cubic-bezier(0.77, 0, 0.175, 1);\n      -moz-animation: slide-in 3s cubic-bezier(0.77, 0, 0.175, 1);\n      -ms-animation: slide-in 3s cubic-bezier(0.77, 0, 0.175, 1);\n      -o-animation: slide-in 3s cubic-bezier(0.77, 0, 0.175, 1);\n      animation: slide-in 3s cubic-bezier(0.77, 0, 0.175, 1); }\n    .dropzone .dz-preview .dz-success-mark, .dropzone .dz-preview .dz-error-mark {\n      pointer-events: none;\n      opacity: 0;\n      z-index: 500;\n      position: absolute;\n      display: block;\n      top: 50%;\n      left: 50%;\n      margin-left: -27px;\n      margin-top: -27px; }\n      .dropzone .dz-preview .dz-success-mark svg, .dropzone .dz-preview .dz-error-mark svg {\n        display: block;\n        width: 54px;\n        height: 54px; }\n    .dropzone .dz-preview.dz-processing .dz-progress {\n      opacity: 1;\n      -webkit-transition: all 0.2s linear;\n      -moz-transition: all 0.2s linear;\n      -ms-transition: all 0.2s linear;\n      -o-transition: all 0.2s linear;\n      transition: all 0.2s linear; }\n    .dropzone .dz-preview.dz-complete .dz-progress {\n      opacity: 0;\n      -webkit-transition: opacity 0.4s ease-in;\n      -moz-transition: opacity 0.4s ease-in;\n      -ms-transition: opacity 0.4s ease-in;\n      -o-transition: opacity 0.4s ease-in;\n      transition: opacity 0.4s ease-in; }\n    .dropzone .dz-preview:not(.dz-processing) .dz-progress {\n      -webkit-animation: pulse 6s ease infinite;\n      -moz-animation: pulse 6s ease infinite;\n      -ms-animation: pulse 6s ease infinite;\n      -o-animation: pulse 6s ease infinite;\n      animation: pulse 6s ease infinite; }\n    .dropzone .dz-preview .dz-progress {\n      opacity: 1;\n      z-index: 1000;\n      pointer-events: none;\n      position: absolute;\n      height: 16px;\n      left: 50%;\n      top: 50%;\n      margin-top: -8px;\n      width: 80px;\n      margin-left: -40px;\n      background: rgba(255, 255, 255, 0.9);\n      -webkit-transform: scale(1);\n      border-radius: 8px;\n      overflow: hidden; }\n      .dropzone .dz-preview .dz-progress .dz-upload {\n        background: #333;\n        background: linear-gradient(to bottom, #666, #444);\n        position: absolute;\n        top: 0;\n        left: 0;\n        bottom: 0;\n        width: 0;\n        -webkit-transition: width 300ms ease-in-out;\n        -moz-transition: width 300ms ease-in-out;\n        -ms-transition: width 300ms ease-in-out;\n        -o-transition: width 300ms ease-in-out;\n        transition: width 300ms ease-in-out; }\n    .dropzone .dz-preview.dz-error .dz-error-message {\n      display: block; }\n    .dropzone .dz-preview.dz-error:hover .dz-error-message {\n      opacity: 1;\n      pointer-events: auto; }\n    .dropzone .dz-preview .dz-error-message {\n      pointer-events: none;\n      z-index: 1000;\n      position: absolute;\n      display: block;\n      display: none;\n      opacity: 0;\n      -webkit-transition: opacity 0.3s ease;\n      -moz-transition: opacity 0.3s ease;\n      -ms-transition: opacity 0.3s ease;\n      -o-transition: opacity 0.3s ease;\n      transition: opacity 0.3s ease;\n      border-radius: 8px;\n      font-size: 13px;\n      top: 130px;\n      left: -10px;\n      width: 140px;\n      background: #be2626;\n      background: linear-gradient(to bottom, #be2626, #a92222);\n      padding: 0.5em 1.2em;\n      color: white; }\n      .dropzone .dz-preview .dz-error-message:after {\n        content: '';\n        position: absolute;\n        top: -6px;\n        left: 64px;\n        width: 0;\n        height: 0;\n        border-left: 6px solid transparent;\n        border-right: 6px solid transparent;\n        border-bottom: 6px solid #be2626; }\n\n.vue-dropzone {\n  border: 2px solid #E5E5E5;\n  font-family: 'Arial', sans-serif;\n  letter-spacing: 0.2px;\n  color: #777;\n  transition: background-color 0.2s linear;\n}\n.vue-dropzone:hover {\n  background-color: #F6F6F6;\n}\n.vue-dropzone i {\n  color: #CCC;\n}\n.vue-dropzone .dz-preview .dz-image {\n  border-radius: 0;\n  width: 100%;\n  height: 100%;\n}\n.vue-dropzone .dz-preview .dz-image img:not([src]) {\n  width: 200px;\n  height: 200px;\n}\n.vue-dropzone .dz-preview .dz-image:hover img {\n  transform: none;\n  -webkit-filter: none;\n}\n.vue-dropzone .dz-preview .dz-details {\n  bottom: 0;\n  top: 0;\n  color: white;\n  background-color: rgba(33, 150, 243, 0.8);\n  transition: opacity .2s linear;\n  text-align: left;\n}\n.vue-dropzone .dz-preview .dz-details .dz-filename {\n  overflow: hidden;\n}\n.vue-dropzone .dz-preview .dz-details .dz-filename span,\n.vue-dropzone .dz-preview .dz-details .dz-size span {\n  background-color: transparent;\n}\n.vue-dropzone .dz-preview .dz-details .dz-filename:not(:hover) span {\n  border: none;\n}\n.vue-dropzone .dz-preview .dz-details .dz-filename:hover span {\n  background-color: transparent;\n  border: none;\n}\n.vue-dropzone .dz-preview .dz-progress .dz-upload {\n  background: #cccccc;\n}\n.vue-dropzone .dz-preview .dz-remove {\n  position: absolute;\n  z-index: 30;\n  color: white;\n  margin-left: 15px;\n  padding: 10px;\n  top: inherit;\n  bottom: 15px;\n  border: 2px white solid;\n  text-decoration: none;\n  text-transform: uppercase;\n  font-size: 0.8rem;\n  font-weight: 800;\n  letter-spacing: 1.1px;\n  opacity: 0;\n}\n.vue-dropzone .dz-preview:hover .dz-remove {\n  opacity: 1;\n}\n.vue-dropzone .dz-preview .dz-success-mark,\n.vue-dropzone .dz-preview .dz-error-mark {\n  margin-left: auto;\n  margin-top: auto;\n  width: 100%;\n  top: 35%;\n  left: 0;\n}\n.vue-dropzone .dz-preview .dz-success-mark svg,\n.vue-dropzone .dz-preview .dz-error-mark svg {\n  margin-left: auto;\n  margin-right: auto;\n}\n.vue-dropzone .dz-preview .dz-error-message {\n  top: calc(15%);\n  margin-left: auto;\n  margin-right: auto;\n  left: 0;\n  width: 100%;\n}\n.vue-dropzone .dz-preview .dz-error-message:after {\n  bottom: -6px;\n  top: initial;\n  border-top: 6px solid #a92222;\n  border-bottom: none;\n}\n\n", ""]);
-
-// exports
-
-
-/***/ }),
+/* 445 */,
+/* 446 */,
 /* 447 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -133636,6 +133237,534 @@ Vue.directive('click-outside', {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 473 */,
+/* 474 */,
+/* 475 */,
+/* 476 */,
+/* 477 */,
+/* 478 */,
+/* 479 */,
+/* 480 */,
+/* 481 */,
+/* 482 */,
+/* 483 */,
+/* 484 */,
+/* 485 */,
+/* 486 */,
+/* 487 */,
+/* 488 */,
+/* 489 */,
+/* 490 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(491);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(12)("780eca24", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f2a51462\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./write.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js?sourceMap!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f2a51462\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./write.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 491 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(6)(true);
+// imports
+
+
+// module
+exports.push([module.i, "\n.dropzone-custom-content[data-v-f2a51462] {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  -webkit-transform: translate(-50%, -50%);\r\n          transform: translate(-50%, -50%);\r\n  text-align: center;\n}\n.dropzone-custom-title[data-v-f2a51462] {\r\n  margin-top: 0;\r\n  color: #00b782;\n}\n.subtitle[data-v-f2a51462] {\r\n  color: #314b5f;\n}\n.form-control[readonly][data-v-f2a51462] {\r\n  background: #fff;\n}\n.dropzone-custom-title[data-v-f2a51462] {\r\n  color: #000;\n}\r\n", "", {"version":3,"sources":["D:/OSPanel/domains/clean-crm/resources/js/views/admin/tasks/task/resources/js/views/admin/tasks/task/write.vue"],"names":[],"mappings":";AA6HA;EACA,mBAAA;EACA,SAAA;EACA,UAAA;EACA,yCAAA;UAAA,iCAAA;EACA,mBAAA;CACA;AAEA;EACA,cAAA;EACA,eAAA;CACA;AAEA;EACA,eAAA;CACA;AAEA;EACA,iBAAA;CACA;AAEA;EACA,YAAA;CACA","file":"write.vue","sourcesContent":["<template>\r\n  <div class=\"card-body\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-6 mt-1\">\r\n        <h5 class=\"section-semi-title\">Название нарушения</h5>\r\n        <input type=\"text\" v-model=\"rewriteTask.name\" class=\"form-control\" placeholder=\"Название проблемы\" required>\r\n      </div>\r\n      <div class=\"col-md-12 mt-4\">\r\n        <h5 class=\"section-semi-title\">Описание нарушения</h5>\r\n        <textarea class=\"form-control\" v-model=\"rewriteTask.description\" placeholder=\"Описание\" rows=\"3\" />\r\n      </div>\r\n      <div class=\"col-md-6 mt-4\">\r\n        <h5 class=\"section-semi-title\">Улица</h5>\r\n        <multiselect\r\n          v-model=\"rewriteTask.street\"\r\n          id=\"ajax\"\r\n          placeholder=\"Название улицы\"\r\n          :options=\"dataStreet\"\r\n          :searchable=\"true\"\r\n          :multiple=\"false\"\r\n          @search-change=\"getStreet\"\r\n          label=\"value\"\r\n          :selectLabel=\"''\"\r\n        >\r\n        </multiselect>\r\n      </div>\r\n      <div class=\"col-md-6 mt-4\">\r\n        <h5 class=\"section-semi-title\">Номер дома</h5>\r\n        <multiselect\r\n          v-model=\"rewriteTask.numberHome\"\r\n          id=\"ajax\"\r\n          placeholder=\"Номер дома\"\r\n          :options=\"dataNumber\"\r\n          :searchable=\"true\"\r\n          :multiple=\"false\"\r\n          @search-change=\"getNumberHome\"\r\n          :selectLabel=\"''\"\r\n        >\r\n        </multiselect>\r\n      </div>\r\n      <div class=\"col-md-12 mt-4\">\r\n        <h5 class=\"section-semi-title\">Кем выявлено</h5>\r\n        <multiselect\r\n          v-model=\"rewriteTask.identified\"\r\n          :options=\"identifiedList\"\r\n          :multiple=\"true\"\r\n          placeholder=\"Кем выявлено\"\r\n          :hide-selected=\"true\"\r\n          label=\"name\"\r\n          :selectLabel=\"''\"\r\n          :searchable=\"true\"\r\n          track-by=\"id\"\r\n        />\r\n      </div>\r\n      <div class=\"col-md-12 mt-4\">\r\n        <h5 class=\"section-semi-title\">Ответственный</h5>\r\n        <multiselect\r\n          v-model=\"rewriteTask.responsible\"\r\n          :options=\"responsibleList\"\r\n          :hide-selected=\"true\"\r\n          :selectLabel=\"''\"\r\n          :taggable=\"true\"\r\n          placeholder=\"Ответственный\"\r\n          @tag=\"addResponsibleTag\"\r\n          track-by=\"name\"\r\n          label=\"name\"\r\n        />\r\n      </div>\r\n      <div class=\"col-md-12 mt-4\">\r\n        <h5 class=\"section-semi-title\">Ответственный исполнитель</h5>\r\n        <input\r\n          type=\"text\"\r\n          class=\"form-control\"\r\n          v-model=\"rewriteTask.responsibleExecutor\"\r\n          placeholder=\"Ответственный исполнитель\"\r\n          required\r\n        >\r\n      </div>\r\n      <div class=\"col-md-6 mt-4\">\r\n        <h5 class=\"section-semi-title\">Дата выявления</h5>\r\n        <datepicker input-class=\"form-control\" format=\"dd.MM.yyyy\" v-model=\"rewriteTask.detectionDate\" placeholder=\"Select Date\"/>\r\n      </div>\r\n      <div class=\"col-md-6 mt-4\">\r\n        <h5 class=\"section-semi-title\">Контрольный срок</h5>\r\n        <datepicker input-class=\"form-control\" format=\"dd.MM.yyyy\" v-model=\"rewriteTask.targetDate\" placeholder=\"Select Date\"/>\r\n      </div>\r\n      <div class=\"col-md-6 mt-4\">\r\n        <h5 class=\"section-semi-title\">Дата устранения</h5>\r\n        <div class=\"row\">\r\n          <div class=\"col-md-8 col-12\">\r\n            <datepicker input-class=\"form-control\" format=\"dd.MM.yyyy\" v-model=\"rewriteTask.correctionDate\" placeholder=\"Select Date\"/>\r\n          </div>\r\n          <div class=\"col-md-4 col-12\">\r\n            <button class=\"btn btn-default\" @click=\"rewriteTask.correctionDate = null\">Очистить</button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-md-12 mt-4\">\r\n        <h5 class=\"section-semi-title\">Проведенная работа</h5>\r\n        <textarea\r\n          class=\"form-control\"\r\n          rows=\"3\"\r\n          placeholder=\"Описание проведённой работы\"\r\n          v-model=\"rewriteTask.conductedWork\"\r\n        />\r\n      </div>\r\n      <div class=\"col-12 mt-4\">\r\n        <h5 class=\"section-semi-title\">Медиа файлы</h5>\r\n        <vue-dropzone id=\"drop1\" :useCustomSlot=\"true\" :options=\"config\" @vdropzone-complete=\"afterComplete\" @vdropzone-removed-file=\"removedImage\" ref=\"myVueDropzone\">\r\n          <div class=\"dropzone-custom-content\">\r\n            <h3 class=\"dropzone-custom-title mt-2\">Перетащите свои фотографии сюда!</h3>\r\n            <div class=\"subtitle\">... или нажмит на это поле</div>\r\n          </div>\r\n        </vue-dropzone>\r\n      </div>\r\n      <div class=\"col-12 mt-4 justify-content-center align-content-center d-flex\">\r\n        <button class=\"btn btn-primary mr-1\" @click=\"save\">Сохранить</button>\r\n        <button class=\"btn btn-default ml-1\" @click=\"$router.push({name: 'tasks'})\">Отменить</button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n\r\n\r\n<style scoped>\r\n.dropzone-custom-content {\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 50%;\r\n  transform: translate(-50%, -50%);\r\n  text-align: center;\r\n}\r\n\r\n.dropzone-custom-title {\r\n  margin-top: 0;\r\n  color: #00b782;\r\n}\r\n\r\n.subtitle {\r\n  color: #314b5f;\r\n}\r\n\r\n.form-control[readonly] {\r\n  background: #fff;\r\n}\r\n\r\n.dropzone-custom-title {\r\n  color: #000;\r\n}\r\n</style>\r\n\r\n<script>\r\n  import Datepicker from 'vuejs-datepicker'\r\n  import VueSuggestions from 'vue-suggestions'\r\n  import Multiselect from 'vue-multiselect'\r\n  import vue2Dropzone from 'vue2-dropzone'\r\n  export default {\r\n    props: {\r\n    rewriteTask: {\r\n      type: Object,\r\n      require: true,\r\n      default: Object\r\n    },\r\n    rewriteTask: {\r\n      type: Object,\r\n      require: true,\r\n      default: {}\r\n    },\r\n    task: {\r\n      type: Object,\r\n      require: true,\r\n      default: Object\r\n    },\r\n    user: {\r\n      type: Object,\r\n      require: true,\r\n      default: Object\r\n    },\r\n    allUsers: {\r\n      type: Array,\r\n      require: true,\r\n      default: Array\r\n    },\r\n    responsibleList: {\r\n      type: Array,\r\n      require: true,\r\n      default: Array\r\n    },\r\n    identifiedList: {\r\n      type: Array,\r\n      require: true,\r\n      default: Array\r\n    }\r\n  },\r\n  data () {\r\n    return {\r\n      config: {\r\n        url: \"http://clean-crm/api/taskfile\",\r\n        thumbnailWidth: null,\r\n        addRemoveLinks: true,\r\n        renameFile: function (file) {\r\n          let newName = new Date().getTime() + '_' + file.name;\r\n          return newName;\r\n        },\r\n      },\r\n      dataNumber: [],\r\n      dataStreet: [],\r\n      saved: false\r\n    }\r\n  },\r\n  components: {\r\n    vueDropzone: vue2Dropzone,\r\n    Datepicker,\r\n    VueSuggestions,\r\n    Multiselect\r\n  },\r\n  mounted () {\r\n    setTimeout(() => {\r\n      console.log(this.rewriteTask.images)\r\n      this.rewriteTask.images.forEach(image => {\r\n        typeof image.path === 'string' ? image.path = JSON.parse(image.path) : null\r\n        this.$refs.myVueDropzone.manuallyAddFile({ type: image.path.type, size: image.path.size, name: image.path.name}, image.path.file);\r\n      })\r\n    }, 1000);\r\n  },\r\n  methods: {\r\n    async removedImage (file, error, xhr) {\r\n      if(!this.saved) {\r\n        let name\r\n        if (file.constructor.name !== 'File') {\r\n          name = file.name\r\n        } else {\r\n          name = file.upload.filename\r\n        }\r\n        window.axios.delete('http://clean-crm/api/taskfile/'+name)\r\n        .then(response => {\r\n          let removeIndex = this.rewriteTask.images.map(function(item) { return item.path.name; }).indexOf(file.name);\r\n          ~removeIndex && this.rewriteTask.images.splice(removeIndex, 1);\r\n          response.data.success ? window.toastr['success']('Выполнено', response.data.success) : window.toastr['error']('Ошибка', response.data.error)\r\n        })\r\n        .catch(error => {\r\n          console.log(error)\r\n          window.toastr['error']('Ошибка', 'Не выполнено')\r\n        });\r\n      }\r\n    },\r\n    async save () {\r\n      this.$emit('save');\r\n      this.saved = true\r\n      if (this.type === 'update')\r\n      console.log(this.task)\r\n      console.log(this.rewriteTask)\r\n      window.axios.put('/api/admin/task', this.rewriteTask)\r\n      .then(response => {\r\n        console.log(response)\r\n        response.data === 'Success' ? window.toastr['success']('Выполнено', 'Сохранено') : window.toastr['error']('Ошибка', 'Не выполнено')\r\n      })\r\n      .catch(error => {\r\n        console.log(error)\r\n        window.toastr['error']('Ошибка', 'Не выполнено')\r\n      });\r\n    },\r\n    async addResponsibleTag (responsible) {\r\n      // TODO: переделать создание тег, отправлять на сервер,\r\n      // а потом уже с новый список принимать, по списку искать новый тег и его вставлять в v-model\r\n      console.log(responsible)\r\n      responsible = {\r\n        id: Math.max.apply(Math, this.responsibleList.map(res => res.id)) + 1,\r\n        name: responsible\r\n      }\r\n      window.axios.post('/api/admin/responsibles/create', responsible).then(res => {\r\n        console.log(res)\r\n        this.responsibleList.push(responsible)\r\n        this.rewriteTask.responsible = responsible\r\n      }).catch(error => {\r\n        window.toastr['error']('Ошибка', 'Не выполнено')\r\n      })\r\n    },\r\n    afterComplete(file) {\r\n      console.log(file);\r\n      try {\r\n        let image = JSON.parse(file.xhr.response).image\r\n        image.path.name = file.upload.filename\r\n        this.rewriteTask.images.push(image)\r\n      } catch (e) {\r\n        console.warn(e)\r\n      }\r\n    },\r\n    async getNumberHome (query) {\r\n      console.log(this.rewriteTask.street + \" \" + query)\r\n      window.axios.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',\r\n        { \r\n          query: query,\r\n          locations: [\r\n            {\r\n              city: \"Красноярск\",\r\n              street_fias_id: this.rewriteTask.street.data.street_fias_id\r\n            }\r\n          ],\r\n          restrict_value: true\r\n        },\r\n        {\r\n          headers: {\r\n            \"Content-Type\": \"application/json\",\r\n            \"Accept\": \"application/json\",\r\n            \"Authorization\": \"Token be33fe1fe0328828d9632c248dcad68166e62740\",\r\n            \"X-Secret\": \"23c196abec29f8f3bafeb96f8be339c491a3bb77\"\r\n          }\r\n        }\r\n      ).then(res => {\r\n        this.dataNumber = []\r\n        res.data.suggestions.forEach(element => {\r\n          this.dataNumber .push(element.value)\r\n        });\r\n        console.log(this.dataNumber)\r\n      })\r\n    },\r\n    async getStreet (query) {\r\n      window.axios.post('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',\r\n        { \r\n          query: query,\r\n          locations: [\r\n            {\r\n              city: \"Красноярск\"\r\n            }\r\n          ],\r\n          restrict_value: true\r\n        },\r\n        {\r\n          headers: {\r\n            \"Content-Type\": \"application/json\",\r\n            \"Accept\": \"application/json\",\r\n            \"Authorization\": \"Token be33fe1fe0328828d9632c248dcad68166e62740\",\r\n            \"X-Secret\": \"23c196abec29f8f3bafeb96f8be339c491a3bb77\"\r\n          }\r\n        }\r\n      ).then(res => {\r\n        this.dataStreet = []\r\n        this.dataStreet = res.data.suggestions\r\n        console.log(this.dataStreet)\r\n      })\r\n    }\r\n  }\r\n}\r\n\r\n</script>"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+/* 492 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card-body" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-6 mt-1" }, [
+        _c("h5", { staticClass: "section-semi-title" }, [
+          _vm._v("Название нарушения")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.rewriteTask.name,
+              expression: "rewriteTask.name"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            placeholder: "Название проблемы",
+            required: ""
+          },
+          domProps: { value: _vm.rewriteTask.name },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.rewriteTask, "name", $event.target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-12 mt-4" }, [
+        _c("h5", { staticClass: "section-semi-title" }, [
+          _vm._v("Описание нарушения")
+        ]),
+        _vm._v(" "),
+        _c("textarea", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.rewriteTask.description,
+              expression: "rewriteTask.description"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { placeholder: "Описание", rows: "3" },
+          domProps: { value: _vm.rewriteTask.description },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.rewriteTask, "description", $event.target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-6 mt-4" },
+        [
+          _c("h5", { staticClass: "section-semi-title" }, [_vm._v("Улица")]),
+          _vm._v(" "),
+          _c("multiselect", {
+            attrs: {
+              id: "ajax",
+              placeholder: "Название улицы",
+              options: _vm.dataStreet,
+              searchable: true,
+              multiple: false,
+              label: "value",
+              selectLabel: ""
+            },
+            on: { "search-change": _vm.getStreet },
+            model: {
+              value: _vm.rewriteTask.street,
+              callback: function($$v) {
+                _vm.$set(_vm.rewriteTask, "street", $$v)
+              },
+              expression: "rewriteTask.street"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-6 mt-4" },
+        [
+          _c("h5", { staticClass: "section-semi-title" }, [
+            _vm._v("Номер дома")
+          ]),
+          _vm._v(" "),
+          _c("multiselect", {
+            attrs: {
+              id: "ajax",
+              placeholder: "Номер дома",
+              options: _vm.dataNumber,
+              searchable: true,
+              multiple: false,
+              selectLabel: ""
+            },
+            on: { "search-change": _vm.getNumberHome },
+            model: {
+              value: _vm.rewriteTask.numberHome,
+              callback: function($$v) {
+                _vm.$set(_vm.rewriteTask, "numberHome", $$v)
+              },
+              expression: "rewriteTask.numberHome"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-12 mt-4" },
+        [
+          _c("h5", { staticClass: "section-semi-title" }, [
+            _vm._v("Кем выявлено")
+          ]),
+          _vm._v(" "),
+          _c("multiselect", {
+            attrs: {
+              options: _vm.identifiedList,
+              multiple: true,
+              placeholder: "Кем выявлено",
+              "hide-selected": true,
+              label: "name",
+              selectLabel: "",
+              searchable: true,
+              "track-by": "id"
+            },
+            model: {
+              value: _vm.rewriteTask.identified,
+              callback: function($$v) {
+                _vm.$set(_vm.rewriteTask, "identified", $$v)
+              },
+              expression: "rewriteTask.identified"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-12 mt-4" },
+        [
+          _c("h5", { staticClass: "section-semi-title" }, [
+            _vm._v("Ответственный")
+          ]),
+          _vm._v(" "),
+          _c("multiselect", {
+            attrs: {
+              options: _vm.responsibleList,
+              "hide-selected": true,
+              selectLabel: "",
+              taggable: true,
+              placeholder: "Ответственный",
+              "track-by": "name",
+              label: "name"
+            },
+            on: { tag: _vm.addResponsibleTag },
+            model: {
+              value: _vm.rewriteTask.responsible,
+              callback: function($$v) {
+                _vm.$set(_vm.rewriteTask, "responsible", $$v)
+              },
+              expression: "rewriteTask.responsible"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-12 mt-4" }, [
+        _c("h5", { staticClass: "section-semi-title" }, [
+          _vm._v("Ответственный исполнитель")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.rewriteTask.responsibleExecutor,
+              expression: "rewriteTask.responsibleExecutor"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            placeholder: "Ответственный исполнитель",
+            required: ""
+          },
+          domProps: { value: _vm.rewriteTask.responsibleExecutor },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(
+                _vm.rewriteTask,
+                "responsibleExecutor",
+                $event.target.value
+              )
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-6 mt-4" },
+        [
+          _c("h5", { staticClass: "section-semi-title" }, [
+            _vm._v("Дата выявления")
+          ]),
+          _vm._v(" "),
+          _c("datepicker", {
+            attrs: {
+              "input-class": "form-control",
+              format: "dd.MM.yyyy",
+              placeholder: "Select Date"
+            },
+            model: {
+              value: _vm.rewriteTask.detectionDate,
+              callback: function($$v) {
+                _vm.$set(_vm.rewriteTask, "detectionDate", $$v)
+              },
+              expression: "rewriteTask.detectionDate"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-6 mt-4" },
+        [
+          _c("h5", { staticClass: "section-semi-title" }, [
+            _vm._v("Контрольный срок")
+          ]),
+          _vm._v(" "),
+          _c("datepicker", {
+            attrs: {
+              "input-class": "form-control",
+              format: "dd.MM.yyyy",
+              placeholder: "Select Date"
+            },
+            model: {
+              value: _vm.rewriteTask.targetDate,
+              callback: function($$v) {
+                _vm.$set(_vm.rewriteTask, "targetDate", $$v)
+              },
+              expression: "rewriteTask.targetDate"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6 mt-4" }, [
+        _c("h5", { staticClass: "section-semi-title" }, [
+          _vm._v("Дата устранения")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-md-8 col-12" },
+            [
+              _c("datepicker", {
+                attrs: {
+                  "input-class": "form-control",
+                  format: "dd.MM.yyyy",
+                  placeholder: "Select Date"
+                },
+                model: {
+                  value: _vm.rewriteTask.correctionDate,
+                  callback: function($$v) {
+                    _vm.$set(_vm.rewriteTask, "correctionDate", $$v)
+                  },
+                  expression: "rewriteTask.correctionDate"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-4 col-12" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-default",
+                on: {
+                  click: function($event) {
+                    _vm.rewriteTask.correctionDate = null
+                  }
+                }
+              },
+              [_vm._v("Очистить")]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-12 mt-4" }, [
+        _c("h5", { staticClass: "section-semi-title" }, [
+          _vm._v("Проведенная работа")
+        ]),
+        _vm._v(" "),
+        _c("textarea", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.rewriteTask.conductedWork,
+              expression: "rewriteTask.conductedWork"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { rows: "3", placeholder: "Описание проведённой работы" },
+          domProps: { value: _vm.rewriteTask.conductedWork },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.rewriteTask, "conductedWork", $event.target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-12 mt-4" },
+        [
+          _c("h5", { staticClass: "section-semi-title" }, [
+            _vm._v("Медиа файлы")
+          ]),
+          _vm._v(" "),
+          _c(
+            "vue-dropzone",
+            {
+              ref: "myVueDropzone",
+              attrs: { id: "drop1", useCustomSlot: true, options: _vm.config },
+              on: {
+                "vdropzone-complete": _vm.afterComplete,
+                "vdropzone-removed-file": _vm.removedImage
+              }
+            },
+            [
+              _c("div", { staticClass: "dropzone-custom-content" }, [
+                _c("h3", { staticClass: "dropzone-custom-title mt-2" }, [
+                  _vm._v("Перетащите свои фотографии сюда!")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "subtitle" }, [
+                  _vm._v("... или нажмит на это поле")
+                ])
+              ])
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "col-12 mt-4 justify-content-center align-content-center d-flex"
+        },
+        [
+          _c(
+            "button",
+            { staticClass: "btn btn-primary mr-1", on: { click: _vm.save } },
+            [_vm._v("Сохранить")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default ml-1",
+              on: {
+                click: function($event) {
+                  _vm.$router.push({ name: "tasks" })
+                }
+              }
+            },
+            [_vm._v("Отменить")]
+          )
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-f2a51462", module.exports)
+  }
+}
+
+/***/ }),
+/* 493 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(494);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(45)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../css-loader/index.js!./vue2Dropzone.min.css", function() {
+			var newContent = require("!!../../css-loader/index.js!./vue2Dropzone.min.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 494 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(6)(false);
+// imports
+
+
+// module
+exports.push([module.i, "@-webkit-keyframes passing-through{0%{opacity:0;-webkit-transform:translateY(40px);-moz-transform:translateY(40px);-ms-transform:translateY(40px);-o-transform:translateY(40px);transform:translateY(40px)}30%,70%{opacity:1;-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);transform:translateY(0)}100%{opacity:0;-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px);transform:translateY(-40px)}}@-moz-keyframes passing-through{0%{opacity:0;-webkit-transform:translateY(40px);-moz-transform:translateY(40px);-ms-transform:translateY(40px);-o-transform:translateY(40px);transform:translateY(40px)}30%,70%{opacity:1;-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);transform:translateY(0)}100%{opacity:0;-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px);transform:translateY(-40px)}}@keyframes passing-through{0%{opacity:0;-webkit-transform:translateY(40px);-moz-transform:translateY(40px);-ms-transform:translateY(40px);-o-transform:translateY(40px);transform:translateY(40px)}30%,70%{opacity:1;-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);transform:translateY(0)}100%{opacity:0;-webkit-transform:translateY(-40px);-moz-transform:translateY(-40px);-ms-transform:translateY(-40px);-o-transform:translateY(-40px);transform:translateY(-40px)}}@-webkit-keyframes slide-in{0%{opacity:0;-webkit-transform:translateY(40px);-moz-transform:translateY(40px);-ms-transform:translateY(40px);-o-transform:translateY(40px);transform:translateY(40px)}30%{opacity:1;-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);transform:translateY(0)}}@-moz-keyframes slide-in{0%{opacity:0;-webkit-transform:translateY(40px);-moz-transform:translateY(40px);-ms-transform:translateY(40px);-o-transform:translateY(40px);transform:translateY(40px)}30%{opacity:1;-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);transform:translateY(0)}}@keyframes slide-in{0%{opacity:0;-webkit-transform:translateY(40px);-moz-transform:translateY(40px);-ms-transform:translateY(40px);-o-transform:translateY(40px);transform:translateY(40px)}30%{opacity:1;-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);transform:translateY(0)}}@-webkit-keyframes pulse{0%{-webkit-transform:scale(1);-moz-transform:scale(1);-ms-transform:scale(1);-o-transform:scale(1);transform:scale(1)}10%{-webkit-transform:scale(1.1);-moz-transform:scale(1.1);-ms-transform:scale(1.1);-o-transform:scale(1.1);transform:scale(1.1)}20%{-webkit-transform:scale(1);-moz-transform:scale(1);-ms-transform:scale(1);-o-transform:scale(1);transform:scale(1)}}@-moz-keyframes pulse{0%{-webkit-transform:scale(1);-moz-transform:scale(1);-ms-transform:scale(1);-o-transform:scale(1);transform:scale(1)}10%{-webkit-transform:scale(1.1);-moz-transform:scale(1.1);-ms-transform:scale(1.1);-o-transform:scale(1.1);transform:scale(1.1)}20%{-webkit-transform:scale(1);-moz-transform:scale(1);-ms-transform:scale(1);-o-transform:scale(1);transform:scale(1)}}@keyframes pulse{0%{-webkit-transform:scale(1);-moz-transform:scale(1);-ms-transform:scale(1);-o-transform:scale(1);transform:scale(1)}10%{-webkit-transform:scale(1.1);-moz-transform:scale(1.1);-ms-transform:scale(1.1);-o-transform:scale(1.1);transform:scale(1.1)}20%{-webkit-transform:scale(1);-moz-transform:scale(1);-ms-transform:scale(1);-o-transform:scale(1);transform:scale(1)}}.dropzone,.dropzone *{box-sizing:border-box}.dropzone{min-height:150px;border:2px solid rgba(0,0,0,0.3);background:white;padding:20px 20px}.dropzone.dz-clickable{cursor:pointer}.dropzone.dz-clickable *{cursor:default}.dropzone.dz-clickable .dz-message,.dropzone.dz-clickable .dz-message *{cursor:pointer}.dropzone.dz-started .dz-message{display:none}.dropzone.dz-drag-hover{border-style:solid}.dropzone.dz-drag-hover .dz-message{opacity:.5}.dropzone .dz-message{text-align:center;margin:2em 0}.dropzone .dz-preview{position:relative;display:inline-block;vertical-align:top;margin:16px;min-height:100px}.dropzone .dz-preview:hover{z-index:1000}.dropzone .dz-preview:hover .dz-details{opacity:1}.dropzone .dz-preview.dz-file-preview .dz-image{border-radius:20px;background:#999;background:linear-gradient(to bottom,#eee,#ddd)}.dropzone .dz-preview.dz-file-preview .dz-details{opacity:1}.dropzone .dz-preview.dz-image-preview{background:white}.dropzone .dz-preview.dz-image-preview .dz-details{-webkit-transition:opacity .2s linear;-moz-transition:opacity .2s linear;-ms-transition:opacity .2s linear;-o-transition:opacity .2s linear;transition:opacity .2s linear}.dropzone .dz-preview .dz-remove{font-size:14px;text-align:center;display:block;cursor:pointer;border:0}.dropzone .dz-preview .dz-remove:hover{text-decoration:underline}.dropzone .dz-preview:hover .dz-details{opacity:1}.dropzone .dz-preview .dz-details{z-index:20;position:absolute;top:0;left:0;opacity:0;font-size:13px;min-width:100%;max-width:100%;padding:2em 1em;text-align:center;color:rgba(0,0,0,0.9);line-height:150%}.dropzone .dz-preview .dz-details .dz-size{margin-bottom:1em;font-size:16px}.dropzone .dz-preview .dz-details .dz-filename{white-space:nowrap}.dropzone .dz-preview .dz-details .dz-filename:hover span{border:1px solid rgba(200,200,200,0.8);background-color:rgba(255,255,255,0.8)}.dropzone .dz-preview .dz-details .dz-filename:not(:hover){overflow:hidden;text-overflow:ellipsis}.dropzone .dz-preview .dz-details .dz-filename:not(:hover) span{border:1px solid transparent}.dropzone .dz-preview .dz-details .dz-filename span,.dropzone .dz-preview .dz-details .dz-size span{background-color:rgba(255,255,255,0.4);padding:0 .4em;border-radius:3px}.dropzone .dz-preview:hover .dz-image img{-webkit-transform:scale(1.05,1.05);-moz-transform:scale(1.05,1.05);-ms-transform:scale(1.05,1.05);-o-transform:scale(1.05,1.05);transform:scale(1.05,1.05);-webkit-filter:blur(8px);filter:blur(8px)}.dropzone .dz-preview .dz-image{border-radius:20px;overflow:hidden;width:120px;height:120px;position:relative;display:block;z-index:10}.dropzone .dz-preview .dz-image img{display:block}.dropzone .dz-preview.dz-success .dz-success-mark{-webkit-animation:passing-through 3s cubic-bezier(0.77,0,0.175,1);-moz-animation:passing-through 3s cubic-bezier(0.77,0,0.175,1);-ms-animation:passing-through 3s cubic-bezier(0.77,0,0.175,1);-o-animation:passing-through 3s cubic-bezier(0.77,0,0.175,1);animation:passing-through 3s cubic-bezier(0.77,0,0.175,1)}.dropzone .dz-preview.dz-error .dz-error-mark{opacity:1;-webkit-animation:slide-in 3s cubic-bezier(0.77,0,0.175,1);-moz-animation:slide-in 3s cubic-bezier(0.77,0,0.175,1);-ms-animation:slide-in 3s cubic-bezier(0.77,0,0.175,1);-o-animation:slide-in 3s cubic-bezier(0.77,0,0.175,1);animation:slide-in 3s cubic-bezier(0.77,0,0.175,1)}.dropzone .dz-preview .dz-success-mark,.dropzone .dz-preview .dz-error-mark{pointer-events:none;opacity:0;z-index:500;position:absolute;display:block;top:50%;left:50%;margin-left:-27px;margin-top:-27px}.dropzone .dz-preview .dz-success-mark svg,.dropzone .dz-preview .dz-error-mark svg{display:block;width:54px;height:54px}.dropzone .dz-preview.dz-processing .dz-progress{opacity:1;-webkit-transition:all .2s linear;-moz-transition:all .2s linear;-ms-transition:all .2s linear;-o-transition:all .2s linear;transition:all .2s linear}.dropzone .dz-preview.dz-complete .dz-progress{opacity:0;-webkit-transition:opacity .4s ease-in;-moz-transition:opacity .4s ease-in;-ms-transition:opacity .4s ease-in;-o-transition:opacity .4s ease-in;transition:opacity .4s ease-in}.dropzone .dz-preview:not(.dz-processing) .dz-progress{-webkit-animation:pulse 6s ease infinite;-moz-animation:pulse 6s ease infinite;-ms-animation:pulse 6s ease infinite;-o-animation:pulse 6s ease infinite;animation:pulse 6s ease infinite}.dropzone .dz-preview .dz-progress{opacity:1;z-index:1000;pointer-events:none;position:absolute;height:16px;left:50%;top:50%;margin-top:-8px;width:80px;margin-left:-40px;background:rgba(255,255,255,0.9);-webkit-transform:scale(1);border-radius:8px;overflow:hidden}.dropzone .dz-preview .dz-progress .dz-upload{background:#333;background:linear-gradient(to bottom,#666,#444);position:absolute;top:0;left:0;bottom:0;width:0;-webkit-transition:width 300ms ease-in-out;-moz-transition:width 300ms ease-in-out;-ms-transition:width 300ms ease-in-out;-o-transition:width 300ms ease-in-out;transition:width 300ms ease-in-out}.dropzone .dz-preview.dz-error .dz-error-message{display:block}.dropzone .dz-preview.dz-error:hover .dz-error-message{opacity:1;pointer-events:auto}.dropzone .dz-preview .dz-error-message{pointer-events:none;z-index:1000;position:absolute;display:block;display:none;opacity:0;-webkit-transition:opacity .3s ease;-moz-transition:opacity .3s ease;-ms-transition:opacity .3s ease;-o-transition:opacity .3s ease;transition:opacity .3s ease;border-radius:8px;font-size:13px;top:130px;left:-10px;width:140px;background:#be2626;background:linear-gradient(to bottom,#be2626,#a92222);padding:.5em 1.2em;color:white}.dropzone .dz-preview .dz-error-message:after{content:'';position:absolute;top:-6px;left:64px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid #be2626}.vue-dropzone{border:2px solid #e5e5e5;font-family:'Arial',sans-serif;letter-spacing:.2px;color:#777;transition:background-color .2s linear}.vue-dropzone:hover{background-color:#f6f6f6}.vue-dropzone i{color:#CCC}.vue-dropzone .dz-preview .dz-image{border-radius:0;width:100%;height:100%}.vue-dropzone .dz-preview .dz-image img:not([src]){width:200px;height:200px}.vue-dropzone .dz-preview .dz-image:hover img{transform:none;-webkit-filter:none}.vue-dropzone .dz-preview .dz-details{bottom:0;top:0;color:white;background-color:rgba(33,150,243,0.8);transition:opacity .2s linear;text-align:left}.vue-dropzone .dz-preview .dz-details .dz-filename{overflow:hidden}.vue-dropzone .dz-preview .dz-details .dz-filename span,.vue-dropzone .dz-preview .dz-details .dz-size span{background-color:transparent}.vue-dropzone .dz-preview .dz-details .dz-filename:not(:hover) span{border:0}.vue-dropzone .dz-preview .dz-details .dz-filename:hover span{background-color:transparent;border:0}.vue-dropzone .dz-preview .dz-progress .dz-upload{background:#ccc}.vue-dropzone .dz-preview .dz-remove{position:absolute;z-index:30;color:white;margin-left:15px;padding:10px;top:inherit;bottom:15px;border:2px white solid;text-decoration:none;text-transform:uppercase;font-size:.8rem;font-weight:800;letter-spacing:1.1px;opacity:0}.vue-dropzone .dz-preview:hover .dz-remove{opacity:1}.vue-dropzone .dz-preview .dz-success-mark,.vue-dropzone .dz-preview .dz-error-mark{margin-left:auto;margin-top:auto;width:100%;top:35%;left:0}.vue-dropzone .dz-preview .dz-success-mark svg,.vue-dropzone .dz-preview .dz-error-mark svg{margin-left:auto;margin-right:auto}.vue-dropzone .dz-preview .dz-error-message{top:calc(15%);margin-left:auto;margin-right:auto;left:0;width:100%}.vue-dropzone .dz-preview .dz-error-message:after{bottom:-6px;top:initial;border-top:6px solid #a92222;border-bottom:0}", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);
