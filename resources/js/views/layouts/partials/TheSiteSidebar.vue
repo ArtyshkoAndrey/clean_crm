@@ -11,7 +11,7 @@
 
           <v-collapse-item active-url="/admin/task">
             <a slot="item-title" href="#">
-              <i class="icon-fa icon-fa-tasks"/>Задачи
+              <i class="icon-fa icon-fa-tasks"/>Нарушения
               <span class="icon-fa arrow icon-fa-fw"/>
             </a>
 

@@ -128,4 +128,32 @@ class TaskController extends Controller {
     $task->save();
     return response()->json('Success', 200);
   }
+
+  public function create (Request $request) {
+    $task = Task::create();
+    $task['user_id'] = auth()->id;
+    $task['name'] = $request->name;
+    $request->conductedWork != "" ? $task['conducted_work'] = $request->conductedWork : null;
+    $request->_correctionDateString != "" ? $task['correction_date'] = new Carbon($request->_correctionDateString) : null;
+    $request->responsibleExecutor != "" ? $task['responsible_executor'] = $request->responsibleExecutor : null;
+    $task['street'] = $request->street['value'];
+    $task['number_home'] = $request->numberHome;
+    $task['description'] = $request->description;
+    $task['detection_date'] = new Carbon($request->_detectionDateString);
+    $responsible = Responsible::find($request->responsible['id']);
+    $task->responsible()->associate($responsible);
+    $identified = [];
+    foreach ($request->identified as $value) {
+      array_push($identified, (int) $value['id']);
+    }
+    $images = [];
+    foreach ($request->images as $value) {
+      array_push($images, (int) $value['id']);
+    }
+    $task->identified()->sync($identified);
+    $task->images()->sync($images);
+    $task['target_date'] = new Carbon($request->_targetDateString);
+    $task->save();
+    return response()->json('Success', 200);
+  }
 }

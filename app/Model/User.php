@@ -5,10 +5,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
+    use HasRoleAndPermission;
     /**
      * The attributes that are mass assignable.
      *
@@ -34,6 +36,13 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $with = ['profile'];
+
+    public function profile() {
+        
+        return $this->hasOne('App\Model\Profile');
+    }
 
     public function getJWTIdentifier()
     {

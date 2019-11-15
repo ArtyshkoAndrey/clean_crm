@@ -12,6 +12,7 @@ import LoginBase from './views/auth/LoginBase.vue'
 import LayoutFront from './views/layouts/LayoutFront.vue'
 import TasksView from './views/admin/tasks/task.vue'
 import TasksCreate from './views/admin/tasks/create.vue'
+import ProfilePage from './views/admin/profile/index.vue'
 
 Vue.use(VueRouter)
 
@@ -36,6 +37,11 @@ const routes = [
         path: '/',
         component: Basic,
         name: 'dashboard'
+      },
+      {
+        path: 'profile',
+        component: ProfilePage,
+        name: 'profile'
       },
       {
         path: 'task/all',

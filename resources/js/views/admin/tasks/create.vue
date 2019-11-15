@@ -11,11 +11,12 @@
             </div>
             <Write
             :rewriteTask='rewriteTask'
-            :task='task'
+            :task='{}'
             :user='user'
             :allUsers='allUsers'
             :responsibleList='responsibleList'
             :identifiedList='identifiedList'
+            :type="'create'"
             @save='onSave'
             >
             </Write>
@@ -102,7 +103,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .fade-enter-active {
   transition: opacity .5s
 }

@@ -133,6 +133,11 @@
       require: true,
       default: Object
     },
+    rewriteTask: {
+      type: Object,
+      require: true,
+      default: {}
+    },
     task: {
       type: Object,
       require: true,
@@ -214,6 +219,7 @@
     async save () {
       this.$emit('save');
       this.saved = true
+      if (this.type === 'update')
       console.log(this.task)
       console.log(this.rewriteTask)
       window.axios.put('/api/admin/task', this.rewriteTask)

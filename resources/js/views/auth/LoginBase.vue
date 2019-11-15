@@ -19,7 +19,7 @@
       </div>
       <div class="content-box">
         <h1>
-          <b>CLEAN CRM</b> - чистый город
+          <b>Чистый город</b> - мы делаем город чище
         </h1>
       </div>
     </div>

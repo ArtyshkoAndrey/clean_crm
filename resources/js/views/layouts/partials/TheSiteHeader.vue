@@ -1,8 +1,7 @@
 <template>
   <header class="site-header">
     <a href="#" class="brand-main">
-      <h2 class="d-none d-md-inline text-white">CLEAN CRM</h2>
-      <h2 class="d-md-none text-white">CLEAN</h2>
+      <h2 class="d-none d-md-inline text-white">Чистый город</h2>
     </a>
     <a
       href="#"
@@ -77,11 +76,16 @@
             aria-expanded="false"
             class="avatar"
           >
-            <img src="/assets/img/avatars/avatar.png" alt="Avatar">
+            <img src="/images/profile/avatar.png" alt="Avatar">
           </a>
           <v-dropdown-item>
+            <router-link class="dropdown-item" to="/admin/profile">
+              <i class="icon-fa icon-fa-user"/> Профиль
+            </router-link>
+          </v-dropdown-item>
+          <v-dropdown-item>
             <router-link class="dropdown-item" to="/admin/settings">
-              <i class="icon-fa icon-fa-cogs"/> Settings
+              <i class="icon-fa icon-fa-cogs"/> Настройки
             </router-link>
           </v-dropdown-item>
           <v-dropdown-item>
@@ -90,7 +94,7 @@
               class="dropdown-item"
               @click.prevent="logout"
             >
-              <i class="icon-fa icon-fa-sign-out"/> Logout
+              <i class="icon-fa icon-fa-sign-out"/> Выйти
             </a>
           </v-dropdown-item>
         </v-dropdown>

@@ -22,6 +22,7 @@
                 :allUsers='allUsers'
                 :responsibleList='responsibleList'
                 :identifiedList='identifiedList'
+                :type="'update'"
                 @save='onSave'
               >
               </Write>
