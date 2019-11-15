@@ -58,7 +58,7 @@ const routes = [
       },
       {
         path: 'task/create',
-        // component: TasksCreate,
+        component: TasksCreate,
         name: 'taskCreate'
       },
       {
