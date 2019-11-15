@@ -9,12 +9,26 @@ import Home from './views/front/Home.vue'
 import LayoutBasic from './views/layouts/LayoutBasic.vue'
 import LoginBase from './views/auth/LoginBase.vue'
 import LayoutFront from './views/layouts/LayoutFront.vue'
+
+import ProfilePage from './views/admin/profile/index.vue'
+
 import TasksView from './views/admin/tasks/task.vue'
 import TasksCreate from './views/admin/tasks/create.vue'
-import ProfilePage from './views/admin/profile/index.vue'
 import TasksWorking from './views/admin/tasks/working.vue'
 import TasksOverdue from './views/admin/tasks/overdue.vue'
 import TasksCompleted from './views/admin/tasks/completed.vue'
+
+import UserAll from './views/admin/users/all'
+import UserCreate from './views/admin/users/create'
+import UserView from './views/admin/users/view'
+
+import RoleAll from './views/admin/roles/all'
+import RoleCreate from './views/admin/roles/create'
+import RoleView from './views/admin/roles/view'
+
+import DepartmentAll from './views/admin/departments/all'
+import DepartmentCreate from './views/admin/departments/create'
+import DepartmentView from './views/admin/departments/view'
 
 Vue.use(VueRouter)
 
@@ -80,6 +94,66 @@ const routes = [
             path: 'completed',
             component: TasksCompleted,
             name: 'tasksCompleted'
+          }
+        ]
+      },
+      {
+        path: 'user',
+        children: [
+          {
+            path: 'all',
+            component: UserAll,
+            name: 'users'
+          },
+          {
+            path: 'create',
+            component: UserCreate,
+            name: 'userCreate'
+          },
+          {
+            path: 'view',
+            component: UserView,
+            name: 'userView'
+          }
+        ]
+      },
+      {
+        path: 'role',
+        children: [
+          {
+            path: 'all',
+            component: RoleAll,
+            name: 'roles'
+          },
+          {
+            path: 'craete',
+            component: RoleCreate,
+            name: 'roleCreate'
+          },
+          {
+            path: 'view',
+            component: RoleView,
+            name: 'roleView'
+          }
+        ]
+      },
+      {
+        path: 'department',
+        children: [
+          {
+            path: 'all',
+            component: DepartmentAll,
+            name: 'departments'
+          },
+          {
+            path: 'create',
+            component: DepartmentCreate,
+            name: 'departmentCreate'
+          },
+          {
+            path: 'view',
+            component: DepartmentView,
+            name: 'departmentView'
           }
         ]
       }

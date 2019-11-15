@@ -14,7 +14,6 @@
               <i class="icon-fa icon-fa-tasks"/>Нарушения
               <span class="icon-fa arrow icon-fa-fw"/>
             </a>
-
             <router-link to="/admin/task/create">
               Создать
             </router-link>
@@ -29,6 +28,45 @@
             </router-link>
             <router-link to="/admin/task/overdue">
               Просроченные
+            </router-link>
+          </v-collapse-item>
+
+          <v-collapse-item active-url="/admin/task">
+            <a slot="item-title" href="#">
+              <i class="icon-fa icon-fa-tasks"/>Пользователи
+              <span class="icon-fa arrow icon-fa-fw"/>
+            </a>
+            <router-link to="/admin/user/create">
+              Создать
+            </router-link>
+            <router-link to="/admin/user/all">
+              Все
+            </router-link>
+          </v-collapse-item>
+
+          <v-collapse-item active-url="/admin/task">
+            <a slot="item-title" href="#">
+              <i class="icon-fa icon-fa-tasks"/>Роли (права)
+              <span class="icon-fa arrow icon-fa-fw"/>
+            </a>
+            <router-link to="/admin/role/create">
+              Создать
+            </router-link>
+            <router-link to="/admin/role/all">
+              Все
+            </router-link>
+          </v-collapse-item>
+
+          <v-collapse-item active-url="/admin/task">
+            <a slot="item-title" href="#">
+              <i class="icon-fa icon-fa-tasks"/>Отделы
+              <span class="icon-fa arrow icon-fa-fw"/>
+            </a>
+            <router-link to="/admin/department/create">
+              Создать
+            </router-link>
+            <router-link to="/admin/department/all">
+              Все
             </router-link>
           </v-collapse-item>
 
