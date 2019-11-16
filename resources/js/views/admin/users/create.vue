@@ -97,6 +97,21 @@ export default {
       identifiedList: []
     }
   },
+  computed: {
+    validateCheck () {
+      if (this.rewriteTask.name &&
+          this.rewriteTask.description &&
+          this.rewriteTask.street &&
+          this.rewriteTask.numberHome &&
+          this.rewriteTask.identified.length > 0 &&
+          this.rewriteTask.responsible &&
+          this.rewriteTask.detectionDate &&
+          this.rewriteTask.targetDate) {
+            return true;
+          }
+      return false;
+    }
+  }, 
   components: {
 		Datepicker,
 		Multiselect

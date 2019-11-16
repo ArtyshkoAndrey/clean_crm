@@ -3,26 +3,51 @@
     <div class="row">
       <div class="col-md-6 mt-1">
         <h5 class="section-semi-title">Название нарушения</h5>
-        <input type="text" v-model="rewriteTask.name" class="form-control" placeholder="Название проблемы" required>
+        <input
+          v-validate
+          v-model="rewriteTask.name"
+          name="rewriteTask.name"
+          data-vv-rules="required"
+          :class="['form-control', {'is-invalid': errors.has('rewriteTask.name') }]"
+          placeholder="Название нарушения">
+          <div v-show="errors.has('rewriteTask.name')" class="invalid-feedback">
+            Это обязательное поле для заполнения
+          </div>
       </div>
       <div class="col-md-12 mt-4">
         <h5 class="section-semi-title">Описание нарушения</h5>
-        <textarea class="form-control" v-model="rewriteTask.description" placeholder="Описание" rows="3" />
+        <textarea
+          v-validate
+          v-model="rewriteTask.description" 
+          data-vv-rules="required"
+          name="rewriteTask.description"
+          placeholder="Описание" 
+          rows="3"
+          :class="['form-control', {'is-invalid': errors.has('rewriteTask.description') }]"/>
+          <div v-show="errors.has('rewriteTask.description')" class="invalid-feedback">
+            Это обязательное поле для заполнения
+          </div>
       </div>
       <div class="col-md-6 mt-4">
         <h5 class="section-semi-title">Улица</h5>
         <multiselect
+          v-validate
           v-model="rewriteTask.street"
           id="ajax"
           placeholder="Название улицы"
+          data-vv-rules="required"
+          name="rewriteTask.street"
           :options="dataStreet"
           :searchable="true"
           :multiple="false"
           @search-change="getStreet"
           label="value"
           :selectLabel="''"
-        >
+          :class="{'is-invalid-select': errors.has('rewriteTask.street') }">
         </multiselect>
+        <div v-show="errors.has('rewriteTask.street')" class="invalid-feedback">
+          Это обязательное поле для заполнения
+        </div>
       </div>
       <div class="col-md-6 mt-4">
         <h5 class="section-semi-title">Номер дома</h5>
@@ -73,16 +98,23 @@
           class="form-control"
           v-model="rewriteTask.responsibleExecutor"
           placeholder="Ответственный исполнитель"
-          required
         >
       </div>
       <div class="col-md-6 mt-4">
         <h5 class="section-semi-title">Дата выявления</h5>
-        <datepicker input-class="form-control" format="dd.MM.yyyy" v-model="rewriteTask.detectionDate" placeholder="Select Date"/>
+        <datepicker 
+          input-class="form-control" 
+          format="dd.MM.yyyy" 
+          v-model="rewriteTask.detectionDate" 
+          placeholder="Select Date"/>
       </div>
       <div class="col-md-6 mt-4">
         <h5 class="section-semi-title">Контрольный срок</h5>
-        <datepicker input-class="form-control" format="dd.MM.yyyy" v-model="rewriteTask.targetDate" placeholder="Select Date"/>
+        <datepicker 
+          input-class="form-control" 
+          format="dd.MM.yyyy" 
+          v-model="rewriteTask.targetDate" 
+          placeholder="Select Date"/>
       </div>
       <div class="col-md-6 mt-4">
         <h5 class="section-semi-title">Дата устранения</h5>
@@ -114,7 +146,7 @@
         </vue-dropzone>
       </div>
       <div class="col-12 mt-4 justify-content-center align-content-center d-flex">
-        <button class="btn btn-primary mr-1" @click="save">Сохранить</button>
+        <button class="btn btn-primary mr-1" @click="save" :disabled="!validateCheck">Сохранить</button>
         <button class="btn btn-default ml-1" @click="$router.push({name: 'tasks'})">Отменить</button>
       </div>
     </div>
@@ -147,6 +179,11 @@
 .dropzone-custom-title {
   color: #000;
 }
+
+.multiselect__tags.is-invalid {
+  border-color: #f35a3d;
+  padding-right: calc(1.5em + 0.75rem);
+}
 </style>
 
 <script>
@@ -154,6 +191,8 @@
   import VueSuggestions from 'vue-suggestions'
   import Multiselect from 'vue-multiselect'
   import vue2Dropzone from 'vue2-dropzone'
+  import { required, sameAs, minLength, between } from 'vuelidate/lib/validators'
+
   export default {
     props: {
     rewriteTask: {
@@ -205,7 +244,7 @@
       },
       dataNumber: [],
       dataStreet: [],
-      saved: false
+      saved: false,
     }
   },
   components: {
@@ -222,6 +261,21 @@
         this.$refs.myVueDropzone.manuallyAddFile({ type: image.path.type, size: image.path.size, name: image.path.name}, image.path.file);
       })
     }, 1000);
+  },
+  computed: {
+    validateCheck () {
+      if (this.rewriteTask.name &&
+          this.rewriteTask.description &&
+          this.rewriteTask.street &&
+          this.rewriteTask.numberHome &&
+          this.rewriteTask.identified.length > 0 &&
+          this.rewriteTask.responsible &&
+          this.rewriteTask.detectionDate &&
+          this.rewriteTask.targetDate) {
+            return true;
+          }
+      return false;
+    }
   },
   methods: {
     async removedImage (file, error, xhr) {
