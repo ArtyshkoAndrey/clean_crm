@@ -7,7 +7,10 @@
             <h3>Фильтры</h3>
           </div>
           <div class="card-body">
-            <div class="row">
+            <div class="row" v-if="loading">
+              Загрузка
+            </div>
+            <div class="row" v-else>
               <div class="col-md-6 d-flex flex-column justify-content-between">
                 <multiselect
                   v-model="currentChoose"
@@ -35,6 +38,8 @@
                     :options="column.options"
                     :hide-selected="true"
                     :selectLabel="''"
+                    track-by="name"
+                    label="name"
                     placeholder="Выберете параметр"
                     class="mt-2"
                   />
@@ -105,19 +110,13 @@ export default {
         field: 'responsible',
         value: "",
         type: "select",
-        options: ['Глухихб Р. С.']
+        options: []
       },
       {
         name: "Ответственый исполнитель",
         field: 'responsible_executor',
         value: "",
         type: "text"
-      },
-      {
-        name: "Дата выявления",
-        field: 'detection_date',
-        value: "",
-        type: "date"
       },
       {
         name: "Дата выявления",
@@ -142,15 +141,18 @@ export default {
         field: 'identified',
         value: "",
         type: "select",
-        options: ['Артышко А. А.']
+        options: []
       },
-      
       {
         name: "Статус",
         field: 'status',
         value: "",
         type: "select",
-        options: ["В работе", "Просроченные", "Выполненные"]
+        options: [
+          {name: "В работе", value: 'work'},
+          {name: "Просроченные", value: 'overdue'},
+          {name: "Выполненные", value: 'complete'}
+        ]
       }],
       choosedColumns: [],
       currentChoose: "",
@@ -161,7 +163,9 @@ export default {
     Multiselect,
     Datepicker
   },
-  mounted () {
+  created () {
+    this.responsiblesArray()
+    this.usersArray()
     this.getTasks()
   },
   watch: {
@@ -172,17 +176,25 @@ export default {
     }
   },
   methods: {
-    checkColor(row) {
-      let endDay = new Date()
-      endDay.setDate(row.target_date.slice(0, 2))
-      endDay.setMonth(parseInt(row.target_date.slice(3, 5)) - 1)
-      endDay.setFullYear(row.target_date.slice(6, 10))
-      endDay = Date.parse(endDay)
-      let nowDay = Date.now()
-      if (nowDay >= endDay) {
-
-        return 'table-danger'
-      }
+    async usersArray () {
+      await window.axios.post('/api/admin/users').then(response => {
+        let col = this.filterColumns.find(col => col.field === 'identified')
+        console.log(col, response.data)
+        col.options = response.data
+      })
+      .catch(e => {
+        console.error(e)
+      })
+    },
+    async responsiblesArray () {
+      await window.axios.post('/api/admin/responsibles').then(response => {
+        let col = this.filterColumns.find(col => col.field === 'responsible')
+        console.log(col, response.data)
+        col.options = response.data
+      })
+      .catch(e => {
+        console.error(e)
+      })
     },
     async getTasks () {
       let params = {}
@@ -190,9 +202,26 @@ export default {
       this.choosedColumns.forEach(column => {
         if (column.type === 'text') {
           column.value !== '' ? params.filter.push(column) : null
+        } else if (column.type === 'date') {
+          let copy = Object.assign({}, column)
+          copy.value.setHours(20)
+          copy.value = copy.value.toJSON().substr(0, 10)
+          params.filter.push(copy)
+        } else if (column.type === 'select') {
+          console.log(column.value)
+          let copy = Object.assign({}, column)
+          if (column.field !== 'status') {
+            copy.value = copy.value.id
+            delete copy.options
+          } else {
+            copy.value = copy.value.value
+            delete copy.options
+          }
+          params.filter.push(copy)
         }
       })
       params.page = this.page
+      console.log(params)
       await window.axios.post('/api/admin/task/get', params)
       .then(response => {
         console.log(response)

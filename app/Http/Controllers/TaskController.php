@@ -15,11 +15,62 @@ use File;
 
 class TaskController extends Controller {
   public function all (Request $request) {
+    // return response()->json($request);
     $tasks = auth()->user()->tasks;
     foreach($request->filter as $filter) {
-      $tasks = $tasks->where($filter['field'], $filter['value']);
+      switch($filter['type']) {
+        case 'text': {
+          $tasks = $tasks->where($filter['field'], $filter['value']);
+          break;
+        }
+        case 'date': {
+          $tasks = $tasks->where($filter['field'], $filter['value']);
+          break;
+        }
+        case 'select': {
+          switch($filter['field']) {
+            case 'identified': {
+              $tasks = $tasks->filter(function($item) use (&$filter) {
+                return $item->identified->contains('id', $filter['value']);
+              });
+              break;
+              // return $tasks;
+            }
+            case 'responsible': {
+              $tasks = $tasks->filter(function($item) use (&$filter) {
+                return $item->responsible->id == $filter['value'];
+              });
+              break;
+              // return $tasks;
+            }
+            case 'status': {
+              switch($filter['value']) {
+                case 'work': {
+                  $tasks = $tasks->where('target_date', '>=', Carbon::now()->toDateString())
+                    ->where('correction_date', null);
+                  break;
+                  // return $tasks;
+                }
+                case 'complete': {
+                  // return response()->json([$tasks, Carbon::now()->toDateString()], 200);
+                  $tasks = $tasks->where('correction_date', '!=', null)->where('correction_date', '<=', Carbon::now()->toDateTimeString());
+                  break;  
+                  // return $tasks;
+                }
+                case 'overdue': {
+                  $tasks = $tasks->where('target_date', '<', Carbon::now()->toDateTimeString())
+                    ->where('correction_date', null);
+                  break;
+                  // return $tasks;
+                }
+              }
+              break;
+            }
+          }
+          break;
+        }
+      }
     }
-    // $tasks-
     // $tasks = $tasks->paginate(10);
     return response()->json($tasks, 200);
   }
