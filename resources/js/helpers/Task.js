@@ -30,6 +30,12 @@ export default class Task {
         })
       }
     }
+    if (!this.detectionDate) {
+      this.detectionDate = new Date()
+      let copy = new Date()
+      copy.setDate(copy.getDate() + 7)
+      this.targetDate = copy
+    }
   }
 
   toJSON () {
