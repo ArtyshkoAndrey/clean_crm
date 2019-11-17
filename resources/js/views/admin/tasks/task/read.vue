@@ -31,7 +31,7 @@
       <div class="col-12 mt-2">
         <h6 class="pb-0 mb-0">Дата устранения</h6>
         <p class="mt-0 pt-0 lead" v-if="task.correctionDate !== null">{{task.correctionDate.toLocaleDateString()}}</p>
-        <p class="mt-0 pt-0 lead" v-else><strong>Не имеется</strong></p>
+        <p class="mt-0 pt-0 lead" v-else><strong>Не указана</strong></p>
       </div>
       <div class="col-12 mt-2">
         <h6 class="pb-0 mb-0">Констролный срок</h6>

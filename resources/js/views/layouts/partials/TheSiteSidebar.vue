@@ -20,7 +20,7 @@
             <router-link to="/admin/task/all">
               Все
             </router-link>
-            <router-link to="/admin/task/working">
+            <!-- <router-link to="/admin/task/working">
               В работе
             </router-link>
             <router-link to="/admin/task/completed">
@@ -28,12 +28,12 @@
             </router-link>
             <router-link to="/admin/task/overdue">
               Просроченные
-            </router-link>
+            </router-link> -->
           </v-collapse-item>
 
           <v-collapse-item active-url="/admin/task">
             <a slot="item-title" href="#">
-              <i class="icon-fa icon-fa-tasks"/>Пользователи
+              <i class="icon-fa icon-fa-user"/>Пользователи
               <span class="icon-fa arrow icon-fa-fw"/>
             </a>
             <router-link to="/admin/user/create">
@@ -44,7 +44,7 @@
             </router-link>
           </v-collapse-item>
 
-          <v-collapse-item active-url="/admin/task">
+          <!-- <v-collapse-item active-url="/admin/task">
             <a slot="item-title" href="#">
               <i class="icon-fa icon-fa-tasks"/>Уровени доступа
               <span class="icon-fa arrow icon-fa-fw"/>
@@ -55,11 +55,11 @@
             <router-link to="/admin/role/all">
               Все
             </router-link>
-          </v-collapse-item>
+          </v-collapse-item> -->
 
           <v-collapse-item active-url="/admin/task">
             <a slot="item-title" href="#">
-              <i class="icon-fa icon-fa-tasks"/>Отделы
+              <i class="icon-fa icon-fa-building"/>Отделы
               <span class="icon-fa arrow icon-fa-fw"/>
             </a>
             <router-link to="/admin/department/create">
@@ -70,11 +70,11 @@
             </router-link>
           </v-collapse-item>
 
-          <v-collapse-item active-url="/admin">
+          <!-- <v-collapse-item active-url="/admin">
             <router-link slot="item-title" to="/admin">
               <i class="icon-fa icon-fa-dashboard"/>Аналитика
             </router-link>
-          </v-collapse-item>
+          </v-collapse-item> -->
         </v-collapse>
       </div>
     </div>

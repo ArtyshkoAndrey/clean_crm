@@ -54,20 +54,69 @@
           <div class="card-header">
             <h3>Все правонарушения</h3>
           </div>
-          <div class="card-body">
+          <div class="card-body" style="overflow: auto">
             <table class="table table-striped">
               <thead>
                 <tr>
                   <th scope="col">№</th>
-                  <th scope="col">First</th>
+                  <th scope="col">Назавние</th>
+                  <th scope="col">Описание нарушения</th>
+                  <th scope="col">Адрес</th>
+                  <th scope="col">Кем выявлено</th>
+                  <th scope="col">Ответсвенный</th>
+                  <th scope="col">Дата выявления</th>
+                  <th scope="col">Контольный срок</th>
+                  <th scope="col">Дата устранения</th>
+                  <th scope="col">Статус</th>
+                  <th scope="col">Действия</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="task in tasks" :key="task.id">
-                  <th scope="row">{{ task.id }}</th>
+                  <td scope="row">{{ task.id }}</td>
                   <td>{{ task.name }}</td>
-                  <td>{{ task.street }} {{ task.number_home }}</td>
-                  <td>{{ task.created_at }}</td>
+                  <td>{{ task.description }}</td>
+                  <td>{{ task.street }}, {{ task.number_home }}</td>
+                  <td>{{ task.identified[0].name }}</td>
+                  <td>{{ task.responsible.name }}
+                  <td>{{ task.detection_date }}</td>
+                  <td>{{ task.target_date }}</td>
+                  <td>
+                    <span v-if="task.correction_date !== null">{{task.correction_date}}</span>
+                    <span v-else>Не указана</span>
+                  </td>
+                  <td>статус</td>
+                  <td>
+                    <div class="btn-group" role="group">
+                      <v-dropdown :show-arrow="false" theme-light>
+                        <button
+                          id="btnGroupDrop1"
+                          slot="activator"
+                          type="button"
+                          class="btn btn-outline-default dropdown-toggle"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                        </button>
+                        <v-dropdown-item>
+                          <button class="dropdown-item" @click='$router.push({ name: "taskView", params: { id: task.id }})'>
+                            Просмотреть
+                          </button>
+                        </v-dropdown-item>
+                        <v-dropdown-item>
+                          <button class="dropdown-item" @click="mode='write'">
+                            Редактировать
+                          </button>
+                        </v-dropdown-item>
+                        <v-dropdown-item>
+                          <button class="dropdown-item">
+                            Удалить
+                          </button>
+                        </v-dropdown-item>
+                      </v-dropdown>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -77,6 +126,32 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+.filter-add-button {
+  display: block;
+  border: 1px solid gray;
+  padding: .5rem 1rem;
+  text-align: center;
+  transition-duration: .5s;
+}
+
+.filter-add-button:hover {
+  background: lightgray;
+  transition-duration: .5s;
+  border-color: lightgray;
+}
+
+table tr td,
+table tr th {
+  text-align: center;
+}
+
+.dropdown-item {
+  color: black;
+}
+
+</style>
 
 <script type="text/babel">
 import Multiselect from 'vue-multiselect'
@@ -245,18 +320,3 @@ export default {
 }
 </script>
 
-<style scoped>
-.filter-add-button {
-  display: block;
-  border: 1px solid gray;
-  padding: .5rem 1rem;
-  text-align: center;
-  transition-duration: .5s;
-}
-
-.filter-add-button:hover {
-  background: lightgray;
-  transition-duration: .5s;
-  border-color: lightgray;
-}
-</style>

@@ -18,8 +18,8 @@
         </div>
       </div>
       <div class="content-box">
-        <h1>
-          <b>Чистый город</b> - мы делаем город чище
+        <h1 class="text-center">
+          <b>Чистый город</b> - мы делаем город чистым
         </h1>
       </div>
     </div>

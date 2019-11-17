@@ -6,35 +6,57 @@
           <div class="card-header">
             <h3>Все отделы</h3>
           </div>
-          <div class="card-body">
-            <table-component
-              :data="getTasks"
-              table-class="table"
-              sort-by="detection_date"
-              sort-order="desc"
-              filter-placeholder="Поиск"
-              filterNoResults="Нет данных"
-              ref="tableTasks"
-            >
-              <table-column show="name" label="Название"/>
-              <table-column show="name" label="Количество сотрудников"/>
-              <table-column
-                :sortable="false"
-                :filterable="false"
-                label=""
-              >
-                <template slot-scope="row">
-                  <div class="table__actions">
-                    <button class="btn btn-default btn-sm mr-2" @click="$router.push({name: 'taskView', params: { id: row.id}})">
-                      Изменть
-                    </button>
-                    <button class="btn btn-default btn-sm" @click="dropTask(row.id)">
-                      Удалить
-                    </button>
-                  </div>
-                </template>
-              </table-column>
-            </table-component>
+          <div class="card-body" style="overflow: auto">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">№</th>
+                  <th scope="col">Назавние</th>
+                  <th scope="col">Руководитель</th>
+                  <th scope="col">Сотрудники</th>
+                  <th scope="col">Действия</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="task in tasks" :key="task.id">
+                  <td scope="row">{{ task.id }}</td>
+                  <td>{{ task.name }}</td>
+                  <td>{{ task.street }}, {{ task.number_home }}</td>
+                  <td>{{ task.identified[0].name }}</td>
+                  <td>
+                    <div class="btn-group" role="group">
+                      <v-dropdown :show-arrow="false" theme-light>
+                        <button
+                          id="btnGroupDrop1"
+                          slot="activator"
+                          type="button"
+                          class="btn btn-outline-default dropdown-toggle"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                        </button>
+                        <v-dropdown-item>
+                          <button class="dropdown-item" @click='$router.push({ name: "taskView", params: { id: task.id }})'>
+                            Просмотреть
+                          </button>
+                        </v-dropdown-item>
+                        <v-dropdown-item>
+                          <button class="dropdown-item" @click='$router.push({ name: "taskCreate", params: { id: task.id }})'>
+                            Редактировать
+                          </button>
+                        </v-dropdown-item>
+                        <v-dropdown-item>
+                          <button class="dropdown-item">
+                            Удалить
+                          </button>
+                        </v-dropdown-item>
+                      </v-dropdown>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

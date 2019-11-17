@@ -16,6 +16,18 @@
 									<input type="text"  class="form-control" placeholder="Название" required>
                 </div>
                 <div class="col-md-12 mt-3">
+                  <h5 class="section-semi-title">Руководит ель</h5>
+                  <multiselect
+                    :options="[]"
+                    :hide-selected="true"
+                    :selectLabel="''"
+                    :taggable="true"
+                    placeholder="Руководитель"
+                    track-by="name"
+                    label="name"
+                  />
+                </div>
+                <div class="col-md-12 mt-3">
 									<h5 class="section-semi-title">Сотрудники</h5>
 									<multiselect
 										:multiple="true"
@@ -79,6 +91,21 @@ export default {
   },
   created() {
        
+  },
+  computed: {
+    validateCheck () {
+      if (this.rewriteTask.name &&
+          this.rewriteTask.description &&
+          this.rewriteTask.street &&
+          this.rewriteTask.numberHome &&
+          this.rewriteTask.identified.length > 0 &&
+          this.rewriteTask.responsible &&
+          this.rewriteTask.detectionDate &&
+          this.rewriteTask.targetDate) {
+            return true;
+          }
+      return false;
+    }
   },
   methods: {
    
