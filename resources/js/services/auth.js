@@ -6,11 +6,11 @@ export default {
       let response = await axios.post('/api/auth/login', loginData)
 
       Ls.set('auth.token', response.data.token)
-      toastr['success']('Logged In!', 'Success')
+      toastr['success']('Авторизация', 'Успешно')
       return response.data.token
     } catch (error) {
       if (error.response.status === 401) {
-        toastr['error']('Invalid Credentials', 'Error')
+        toastr['error']('Неверно введены данные', 'Ошибка')
       } else {
         // Something happened in setting up the request that triggered an Error
         console.log('Error', error.message)
@@ -23,7 +23,7 @@ export default {
       await axios.get('/api/auth/logout')
 
       Ls.remove('auth.token')
-      toastr['success']('Logged out!', 'Success')
+      toastr['success']('Выход', 'Успешно')
     } catch (error) {
       console.log('Error', error.message)
     }
@@ -31,7 +31,6 @@ export default {
 
   async check () {
     let response = await axios.get('/api/auth/check')
-    // console.log(response.data)
     window.user = response.data.user
     return !!response.data.authenticated
   }

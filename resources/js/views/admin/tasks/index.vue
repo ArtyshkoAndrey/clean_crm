@@ -177,7 +177,7 @@ export default {
   },
   methods: {
     async usersArray () {
-      await window.axios.post('/api/admin/users').then(response => {
+      await window.axios.post('/api/admin/usershelp').then(response => {
         let col = this.filterColumns.find(col => col.field === 'identified')
         console.log(col, response.data)
         col.options = response.data

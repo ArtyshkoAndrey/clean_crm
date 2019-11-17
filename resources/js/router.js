@@ -18,9 +18,10 @@ import TasksWorking from './views/admin/tasks/working.vue'
 import TasksOverdue from './views/admin/tasks/overdue.vue'
 import TasksCompleted from './views/admin/tasks/completed.vue'
 
-import UserAll from './views/admin/users/all'
-import UserCreate from './views/admin/users/create'
-import UserView from './views/admin/users/view'
+import UserIndex from './views/admin/users/index.vue'
+import UserCreate from './views/admin/users/create.vue'
+import UserView from './views/admin/users/view.vue'
+import UserEdit from './views/admin/users/edit.vue'
 
 import RoleAll from './views/admin/roles/all'
 import RoleCreate from './views/admin/roles/create'
@@ -104,8 +105,8 @@ const routes = [
         },
         children: [
           {
-            path: 'all',
-            component: UserAll,
+            path: '/',
+            component: UserIndex,
             name: 'users'
           },
           {
@@ -114,10 +115,15 @@ const routes = [
             name: 'userCreate'
           },
           {
-            path: 'view',
+            path: ':id',
             component: UserView,
             name: 'userView'
-          }
+          },
+          {
+            path: 'edit/:id',
+            component: UserEdit,
+            name: 'userEdit'
+          },
         ]
       },
       {
@@ -203,7 +209,6 @@ function hasPermissionsNeeded (to) {
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(m => m.meta.requiresAuth)) {
-    console.log(to)
     return AuthService.check().then(authenticated => {
       if (!authenticated) {
         return next({ path: '/login' })

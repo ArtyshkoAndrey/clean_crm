@@ -39,7 +39,7 @@
             <router-link to="/admin/user/create">
               Создать
             </router-link>
-            <router-link to="/admin/user/all">
+            <router-link to="/admin/user">
               Все
             </router-link>
           </v-collapse-item>

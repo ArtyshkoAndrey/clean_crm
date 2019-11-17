@@ -88,7 +88,7 @@ export default {
     async getTask (id) {
       let response = await window.axios.post('/api/admin/task/view/' + id)
       let userResponse = await window.axios.post('/api/admin/profile')
-      let identifiedResponse = await window.axios.post('/api/admin/users')
+      let identifiedResponse = await window.axios.post('/api/admin/usershelp')
       let responsibleResponse = await window.axios.post('/api/admin/responsibles')
       this.identifiedList = identifiedResponse.data
       this.responsibleList = responsibleResponse.data

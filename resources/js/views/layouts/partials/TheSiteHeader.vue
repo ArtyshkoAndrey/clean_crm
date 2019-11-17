@@ -76,7 +76,7 @@
             aria-expanded="false"
             class="avatar"
           >
-            <img src="/images/profile/avatar.png" alt="Avatar">
+            <img :src="user.profile.avatar ? user.profile.avatar  : '/images/profile/avatar.png'" alt="Avatar">
           </a>
           <v-dropdown-item>
             <router-link class="dropdown-item" to="/admin/profile">
@@ -106,6 +106,11 @@
 import Auth from '../../../services/auth'
 
 export default {
+  data () {
+    return {
+      user: window.user
+    }
+  },
   methods: {
     onNavToggle () {
       this.$utils.toggleSidebar()

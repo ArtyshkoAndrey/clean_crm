@@ -85,7 +85,6 @@ export default {
     currentChoose: function (val) {
       this.filterColumns.splice(this.filterColumns.indexOf(val), 1)
       this.choosedColumns.push(val)
-      console.log(this.filterColumns, this.choosedColumns)
     }
   },
   methods: {
@@ -105,7 +104,6 @@ export default {
       }
     },
     async getTasks ({ page, filter, sort }) {
-      console.log( page, filter)
       sort ? console.log(sort) : null
       let response = await window.axios.get('/api/admin/task/get', {
         params: {

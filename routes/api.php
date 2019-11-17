@@ -94,17 +94,18 @@ Route::delete('/taskfile/{name}','TaskController@taskfileDelete');
 
 // admin route
 Route::group(['prefix' => 'admin', 'middleware' => 'api.auth'], function (){
+  Route::apiResource('user', 'UserController');
   Route::post('/profile', [
-    'as' => 'admin.profile', 'uses' => 'UserController@profile'
+    'as' => 'admin.profile', 'uses' => 'HelperController@profile'
   ]);
-  Route::post('/users', [
-    'as' => 'admin.users', 'uses' => 'UserController@allUsers'
+  Route::post('/usershelp', [
+    'as' => 'admin.users', 'uses' => 'HelperController@allUsers'
   ]);
   Route::post('/responsibles', [
-    'as' => 'admin.responsibles', 'uses' => 'UserController@allresponsible'
+    'as' => 'admin.responsibles', 'uses' => 'HelperController@allresponsible'
   ]);
   Route::post('/responsibles/create', [
-    'as' => 'admin.responsibles.create', 'uses' => 'UserController@responsibleCreate'
+    'as' => 'admin.responsibles.create', 'uses' => 'HelperController@responsibleCreate'
   ]);
   Route::group(['prefix' => 'task'], function () {
     Route::post('/get', [
