@@ -76,7 +76,7 @@
             aria-expanded="false"
             class="avatar"
           >
-            <img :src="user.profile.avatar ? user.profile.avatar  : '/images/profile/avatar.png'" alt="Avatar">
+            <img :src="'/images/profile/avatar.png'" alt="Avatar">
           </a>
           <v-dropdown-item>
             <router-link class="dropdown-item" to="/admin/profile">
@@ -113,6 +113,7 @@ export default {
   },
   methods: {
     onNavToggle () {
+      console.log(this.user)
       this.$utils.toggleSidebar()
     },
     logout () {

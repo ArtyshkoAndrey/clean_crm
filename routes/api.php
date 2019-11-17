@@ -2,9 +2,6 @@
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Model\User;
-use Carbon\Carbon;
-use App\Model\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +13,6 @@ use App\Model\Profile;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::post('/test', function (){
-  $user = User::where('id', 1)->first();
-  $user->roles()->sync([1]);
-  
-  return response()->json($user);
-});
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login','AuthController@authenticate');
@@ -41,6 +31,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'api.auth'], function (){
   Route::apiResource('user', 'UserController');
   Route::post('/profile', [
     'as' => 'admin.profile', 'uses' => 'HelperController@profile'
+  ]);
+  Route::get('/dashboard', [
+    'as' => 'admin.dashboard', 'uses' => 'HelperController@dashboard'
   ]);
   Route::post('/usershelp', [
     'as' => 'admin.users', 'uses' => 'HelperController@allUsers'

@@ -6,7 +6,7 @@
         <a class="dashbox" href="#">
           <i class="icon-fa icon-fa-clock-o text-warning"/>
           <span class="title">
-            35
+            {{work}}
           </span>
           <span class="desc">
             В работе
@@ -18,7 +18,7 @@
         <a class="dashbox" href="#">
           <i class="icon-fa icon-fa-clock-o text-danger"/>
           <span class="title">
-            2
+            {{overdue}}
           </span>
           <span class="desc">
             Просроченные
@@ -30,7 +30,7 @@
         <a class="dashbox" href="#">
           <i class="icon-fa icon-fa-check-circle-o text-success"/>
           <span class="title">
-            30
+            {{complete}}
           </span>
           <span class="desc">
             Устраненные
@@ -46,35 +46,18 @@
           </div>
           <div class="card-body">
             <table class="table">
-              <thead v-if="count > 0">
+              <thead>
                 <tr>
                   <th>Адрес</th>
                   <th>Описание проблемы</th>
                   <th class="d-none d-md-table-cell">Контрольный срок</th>
                 </tr>
               </thead>
-              <thead v-else>
-                <tr>
-                  <th>Адрес</th>
-                  <th>Описание проблемы</th>
-                  <th class="d-none d-md-table-cell">Контрольный срок</th>
-                </tr>
-              </thead>
-              <tbody v-if="count > 0" class="custom-table">
-                <tr @click="taskDetails(1)">
-                  <td>ул. Горького 24</td>
-                  <td>На дереве целлофан</td>
-                  <td class="d-none d-md-table-cell">23.04.2019</td>
-                </tr>
-                <tr @click="taskDetails(2)">
-                  <td>ул. Горького 25</td>
-                  <td>Граффити</td>
-                  <td class="d-none d-md-table-cell">13.05.2019</td>
-                </tr>
-              </tbody>
-              <tbody v-else class="custom-table">
-                <tr >
-                  <td class="font-weight-bold text-center" colspan="3">Нет просроченных задач</td>
+              <tbody v-for='task in tasks' :key='task.id' class="custom-table">
+                <tr @click="taskDetails(task.id)">
+                  <td>{{ task.street + ', ' + task.number_home }}</td>
+                  <td>{{ task.name }}</td>
+                  <td class="d-none d-md-table-cell">{{ task.target_date }}</td>
                 </tr>
               </tbody>
             </table>
@@ -109,13 +92,37 @@ export default {
   data () {
     return {
       'header': 'header',
-      count: 2
+      count: 2,
+      tasks: [],
+      work: 0,
+      complete: 0,
+      overdue: 0,
     }
   },
   components: {
     BarChart
   },
+  mounted() {
+    this.fetch()
+  },
   methods: {
+    async fetch() {
+      await window.axios.get('/api/admin/dashboard')
+        .then(response => {
+          if (response.data.status === 'success') {
+            this.work = response.data.work
+            this.overdue = response.data.overdue
+            this.tasks = response.data.taskOverdue
+            this.complete = response.data.complete
+          } else {
+            window.toastr['error']('Ошибка сохранения', 'Загрузка данных')
+          }
+        })
+        .catch(error => {
+          console.log(error)
+          window.toastr['error']('Ошибка сохранения', 'Загрузка данных')
+        })
+    },
     randomInt () {
       return Math.floor(Math.random() * (40 - 0))
     },

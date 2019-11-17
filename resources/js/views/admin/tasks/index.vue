@@ -101,16 +101,11 @@
                         </button>
                         <v-dropdown-item>
                           <button class="dropdown-item" @click='$router.push({ name: "taskView", params: { id: task.id }})'>
-                            Просмотреть
-                          </button>
-                        </v-dropdown-item>
-                        <v-dropdown-item>
-                          <button class="dropdown-item" @click="mode='write'">
                             Редактировать
                           </button>
                         </v-dropdown-item>
                         <v-dropdown-item>
-                          <button class="dropdown-item">
+                          <button class="dropdown-item" @click='dropTask(task.id)'>
                             Удалить
                           </button>
                         </v-dropdown-item>

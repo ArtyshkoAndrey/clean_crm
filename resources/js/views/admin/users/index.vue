@@ -61,7 +61,7 @@
                               </button>
                             </v-dropdown-item>
                             <v-dropdown-item>
-                              <button class="dropdown-item">
+                              <button class="dropdown-item" @click="drop(user.id)">
                                 Удалить
                               </button>
                             </v-dropdown-item>
@@ -98,6 +98,17 @@ export default {
     this.fetching()
   },
   methods: {
+    async drop (id) {
+      await window.axios.delete('/api/admin/user/' + id)
+        .then(response => {
+          console.log(response.data)
+          response.data.status === 'success' ? this.fetching() : window.toastr['error']('Ошибка сервера', 'Загрузка пользователей')
+        })
+        .catch(error => {
+          console.error(error)
+          window.toastr['error']('Ошибка сервера', 'Получение данных')
+        })
+    },
     async fetching () {
       await window.axios.get('/api/admin/user')
         .then(response => {

@@ -71,7 +71,12 @@ export default {
       await window.axios.post('/api/admin/task', this.rewriteTask)
       .then(response => {
         console.log(response)
-        response.data === 'Success' ? window.toastr['success']('Выполнено', 'Сохранено') : window.toastr['error']('Ошибка', 'Не выполнено')
+        if (response.data === 'Success') {
+          window.toastr['success']('Выполнено', 'Сохранено')
+          this.$router.push({name: 'tasks'})
+        } else {
+          window.toastr['error']('Ошибка', 'Не выполнено')
+        }
       })
       .catch(error => {
         console.log(error)

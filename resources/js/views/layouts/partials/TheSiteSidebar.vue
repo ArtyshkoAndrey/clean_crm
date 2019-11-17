@@ -10,7 +10,7 @@
           </v-collapse-item>
 
           <v-collapse-item active-url="/admin/task">
-            <a slot="item-title" href="#">
+            <a slot="item-title" href="#!">
               <i class="icon-fa icon-fa-tasks"/>Нарушения
               <span class="icon-fa arrow icon-fa-fw"/>
             </a>
@@ -31,8 +31,8 @@
             </router-link> -->
           </v-collapse-item>
 
-          <v-collapse-item active-url="/admin/task">
-            <a slot="item-title" href="#">
+          <v-collapse-item active-url="/admin/user">
+            <a slot="item-title" href="#!">
               <i class="icon-fa icon-fa-user"/>Пользователи
               <span class="icon-fa arrow icon-fa-fw"/>
             </a>
@@ -57,8 +57,8 @@
             </router-link>
           </v-collapse-item> -->
 
-          <v-collapse-item active-url="/admin/task">
-            <a slot="item-title" href="#">
+          <v-collapse-item active-url="/admin/department">
+            <a slot="item-title" href="#!">
               <i class="icon-fa icon-fa-building"/>Отделы
               <span class="icon-fa arrow icon-fa-fw"/>
             </a>
