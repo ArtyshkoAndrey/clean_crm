@@ -48,7 +48,6 @@ class User extends Authenticatable implements JWTSubject
     public function roles() {
         return $this->belongsToMany(config('roles.models.role'));
     }
-
     public function getJWTIdentifier()
     {
         return $this->getKey();

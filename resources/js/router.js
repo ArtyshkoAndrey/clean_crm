@@ -123,7 +123,7 @@ const routes = [
             path: 'edit/:id',
             component: UserEdit,
             name: 'userEdit'
-          },
+          }
         ]
       },
       {

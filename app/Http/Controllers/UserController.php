@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\User;
+use App\Model\Departments;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -35,7 +37,7 @@ class UserController extends Controller
    */
   public function store(Request $request)
   {
-    //
+    return response()->json($request);
   }
 
   /**
@@ -48,9 +50,14 @@ class UserController extends Controller
   {
     try {
       $user = User::where('id', $id)->first();
+      $roles = config('roles.models.role')::all();
+      // TODO: Брать данные с бд
+      $departments = Departments::all();
       return response()->json([
         'status' => 'success',
-        'user' => $user
+        'user' => $user,
+        'roles' => $roles,
+        'departments' => $departments
       ]);
     } catch (Illuminate\Database\QueryException $e) {
       return response()->json([
@@ -68,7 +75,19 @@ class UserController extends Controller
    */
   public function update(Request $request, $id)
   {
-    //
+    // return response($request['name']);
+    // return response()->json($request['profile']);
+    $user = User::where('id', $id)->first();
+    $user->name = $request['name'];
+    $user->email = $request['email'];
+    $profile = $user->profile ?: new Profile;
+    $profile->birthday = new Carbon($request['profile']['birthday']);
+    $profile->department_id = $request['profile']['department']['id'];
+    $profile->user_id = $user->id;
+    $user->profile->save([], $profile);
+    $user->roles()->sync([$request['roles']['id']]);
+    $user->save();
+    return response()->json(['status' => 'success']);
   }
 
   /**
