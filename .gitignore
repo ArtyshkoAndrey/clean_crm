@@ -9,6 +9,6 @@ Homestead.yaml
 .env
 /public/assets/js/app.js
 /public/assets/js/app.js.map
-
+/public/images/tasks/*
 /public/assets/css/laraspace.css
 /public/assets/css/laraspace.css.map
