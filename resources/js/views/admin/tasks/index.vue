@@ -7,43 +7,43 @@
             <h3>Фильтры</h3>
           </div>
           <div class="card-body">
-            <div class="row" v-if="loading">
+            <div v-if="loading" class="row">
               Загрузка
             </div>
-            <div class="row" v-else>
+            <div v-else class="row">
               <div class="col-md-6 d-flex flex-column justify-content-between">
                 <multiselect
                   v-model="currentChoose"
                   :options="filterColumns"
                   :hide-selected="true"
-                  :selectLabel="''"
+                  :select-label="''"
                   track-by="name"
                   label="name"
                   placeholder="Выберете параметр"
                   class="mt-2"
                 />
-                <button @click="getTasks" class="filter-add-button mt-2">Отфильтровать</button>
+                <button class="filter-add-button mt-2" @click="getTasks">Отфильтровать</button>
               </div>
               <div class="col-md-6">
                 <div v-for="column in choosedColumns"
-                  v-bind:key="column.name">
+                     :key="column.name">
                   <input v-if="column.type == 'text'"
-                    v-model="column.value"
-                    v-bind:key="column.name"
-                    :placeholder="column.name"
-                    type="text"
-                    class="form-control mt-2">
+                         v-model="column.value"
+                         :key="column.name"
+                         :placeholder="column.name"
+                         type="text"
+                         class="form-control mt-2">
                   <multiselect v-else-if="column.type == 'select'"
-                    v-model="column.value"
-                    :options="column.options"
-                    :hide-selected="true"
-                    :selectLabel="''"
-                    track-by="name"
-                    label="name"
-                    placeholder="Выберете параметр"
-                    class="mt-2"
+                               v-model="column.value"
+                               :options="column.options"
+                               :hide-selected="true"
+                               :select-label="''"
+                               track-by="name"
+                               label="name"
+                               placeholder="Выберете параметр"
+                               class="mt-2"
                   />
-                  <datepicker v-else-if='column.type === "date"' input-class="form-control" format="dd.MM.yyyy" v-model="column.value"/>
+                  <datepicker v-else-if="column.type === &quot;date&quot;" v-model="column.value" input-class="form-control" format="dd.MM.yyyy"/>
                 </div>
               </div>
             </div>
@@ -79,10 +79,10 @@
                   <td>{{ task.street }}, {{ task.number_home }}</td>
                   <td>{{ task.identified[0].name }}</td>
                   <td>{{ task.responsible.name }}
-                  <td>{{ task.detection_date }}</td>
+                  </td><td>{{ task.detection_date }}</td>
                   <td>{{ task.target_date }}</td>
                   <td>
-                    <span v-if="task.correction_date !== null">{{task.correction_date}}</span>
+                    <span v-if="task.correction_date !== null">{{ task.correction_date }}</span>
                     <span v-else>Не указана</span>
                   </td>
                   <td>статус</td>
@@ -97,15 +97,14 @@
                           data-toggle="dropdown"
                           aria-haspopup="true"
                           aria-expanded="false"
-                        >
-                        </button>
+                        />
                         <v-dropdown-item>
-                          <button class="dropdown-item" @click='$router.push({ name: "taskView", params: { id: task.id }})'>
+                          <button class="dropdown-item" @click="$router.push({ name: &quot;taskView&quot;, params: { id: task.id }})">
                             Редактировать
                           </button>
                         </v-dropdown-item>
                         <v-dropdown-item>
-                          <button class="dropdown-item" @click='dropTask(task.id)'>
+                          <button class="dropdown-item" @click="dropTask(task.id)">
                             Удалить
                           </button>
                         </v-dropdown-item>
@@ -152,91 +151,86 @@ table tr th {
 import Multiselect from 'vue-multiselect'
 import Datepicker from 'vuejs-datepicker'
 export default {
+  components: {
+    Multiselect,
+    Datepicker
+  },
   data () {
     return {
       'header': 'header',
       page: 1,
       tasks: [],
       filterColumns: [{
-        name: "Улица",
+        name: 'Улица',
         field: 'street',
-        value: "",
-        type: "text"
+        value: '',
+        type: 'text'
       },
       {
-        name: "Дом",
+        name: 'Дом',
         field: 'number_home',
-        value: "",
-        type: "text"
+        value: '',
+        type: 'text'
       },
       {
-        name: "Название",
+        name: 'Название',
         field: 'name',
-        value: "",
-        type: "text"
+        value: '',
+        type: 'text'
       },
       {
-        name: "Ответственный",
+        name: 'Ответственный',
         field: 'responsible',
-        value: "",
-        type: "select",
+        value: '',
+        type: 'select',
         options: []
       },
       {
-        name: "Ответственый исполнитель",
+        name: 'Ответственый исполнитель',
         field: 'responsible_executor',
-        value: "",
-        type: "text"
+        value: '',
+        type: 'text'
       },
       {
-        name: "Дата выявления",
+        name: 'Дата выявления',
         field: 'detection_date',
-        value: "",
-        type: "date"
+        value: '',
+        type: 'date'
       },
       {
-        name: "Контрольный срок",
+        name: 'Контрольный срок',
         field: 'target_date',
-        value: "",
-        type: "date"
+        value: '',
+        type: 'date'
       },
       {
-        name: "Дата устранения",
+        name: 'Дата устранения',
         field: 'correction_date',
-        value: "",
-        type: "date"
+        value: '',
+        type: 'date'
       },
       {
-        name: "Кем выявлено",
+        name: 'Кем выявлено',
         field: 'identified',
-        value: "",
-        type: "select",
+        value: '',
+        type: 'select',
         options: []
       },
       {
-        name: "Статус",
+        name: 'Статус',
         field: 'status',
-        value: "",
-        type: "select",
+        value: '',
+        type: 'select',
         options: [
-          {name: "В работе", value: 'work'},
-          {name: "Просроченные", value: 'overdue'},
-          {name: "Выполненные", value: 'complete'}
+          {name: 'В работе', value: 'work'},
+          {name: 'Просроченные', value: 'overdue'},
+          {name: 'Выполненные', value: 'complete'}
         ]
       }],
       choosedColumns: [],
-      currentChoose: "",
+      currentChoose: '',
       loading: true
     }
-  },
-  components: {
-    Multiselect,
-    Datepicker
-  },
-  created () {
-    this.responsiblesArray()
-    this.usersArray()
-    this.getTasks()
   },
   watch: {
     currentChoose: function (val) {
@@ -245,26 +239,33 @@ export default {
       console.log(this.filterColumns, this.choosedColumns)
     }
   },
+  created () {
+    this.responsiblesArray()
+    this.usersArray()
+    this.getTasks()
+  },
   methods: {
     async usersArray () {
-      await window.axios.post('/api/admin/usershelp').then(response => {
-        let col = this.filterColumns.find(col => col.field === 'identified')
-        console.log(col, response.data)
-        col.options = response.data
-      })
-      .catch(e => {
-        console.error(e)
-      })
+      await window.axios.post('/api/admin/usershelp')
+        .then(response => {
+          let col = this.filterColumns.find(col => col.field === 'identified')
+          console.log(col, response.data)
+          col.options = response.data
+        })
+        .catch(e => {
+          console.error(e)
+        })
     },
     async responsiblesArray () {
-      await window.axios.post('/api/admin/responsibles').then(response => {
-        let col = this.filterColumns.find(col => col.field === 'responsible')
-        console.log(col, response.data)
-        col.options = response.data
-      })
-      .catch(e => {
-        console.error(e)
-      })
+      await window.axios.post('/api/admin/responsibles')
+        .then(response => {
+          let col = this.filterColumns.find(col => col.field === 'responsible')
+          console.log(col, response.data)
+          col.options = response.data
+        })
+        .catch(e => {
+          console.error(e)
+        })
     },
     async getTasks () {
       let params = {}
@@ -293,17 +294,18 @@ export default {
       params.page = this.page
       console.log(params)
       await window.axios.post('/api/admin/task/get', params)
-      .then(response => {
-        console.log(response)
-        this.tasks = response.data
-      })
-      .catch(error => console.log(error))
-      .finally(() => (this.loading = false));
+        .then(response => {
+          console.log(response)
+          this.tasks = response.data
+        })
+        .catch(error => console.log(error))
+        .finally(() => (this.loading = false))
     },
     async dropTask (id) {
       let response = await window.axios.post('/api/admin/task/' + id, { _method: 'DELETE' })
       console.log(response)
-      if (response.status == 200 && response.data == 'Success') {
+      // eslint-disable-next-line eqeqeq
+      if (response.status === 200 && response.data === 'Success') {
         window.toastr['success']('Задача удалена', 'Выполнено')
         this.$refs.tableTasks.refresh()
       } else {
@@ -314,4 +316,3 @@ export default {
   }
 }
 </script>
-

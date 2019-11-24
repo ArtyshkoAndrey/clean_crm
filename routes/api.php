@@ -20,15 +20,21 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('logout','AuthController@logout');
     Route::get('check','AuthController@check');
 });
+
 Route::post('email-exist',[
   'as' => 'email-exist','uses' => 'AuthController@emailExist'
 ]);
-Route::post('/taskfile','TaskController@taskfileCreate');
-Route::delete('/taskfile/{name}','TaskController@taskfileDelete');
+
+Route::post('/taskfile','TasksController@taskfileCreate');
+Route::delete('/taskfile/{name}','TasksController@taskfileDelete');
 
 // admin route
 Route::group(['prefix' => 'admin', 'middleware' => 'api.auth'], function (){
   Route::apiResource('user', 'UserController');
+
+  Route::apiResource('task', 'TaskController');
+  Route::get('task', ['uses' => 'TaskController@index', 'as' => 'task.index']);
+
   Route::post('/profile', [
     'as' => 'admin.profile', 'uses' => 'HelperController@profile'
   ]);
@@ -44,22 +50,23 @@ Route::group(['prefix' => 'admin', 'middleware' => 'api.auth'], function (){
   Route::post('/responsibles/create', [
     'as' => 'admin.responsibles.create', 'uses' => 'HelperController@responsibleCreate'
   ]);
-  Route::group(['prefix' => 'task'], function () {
-    Route::post('/get', [
-      'as' => 'admin.task.all', 'uses' => 'TaskController@all'
-    ]);
-    Route::post('/view/{id}', [
-      'as' => 'admin.task.view', 'uses' => 'TaskController@view'
-    ]);
-    Route::put('/', [
-      'as' => 'admin.task.update', 'uses' => 'TaskController@update'
-    ]);
-    Route::post('/', [
-      'as' => 'admin.task.create', 'uses' => 'TaskController@create'
-    ]);
-    Route::delete('/{id}', [
-      'as' => 'admin.task.drop', 'uses' => 'TaskController@drop'
-    ]);
-  });
+
+//  Route::group(['prefix' => 'task'], function () {
+//    Route::post('/get', [
+//      'as' => 'admin.task.all', 'uses' => 'TasksController@all'
+//    ]);
+//    Route::post('/view/{id}', [
+//      'as' => 'admin.task.view', 'uses' => 'TasksController@view'
+//    ]);
+//    Route::put('/', [
+//      'as' => 'admin.task.update', 'uses' => 'TasksController@update'
+//    ]);
+//    Route::post('/', [
+//      'as' => 'admin.task.create', 'uses' => 'TasksController@create'
+//    ]);
+//    Route::delete('/{id}', [
+//      'as' => 'admin.task.drop', 'uses' => 'TasksController@drop'
+//    ]);
+//  });
 });
 

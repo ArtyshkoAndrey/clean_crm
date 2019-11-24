@@ -12,8 +12,6 @@ class Task extends Model {
     'correction_date' => 'date:d.m.Y'
   ];
 
-  protected $with = ['identified', 'responsible'];
-
   public function user () {
     return $this->belongsTo('App\Model\User');
   }
