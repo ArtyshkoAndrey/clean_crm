@@ -12,7 +12,7 @@ class Task extends Model {
     'correction_date' => 'date:d.m.Y'
   ];
 
-  protected $with = ['identified', 'responsible', 'images'];
+  protected $with = ['identified', 'responsible'];
 
   public function user () {
     return $this->belongsTo('App\Model\User');
@@ -23,7 +23,7 @@ class Task extends Model {
   }
 
   public function images () {
-    return $this->belongsToMany('App\Model\Image', 'task_images', 'task_id', 'image_id');
+    return $this->hasMany('App\Model\Image');
   }
 
   public function responsible () {

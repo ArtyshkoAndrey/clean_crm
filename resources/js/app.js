@@ -5,7 +5,6 @@
  */
 import router from './router.js'
 import utils from './helpers/utilities'
-// import ThemeSwitcher from './components/ThemeSwitcher'
 
 require('./bootstrap')
 

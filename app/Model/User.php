@@ -37,13 +37,10 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    protected $with = ['profile', 'roles'];
+    protected $with = ['roles'];
 
-    public function tasks() {  
+    public function tasks() {
         return $this->belongsToMany('App\Model\Task', 'user_tasks', 'user_id', 'task_id');
-    }
-    public function profile() {  
-        return $this->hasOne('App\Model\Profile');
     }
     public function roles() {
         return $this->belongsToMany(config('roles.models.role'));

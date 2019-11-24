@@ -14,6 +14,7 @@ class CreateResponsiblesTable extends Migration
     public function up()
     {
         Schema::create('responsibles', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->timestamps();

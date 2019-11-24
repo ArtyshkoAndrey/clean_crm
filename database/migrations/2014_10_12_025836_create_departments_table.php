@@ -14,10 +14,15 @@ class CreateDepartmentsTable extends Migration
     public function up()
     {
         Schema::create('departments', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->bigIncrements('id');
-            $table->integer('manager_id')->nullable();
+            $table->unsignedBigInteger('manager_id')->nullable()->unsigned()->index();
+            $table->foreign('manager_id')->references('id')->on('users')->onDelete('set null');
             $table->text('name');
             $table->timestamps();
+        });
+        Schema::connection(null)->table('users', function($table) {
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('set null');
         });
     }
 

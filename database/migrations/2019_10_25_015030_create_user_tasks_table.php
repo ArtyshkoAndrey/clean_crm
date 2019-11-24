@@ -14,9 +14,12 @@ class CreateUserTasksTable extends Migration
     public function up()
     {
         Schema::create('user_tasks', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->bigIncrements('id');
-            $table->integer('user_id');
-            $table->integer('task_id');
+            $table->unsignedBigInteger('user_id')->unsigned()->index();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('task_id')->unsigned()->index();
+            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
             $table->timestamps();
         });
     }
