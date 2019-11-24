@@ -12,3 +12,5 @@ Homestead.yaml
 /public/images/tasks/*
 /public/assets/css/laraspace.css
 /public/assets/css/laraspace.css.map
+public/fonts/vendor/font-awesome/fontawesome-webfont.svg
+public/mix-manifest.json
