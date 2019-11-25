@@ -30,10 +30,15 @@ Route::delete('/taskfile/{name}','TasksController@taskfileDelete');
 
 // admin route
 Route::group(['prefix' => 'admin', 'middleware' => 'api.auth'], function (){
+
+//  Пользователи
   Route::apiResource('user', 'UserController');
 
-  Route::apiResource('task', 'TaskController');
-  Route::get('task', ['uses' => 'TaskController@index', 'as' => 'task.index']);
+//  Проблемы
+  Route::apiResource('task', 'TaskController'); // CRUD
+  Route::post('task/filter', ['uses' => 'TaskController@filter', 'as' => 'task.filter']); // Фильтрация
+
+
 
   Route::post('/profile', [
     'as' => 'admin.profile', 'uses' => 'HelperController@profile'

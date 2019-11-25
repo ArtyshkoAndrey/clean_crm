@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Responsible;
 use App\Model\Task;
+use App\Model\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -12,10 +13,27 @@ class TaskController extends Controller
   /**
    * Display a listing of the resource.
    *
+   * @return void
+   */
+  public function index() {
+    $tasks = auth()->user()->tasks;
+    $users = User::all();
+    $responsibles = Responsible::all();
+    return response()->json([
+      'status' => 'Success',
+      'tasks' => $tasks,
+      'users' => $users,
+      'responsibles' => $responsibles
+    ]);
+  }
+
+  /**
+   * Display a listing of the resource.
+   *
    * @param Request $request
    * @return void
    */
-    public function index(Request $request)
+    public function filter(Request $request)
     {
       $tasks = auth()->user()->tasks;
       foreach($request->filter as $filter) {
@@ -141,6 +159,6 @@ class TaskController extends Controller
     public function destroy($id)
     {
       Task::where('id', $id)->first()->delete();
-      return response()->json('Success', 200);
+      return response()->json(['status' => 'Success']);
     }
 }

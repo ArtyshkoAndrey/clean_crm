@@ -79,7 +79,7 @@ export default {
     Read
   },
   created() {
-    this.getTask(this.$route.params.id)    
+    this.getTask(this.$route.params.id)
   },
   methods: {
     onSave() {

@@ -53,7 +53,7 @@ export default {
       loading: true,
       config: {
         url: "http://clean-crm/api/taskfile",
-        thumbnailWidth: null,
+        thumbnailWidth: null
       },
       responsibleList: [],
       identifiedList: []
@@ -64,7 +64,7 @@ export default {
     Read
   },
   created() {
-    this.getTask(this.$route.params.id)    
+    this.getTask(this.$route.params.id)
   },
   methods: {
     async onSave() {

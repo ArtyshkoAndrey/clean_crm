@@ -22,18 +22,18 @@
                   placeholder="Выберете параметр"
                   class="mt-2"
                 />
-                <button class="filter-add-button mt-2" @click="getTasks">Отфильтровать</button>
+                <button class="filter-add-button mt-2" @click="filterTasks">Отфильтровать</button>
               </div>
               <div class="col-md-6">
                 <div v-for="column in choosedColumns"
                      :key="column.name">
-                  <input v-if="column.type == 'text'"
+                  <input v-if="column.type === 'text'"
                          v-model="column.value"
                          :key="column.name"
                          :placeholder="column.name"
                          type="text"
                          class="form-control mt-2">
-                  <multiselect v-else-if="column.type == 'select'"
+                  <multiselect v-else-if="column.type === 'select'"
                                v-model="column.value"
                                :options="column.options"
                                :hide-selected="true"
@@ -43,7 +43,7 @@
                                placeholder="Выберете параметр"
                                class="mt-2"
                   />
-                  <datepicker v-else-if="column.type === &quot;date&quot;" v-model="column.value" input-class="form-control" format="dd.MM.yyyy"/>
+                  <datepicker v-else-if="column.type === 'date'" v-model="column.value" input-class="form-control" format="dd.MM.yyyy"/>
                 </div>
               </div>
             </div>
@@ -78,8 +78,8 @@
                   <td>{{ task.description }}</td>
                   <td>{{ task.street }}, {{ task.number_home }}</td>
                   <td>{{ task.identified[0].name }}</td>
-                  <td>{{ task.responsible.name }}
-                  </td><td>{{ task.detection_date }}</td>
+                  <td>{{ task.responsible.name }}</td>
+                  <td>{{ task.detection_date }}</td>
                   <td>{{ task.target_date }}</td>
                   <td>
                     <span v-if="task.correction_date !== null">{{ task.correction_date }}</span>
@@ -99,7 +99,7 @@
                           aria-expanded="false"
                         />
                         <v-dropdown-item>
-                          <button class="dropdown-item" @click="$router.push({ name: &quot;taskView&quot;, params: { id: task.id }})">
+                          <button class="dropdown-item" @click="$router.push({ name: 'taskView', params: { id: task.id }})">
                             Редактировать
                           </button>
                         </v-dropdown-item>
@@ -240,34 +240,29 @@ export default {
     }
   },
   created () {
-    this.responsiblesArray()
-    this.usersArray()
-    this.getTasks()
+    this.fetching()
   },
   methods: {
-    async usersArray () {
-      await window.axios.post('/api/admin/usershelp')
+    async fetching () {
+      await window.axios.get('/api/admin/task')
         .then(response => {
-          let col = this.filterColumns.find(col => col.field === 'identified')
-          console.log(col, response.data)
-          col.options = response.data
+          if (response.data.status === 'Success') {
+            let col = this.filterColumns.find(col => col.field === 'identified')
+            col.options = response.data.users
+            col = this.filterColumns.find(col => col.field === 'responsible')
+            col.options = response.data.responsibles
+            this.tasks = response.data.tasks
+          } else {
+            window.toastr['error']('Ошибка', 'Загрузка данных с сервера')
+          }
         })
         .catch(e => {
           console.error(e)
+          window.toastr['error']('Ошибка', 'Загрузка данных с сервера')
         })
+        .finally(() => (this.loading = false))
     },
-    async responsiblesArray () {
-      await window.axios.post('/api/admin/responsibles')
-        .then(response => {
-          let col = this.filterColumns.find(col => col.field === 'responsible')
-          console.log(col, response.data)
-          col.options = response.data
-        })
-        .catch(e => {
-          console.error(e)
-        })
-    },
-    async getTasks () {
+    async filterTasks () {
       let params = {}
       params.filter = []
       this.choosedColumns.forEach(column => {
@@ -292,8 +287,7 @@ export default {
         }
       })
       params.page = this.page
-      console.log(params)
-      await window.axios.post('/api/admin/task/get', params)
+      await window.axios.post('/api/admin/task/filter', params)
         .then(response => {
           console.log(response)
           this.tasks = response.data
@@ -304,7 +298,6 @@ export default {
     async dropTask (id) {
       let response = await window.axios.post('/api/admin/task/' + id, { _method: 'DELETE' })
       console.log(response)
-      // eslint-disable-next-line eqeqeq
       if (response.status === 200 && response.data === 'Success') {
         window.toastr['success']('Задача удалена', 'Выполнено')
         this.$refs.tableTasks.refresh()
