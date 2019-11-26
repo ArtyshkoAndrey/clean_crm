@@ -14,9 +14,6 @@ import ProfilePage from './views/admin/profile/index.vue'
 
 import TasksView from './views/admin/tasks/task.vue'
 import TasksCreate from './views/admin/tasks/create.vue'
-import TasksWorking from './views/admin/tasks/working.vue'
-import TasksOverdue from './views/admin/tasks/overdue.vue'
-import TasksCompleted from './views/admin/tasks/completed.vue'
 
 import UserIndex from './views/admin/users/index.vue'
 import UserCreate from './views/admin/users/create.vue'
@@ -80,21 +77,6 @@ const routes = [
             path: 'create',
             component: TasksCreate,
             name: 'taskCreate'
-          },
-          {
-            path: 'working',
-            component: TasksWorking,
-            name: 'tasksWorking'
-          },
-          {
-            path: 'overdue',
-            component: TasksOverdue,
-            name: 'tasksOverdue'
-          },
-          {
-            path: 'completed',
-            component: TasksCompleted,
-            name: 'tasksCompleted'
           }
         ]
       },
@@ -138,7 +120,7 @@ const routes = [
             name: 'roles'
           },
           {
-            path: 'craete',
+            path: 'create',
             component: RoleCreate,
             name: 'roleCreate'
           },
@@ -199,11 +181,7 @@ const router = new VueRouter({
 
 function hasPermissionsNeeded (to) {
   to.matched.forEach(element => {
-    if (window.user.roles.find(role => role.slug === element.meta.role)) {
-      return true
-    } else {
-      return false
-    }
+    return !!window.user.roles.find(role => role.slug === element.meta.role)
   })
 }
 

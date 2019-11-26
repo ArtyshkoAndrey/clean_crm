@@ -16,7 +16,7 @@
             :allUsers='allUsers'
             :responsibleList='responsibleList'
             :identifiedList='identifiedList'
-            :type="'create'"
+            :mode="'create'"
             @save='onSave'
             >
             </Write>

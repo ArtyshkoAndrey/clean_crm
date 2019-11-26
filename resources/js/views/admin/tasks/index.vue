@@ -77,7 +77,7 @@
                   <td>{{ task.name }}</td>
                   <td>{{ task.description }}</td>
                   <td>{{ task.street }}, {{ task.number_home }}</td>
-                  <td>{{ task.identified[0].name }}</td>
+                  <td><span v-for="user in task.identified" :key="user.id">{{ user.name }} <br></span></td>
                   <td>{{ task.responsible.name }}</td>
                   <td>{{ task.detection_date }}</td>
                   <td>{{ task.target_date }}</td>
@@ -253,6 +253,7 @@ export default {
             col.options = response.data.responsibles
             this.tasks = response.data.tasks
           } else {
+            console.log(response.data)
             window.toastr['error']('Ошибка', 'Загрузка данных с сервера')
           }
         })
@@ -289,22 +290,27 @@ export default {
       params.page = this.page
       await window.axios.post('/api/admin/task/filter', params)
         .then(response => {
-          console.log(response)
+          console.log('filter', response)
           this.tasks = response.data
         })
         .catch(error => console.log(error))
         .finally(() => (this.loading = false))
     },
     async dropTask (id) {
-      let response = await window.axios.post('/api/admin/task/' + id, { _method: 'DELETE' })
-      console.log(response)
-      if (response.status === 200 && response.data === 'Success') {
-        window.toastr['success']('Задача удалена', 'Выполнено')
-        this.$refs.tableTasks.refresh()
-      } else {
-        window.toastr['error']('Ошибка', 'Не выполнено')
-        this.$refs.tableTasks.refresh()
-      }
+      await window.axios.post('/api/admin/task/' + id, { _method: 'DELETE' })
+        .then(response => {
+          if (response.status === 200 && response.data.status === 'Success') {
+            window.toastr['success']('Проблема удалена', 'Выполнено')
+            this.filterTasks()
+          } else {
+            window.toastr['error']('Ошибка', 'Не выполнено')
+            this.filterTasks()
+          }
+        })
+        .catch(error => {
+          console.log(error)
+          window.toastr['error']('Ошибка', 'Не выполнено')
+        })
     }
   }
 }

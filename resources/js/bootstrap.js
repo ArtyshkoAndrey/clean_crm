@@ -52,7 +52,7 @@ global.axios.defaults.headers.common = {
 global.axios.interceptors.request.use(function (config) {
   // Do something before request is sent
   const AUTH_TOKEN = Ls.get('auth.token')
-
+  console.log(AUTH_TOKEN)
   if (AUTH_TOKEN) {
     config.headers.common['Authorization'] = `Bearer ${AUTH_TOKEN}`
   }
@@ -62,19 +62,6 @@ global.axios.interceptors.request.use(function (config) {
   // Do something with request error
   return Promise.reject(error)
 })
-
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-
-// import Echo from "laravel-echo"
-
-// global.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: 'your-pusher-key'
-// })
 
 /**
  * Custom Directives

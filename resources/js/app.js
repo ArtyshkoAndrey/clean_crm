@@ -16,10 +16,5 @@ Vue.prototype.$utils = utils
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 const app = new Vue({
-  router,
-
-  // Theme Swiching Demo Component (You can remove it if not required)
-  // components: {
-  //   ThemeSwitcher
-  // }
+  router
 }).$mount('#app')

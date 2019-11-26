@@ -2,21 +2,72 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Image;
 use App\Model\Responsible;
 use App\Model\Task;
 use App\Model\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use File;
 
 class TaskController extends Controller
 {
+  public function addfile (Request $request) {
+    if($request->file('file')) {
+      $image = $request->file('file');
+      $name = $image->getClientOriginalName();
+      $image->move(public_path().'/images/tasks/', $name);
+
+      $img = Image::create([
+        'task_id' => null,
+        'path' => [
+          'file' => '/images/tasks/'.$name,
+          'type' => 'type/'.$image->getClientOriginalExtension(),
+          'size' => filesize(public_path().'/images/tasks/'.$name),
+          'name' => $name,
+        ]
+      ]);
+      return response()->json([
+        'success' => 'You have successfully uploaded an image',
+        'image' => $img
+      ], 200);
+    }
+    return response()->json([
+      'error' => 'no file'
+    ], 200);
+  }
+
+  public function dropfile ($name) {
+    if ($name) {
+      $image = Image::where('path->name', $name)->first();
+      if ($image) {
+        $image->tasks()->detach();
+        $image->delete();
+        File::delete(public_path().'/images/tasks/'.$name);
+        return response()->json([
+          'success' => 'Изображение удалено',
+          'image' => $name
+        ], 200);
+      }
+      return response()->json([
+        'success' => 'Изображение не найдено',
+        'image' => $name
+      ], 200);
+    }
+    return response()->json([
+      'error' => 'no file'
+    ], 200);
+  }
+
   /**
    * Display a listing of the resource.
    *
    * @return void
    */
   public function index() {
-    $tasks = auth()->user()->tasks;
+    $tasks = Task::with('identified', 'responsible')->whereHas('identified', function($q){
+      $q->where('user_id', auth()->user()->id);
+    })->get();
     $users = User::all();
     $responsibles = Responsible::all();
     return response()->json([
@@ -35,7 +86,9 @@ class TaskController extends Controller
    */
     public function filter(Request $request)
     {
-      $tasks = auth()->user()->tasks;
+      $tasks = Task::with('identified', 'responsible')->whereHas('identified', function($q){
+        $q->where('user_id', auth()->user()->id);
+      })->get();
       foreach($request->filter as $filter) {
         switch($filter['type']) {
           case 'text': {
@@ -107,9 +160,16 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-      $task = Task::where('id', $id)->first();
-      if (auth()->user()->id ===  $task->user_id) {
-        return response()->json($task, 200);
+      $task = Task::with('identified', 'images', 'responsible')->where('id', $id)->first();
+      for($i = 0; $i < count($task->identified); $i++) {
+        if (auth()->user()->id == $task->identified[$i]->id) {
+          return response()->json([
+            'status' => 'Success',
+            'task' => $task,
+            'users' => User::all(),
+            'responsibles' => Responsible::all()
+          ]);
+        }
       }
       return response()->json('Задача другого пользователя', 400);
     }
@@ -139,12 +199,10 @@ class TaskController extends Controller
       foreach ($request->identified as $value) {
         array_push($identified, (int) $value['id']);
       }
-      $images = [];
       foreach ($request->images as $value) {
-        array_push($images, (int) $value['id']);
+        $task->images()->save(Image::find($value['id']));
       }
       $task->identified()->sync($identified);
-      $task->images()->sync($images);
       $task['target_date'] = new Carbon($request->_targetDateString);
       $task->save();
       return response()->json('Success', 200);

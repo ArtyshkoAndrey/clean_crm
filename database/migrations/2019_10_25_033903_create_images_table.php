@@ -16,7 +16,7 @@ class CreateImagesTable extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('task_id')->unsigned()->index();
+            $table->unsignedBigInteger('task_id')->unsigned()->index()->nullable();
             $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
             $table->json('path');
             $table->timestamps();

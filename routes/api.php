@@ -1,19 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login','AuthController@authenticate');
     Route::post('register','AuthController@registration');
@@ -29,7 +15,7 @@ Route::post('/taskfile','TasksController@taskfileCreate');
 Route::delete('/taskfile/{name}','TasksController@taskfileDelete');
 
 // admin route
-Route::group(['prefix' => 'admin', 'middleware' => 'api.auth'], function (){
+Route::group(['prefix' => 'admin', 'middleware' => 'api.auth'], function () {
 
 //  Пользователи
   Route::apiResource('user', 'UserController');
@@ -37,6 +23,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'api.auth'], function (){
 //  Проблемы
   Route::apiResource('task', 'TaskController'); // CRUD
   Route::post('task/filter', ['uses' => 'TaskController@filter', 'as' => 'task.filter']); // Фильтрация
+  Route::post('task/file', ['uses' => 'TaskController@addfile', 'as' => 'task.addfile']); // Добавить картинку
+  Route::delete('task/file/{name}', ['uses' => 'TaskController@dropfile', 'as' => 'task.dropfile']); // Удалить картинку
 
 
 
@@ -55,23 +43,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'api.auth'], function (){
   Route::post('/responsibles/create', [
     'as' => 'admin.responsibles.create', 'uses' => 'HelperController@responsibleCreate'
   ]);
-
-//  Route::group(['prefix' => 'task'], function () {
-//    Route::post('/get', [
-//      'as' => 'admin.task.all', 'uses' => 'TasksController@all'
-//    ]);
-//    Route::post('/view/{id}', [
-//      'as' => 'admin.task.view', 'uses' => 'TasksController@view'
-//    ]);
-//    Route::put('/', [
-//      'as' => 'admin.task.update', 'uses' => 'TasksController@update'
-//    ]);
-//    Route::post('/', [
-//      'as' => 'admin.task.create', 'uses' => 'TasksController@create'
-//    ]);
-//    Route::delete('/{id}', [
-//      'as' => 'admin.task.drop', 'uses' => 'TasksController@drop'
-//    ]);
-//  });
 });
 

@@ -3,38 +3,36 @@
     <div class="row">
       <div class="col-12">
         <transition name="fade" mode="out-in">
-          <div key=1 class="card" v-if='!loading'>
+          <div v-if="!loading" key="1" class="card">
             <div class="card-header">
               <div class="col-12 d-flex align-items-center justify-content-between">
                 <h6 class="font-weight-bold d-flex h-100">Задача №{{ task.id }} - {{ task.name }}</h6>
                 <transition name="fade" mode="out-in">
-                  <button key=1 @click="mode='write'" v-if="mode === 'read'" class="btn-sm btn btn-warning">Изменить</button>
+                  <button v-if="mode === 'read'" key="1" class="btn-sm btn btn-warning" @click="mode='write'">Изменить</button>
                 </transition>
               </div>
             </div>
             <transition name="fade" mode="out-in">
               <Write
-                key='write'
-                v-if='mode === "write"'
-                :rewriteTask='rewriteTask'
-                :task='task'
-                :user='user'
-                :allUsers='allUsers'
-                :responsibleList='responsibleList'
-                :identifiedList='identifiedList'
-                :type="'update'"
-                @save='onSave'
-              >
-              </Write>
+                v-if="mode === 'write'"
+                key="write"
+                :rewrite-task="rewriteTask"
+                :task="task"
+                :user="user"
+                :all-users="allUsers"
+                :responsible-list="responsibleList"
+                :identified-list="identifiedList"
+                :mode="'update'"
+                @save="onSave"
+              />
               <Read
-                key='read'
                 v-else
-                :task='rewriteTask'
-              >
-              </Read>
+                key="read"
+                :task="rewriteTask"
+              />
             </transition>
           </div>
-          <div key=2 class="card" v-else>
+          <div v-else key="2" class="card">
             <div class="card-header">
               <h6>Загрузка</h6>
             </div>
@@ -57,6 +55,10 @@ import Write from './task/write.vue'
 import Read from './task/read.vue'
 import Task from '../../../helpers/Task'
 export default {
+  components: {
+    Write,
+    Read
+  },
   data () {
     return {
       'header': 'header',
@@ -67,35 +69,39 @@ export default {
       allUsers: [],
       loading: true,
       config: {
-        url: "http://clean-crm/api/taskfile",
-        thumbnailWidth: null,
+        url: 'http://clean-crm/api/taskfile',
+        thumbnailWidth: null
       },
       responsibleList: [],
       identifiedList: []
     }
   },
-  components: {
-    Write,
-    Read
-  },
-  created() {
+  created () {
     this.getTask(this.$route.params.id)
   },
   methods: {
-    onSave() {
+    onSave () {
       this.mode === 'write' ? this.mode = 'read' : this.mode = 'write'
     },
     async getTask (id) {
-      let response = await window.axios.post('/api/admin/task/view/' + id)
-      let userResponse = await window.axios.post('/api/admin/profile')
-      let identifiedResponse = await window.axios.post('/api/admin/usershelp')
-      let responsibleResponse = await window.axios.post('/api/admin/responsibles')
-      this.identifiedList = identifiedResponse.data
-      this.responsibleList = responsibleResponse.data
-      this.task = response.data
-      this.user = userResponse.data
-      this.rewriteTask = new Task(this.task)
-      this.loading = false
+      await window.axios.get('/api/admin/task/' + id)
+        .then(response => {
+          if (response.data.status === 'Success') {
+            this.responsibleList = response.data.responsibles
+            this.identifiedList = response.data.users
+            this.task = response.data.task
+            this.user = window.user
+            this.rewriteTask = new Task(this.task)
+            this.loading = false
+          } else {
+            console.log(response.data)
+            window.toastr['error']('Ошибка', 'Загрузка данных с сервера')
+          }
+        })
+        .catch(error => {
+          console.log(error)
+          window.toastr['error']('Ошибка', 'Загрузка данных с сервера')
+        })
     }
   }
 }
